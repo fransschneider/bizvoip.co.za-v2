@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-cf13df9a-1202-4913-b4c6-5d7053bf32d9/styles.css">
+<script src="_ds/nocturne-cf13df9a-1202-4913-b4c6-5d7053bf32d9/_ds_bundle.js"></script>
+<style>
+    @keyframes fSpot{0%,100%{opacity:.55;transform:translateX(-2%)}50%{opacity:1;transform:translateX(2%)}}
+    @keyframes hyLogoSpin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+    @keyframes hyLogoIdle{0%,87%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+    [data-logo]{transform-style:preserve-3d;animation:hyLogoIdle 10s ease-in-out infinite}
+    a:hover [data-logo]{animation:hyLogoSpin 1.2s ease-in-out}
+    [data-navfx] a[aria-current="page"],.hy-mnav a[aria-current="page"]{color:#3B9EE8 !important;font-weight:600}
+    [data-navfx] a{position:relative;display:inline-block;text-decoration:none;transition:color .2s ease,transform .22s cubic-bezier(.2,.7,.3,1)}
+    [data-navfx="07"] a:hover{color:#3FBF9F;transform:translateY(-3px)}
+    @keyframes hyBtnGlow{0%,100%{box-shadow:0 0 14px -6px currentColor}50%{box-shadow:0 0 34px -2px currentColor}}
+    .btn:hover{animation:hyBtnGlow 1.5s ease-in-out infinite;background:color-mix(in srgb,currentColor 8%,transparent)}
+body{margin:0;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text)}
+a{color:var(--color-accent)}a:hover{color:var(--color-accent-300)}
+.popia-overlay{position:fixed;inset:0;background:rgba(6,7,14,.55);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:60}
+.popia-overlay[data-open="true"]{opacity:1;pointer-events:auto}
+.popia-drawer{position:fixed;top:0;right:0;bottom:0;width:440px;max-width:92vw;background:#12131d;border-left:1px solid var(--color-divider);box-shadow:-24px 0 60px rgba(0,0,0,.5);transform:translateX(105%);transition:transform .35s cubic-bezier(.32,.72,.28,1);z-index:61;display:flex;flex-direction:column}
+.popia-drawer[data-open="true"]{transform:translateX(0)}
+.popia-field{width:100%;box-sizing:border-box;background:color-mix(in srgb,var(--color-text) 4%,transparent);border:1px solid var(--color-divider);border-radius:9px;padding:11px 13px;font-family:var(--font-body);font-size:14px;color:var(--color-text);outline:none}
+.popia-field:focus{border-color:var(--color-accent)}
+    .hy-mscrim{position:fixed;inset:0;background:rgba(6,7,14,.6);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:80}
+    .hy-mscrim[data-open="true"]{opacity:1;pointer-events:auto}
+    .hy-mnav{position:fixed;top:0;right:0;bottom:0;width:min(340px,86vw);background:#12131d;border-left:1px solid var(--color-divider);box-shadow:-24px 0 60px rgba(0,0,0,.5);transform:translateX(105%);transition:transform .35s cubic-bezier(.32,.72,.28,1);z-index:81;display:flex;flex-direction:column}
+    .hy-mnav[data-open="true"]{transform:translateX(0)}
+    @media (max-width:900px){
+      [data-navfx]{display:none !important}
+      [data-navcta]{display:none !important}
+      [data-mnav-btn]{display:flex !important}
+      [data-hero-guard="nav"]{top:12px !important;left:auto !important;right:16px !important;padding:0 !important;gap:0 !important;background:none !important;border:none !important;box-shadow:none !important;backdrop-filter:none !important;justify-content:flex-end !important;overflow:visible !important}
+      [data-hero-guard="nav"] > a:first-child{display:none !important}
+      [data-screen-label="POPIA header"]{padding:96px 20px 40px 20px !important;}
+      [data-screen-label="09 Footer"]{padding:80px 20px 0 20px !important;background-position:20px top !important;}
+      [data-mgrid]{grid-template-columns:1fr !important}
+      [data-fgrid]{grid-template-columns:1fr 1fr !important;gap:32px 24px !important}
+      [data-fbar]{flex-wrap:wrap !important;gap:10px !important}
+      [data-fmark]{right:20px !important;width:220px !important}
+      [data-chev]{display:none !important}
+    }
+</style>
+</helmet>
+
+<div style="width:100%">
+
+  <div data-hero-guard="nav" style="position:fixed;top:20px;left:40px;right:40px;z-index:50;display:flex;align-items:center;gap:clamp(8px,1.15vw,26px);flex-wrap:nowrap;box-sizing:border-box;overflow:hidden;padding:12px 22px;border-radius:999px;font-weight:600;font-size:clamp(9.6px,.82vw,13.4px);color:var(--color-neutral-300);background:rgba(41,171,226,.11);border:1px solid rgba(41,171,226,.22);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)">
+    <a href="Homepage.dc.html" style="display:flex;align-items:center;flex:0 0 auto;color:inherit;text-decoration:none"><img data-logo="1" src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:20px;width:auto;display:block"></a>
+    <div data-navfx="07" style="display:flex;align-items:center;flex:1 1 auto;min-width:0;overflow:hidden;gap:clamp(5px,.85vw,22px);margin-left:clamp(5px,.85vw,20px);margin-right:8px;padding:12px 0;margin-top:-12px;margin-bottom:-12px;mask-image:linear-gradient(to right,#000 calc(100% - 18px),transparent);-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 18px),transparent)"><a href="Office.dc.html" style="color:inherit;white-space:nowrap">Office</a><a href="Call-Centre.dc.html" style="color:inherit;white-space:nowrap">Call Centre</a><a href="Programmable-Telephony.dc.html" style="color:inherit;white-space:nowrap">Programmable</a><a href="Voice%20AI.dc.html" style="color:inherit;white-space:nowrap">Voice AI</a><a href="Data-Centre.dc.html" style="color:inherit;white-space:nowrap">DC &amp; Hosting</a><a href="Software-Development.dc.html" style="color:inherit;white-space:nowrap">Development</a><a href="Wholesale.dc.html" style="color:inherit;white-space:nowrap">Wholesale</a><a href="Consulting.dc.html" style="color:inherit;white-space:nowrap">Consulting</a></div>
+    <span data-navcta="1" class="btn btn-primary" onClick="{{ openMnavDrawer }}" style="flex:0 0 auto;white-space:nowrap;padding:9px clamp(12px,1.4vw,20px);font-size:clamp(12px,.92vw,13px);border-color:#3FBF9F;color:#3FBF9F;cursor:pointer">Talk to an engineer</span>
+    <span data-mnav-btn="1" onClick="{{ toggleMnav }}" role="button" aria-label="Menu" style="display:none;flex:0 0 auto;width:44px;height:44px;box-sizing:border-box;align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer;border-radius:9px;border:none;background:#3FBF9F"><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i></span>
+  </div>
+
+  <!-- header -->
+  <div data-screen-label="POPIA header" style="padding:150px 144px 56px;background:radial-gradient(ellipse 700px 380px at 8% -10%, color-mix(in srgb, var(--color-accent) 9%, transparent), transparent 70%)">
+    <div style="display:flex;flex-direction:column;gap:20px;max-width:760px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:28px;height:1px;background:var(--color-accent)"></span>
+        <span style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-300)">Legal</span>
+      </div>
+      <h1 style="font-size:44px;line-height:1.08;letter-spacing:-0.02em;margin:0;font-weight:500;color:var(--color-neutral-100)">Protection of Personal Information (POPIA)</h1>
+      <p style="font-size:16px;line-height:1.65;color:var(--color-neutral-400);margin:0;max-width:640px;text-wrap:pretty">We respect every person's right to privacy and aim to comply with the requirements of the POPI Act, which regulates the manner in which we collect, process, store, share and destroy any personal information you provide to us.</p>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--color-neutral-500)">Last updated · July 2026</span>
+    </div>
+  </div>
+
+  <!-- body -->
+  <div style="display:grid;grid-template-columns:220px 1fr;gap:64px;padding:24px 144px 96px;align-items:start">
+
+    <sc-if value="{{ showToc }}" hint-placeholder-val="{{ true }}">
+    <div style="position:sticky;top:32px;display:flex;flex-direction:column;gap:2px;padding-top:8px">
+      <span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-300);font-weight:600;margin-bottom:12px">On this page</span>
+      <a href="#collection" style="font-size:13px;color:var(--color-neutral-400);text-decoration:none;padding:7px 10px;border-radius:7px;border-left:2px solid transparent" style-hover="color:var(--color-accent-300);background:color-mix(in srgb, var(--color-accent) 8%, transparent);border-left-color:var(--color-accent)">01 · Collection</a>
+      <a href="#processing" style="font-size:13px;color:var(--color-neutral-400);text-decoration:none;padding:7px 10px;border-radius:7px;border-left:2px solid transparent" style-hover="color:var(--color-accent-300);background:color-mix(in srgb, var(--color-accent) 8%, transparent);border-left-color:var(--color-accent)">02 · Processing &amp; sharing</a>
+      <a href="#cookies" style="font-size:13px;color:var(--color-neutral-400);text-decoration:none;padding:7px 10px;border-radius:7px;border-left:2px solid transparent" style-hover="color:var(--color-accent-300);background:color-mix(in srgb, var(--color-accent) 8%, transparent);border-left-color:var(--color-accent)">03 · Website cookies</a>
+      <a href="#security" style="font-size:13px;color:var(--color-neutral-400);text-decoration:none;padding:7px 10px;border-radius:7px;border-left:2px solid transparent" style-hover="color:var(--color-accent-300);background:color-mix(in srgb, var(--color-accent) 8%, transparent);border-left-color:var(--color-accent)">04 · Security measures</a>
+      <a href="#rights" style="font-size:13px;color:var(--color-neutral-400);text-decoration:none;padding:7px 10px;border-radius:7px;border-left:2px solid transparent" style-hover="color:var(--color-accent-300);background:color-mix(in srgb, var(--color-accent) 8%, transparent);border-left-color:var(--color-accent)">05 · Your rights</a>
+      <a href="#contact" style="font-size:13px;color:var(--color-neutral-400);text-decoration:none;padding:7px 10px;border-radius:7px;border-left:2px solid transparent" style-hover="color:var(--color-accent-300);background:color-mix(in srgb, var(--color-accent) 8%, transparent);border-left-color:var(--color-accent)">06 · Questions &amp; complaints</a>
+    </div>
+    </sc-if>
+
+    <div style="display:flex;flex-direction:column;gap:56px;max-width:720px">
+
+      <div id="collection" style="display:flex;flex-direction:column;gap:16px">
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-300)">01 · Collection</span>
+        <h2 style="font-size:24px;font-weight:500;margin:0;color:var(--color-neutral-100)">Collection of personal information</h2>
+        <p style="font-size:15px;line-height:1.7;color:var(--color-neutral-400);margin:0;text-wrap:pretty">We collect personal information in order to communicate with you telephonically, via our website or by email, so that we may:</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">Respond to any query or comment received from you.</span></div>
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">Inform you of new offers.</span></div>
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">Process, validate and verify information and requests for the supply of information and/or services.</span></div>
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">Use it for the purposes for which you specifically provided the information.</span></div>
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">Generally improve your experience on our website.</span></div>
+        </div>
+      </div>
+
+      <div id="processing" style="display:flex;flex-direction:column;gap:16px">
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-300)">02 · Processing</span>
+        <h2 style="font-size:24px;font-weight:500;margin:0;color:var(--color-neutral-100)">Processing and sharing of information</h2>
+        <p style="font-size:15px;line-height:1.7;color:var(--color-neutral-400);margin:0">We will only share your personal information:</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">In order to comply with applicable law or with a legal process served on our company.</span></div>
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">In order to protect and defend the rights or property of our company.</span></div>
+        </div>
+        <div style="margin-top:8px;padding:22px 26px;border:1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);border-radius:12px;background:color-mix(in srgb, var(--color-accent) 6%, transparent)">
+          <p style="font-size:15.5px;line-height:1.65;color:var(--color-neutral-200);margin:0;text-wrap:pretty">The personal information processed by us is <strong style="font-weight:600;color:var(--color-accent-300)">not routed, transferred or sold to any third party</strong>. It is for internal use only.</p>
+        </div>
+      </div>
+
+      <div id="cookies" style="display:flex;flex-direction:column;gap:16px">
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-300)">03 · Cookies</span>
+        <h2 style="font-size:24px;font-weight:500;margin:0;color:var(--color-neutral-100)">Website cookies</h2>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">This website uses Google Analytics, which requires the use of cookies.</span></div>
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">Having an account and logging in to this website also requires cookies.</span></div>
+        </div>
+      </div>
+
+      <div id="security" style="display:flex;flex-direction:column;gap:16px">
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-300)">04 · Security</span>
+        <h2 style="font-size:24px;font-weight:500;margin:0;color:var(--color-neutral-100)">Security measures</h2>
+        <p style="font-size:15px;line-height:1.7;color:var(--color-neutral-400);margin:0">We will:</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">Treat your personal information as strictly confidential.</span></div>
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">Take appropriate technical and organisational measures to keep your personal information secure and protected against unauthorised or unlawful processing, accidental loss, destruction or damage, alteration, disclosure or access.</span></div>
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">Promptly notify you if we become aware of any unauthorised use, disclosure or processing of your personal information.</span></div>
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">Provide you with reasonable evidence of our compliance with our obligations under this policy on reasonable request.</span></div>
+          <div style="display:flex;gap:12px;align-items:baseline"><span style="width:16px;height:1px;background:var(--color-accent);flex:none;transform:translateY(-4px)"></span><span style="font-size:15px;line-height:1.6;color:var(--color-neutral-300)">Not retain your personal information longer than the period for which it was originally required, unless we are required by law to do so, or you consent to us retaining it for a longer period.</span></div>
+        </div>
+        <p style="font-size:13.5px;line-height:1.7;color:var(--color-neutral-500);margin:0;text-wrap:pretty">Although we take the aforementioned precautions in protecting your personal information, we shall not be liable for any loss or damage, howsoever arising, suffered as a result of the disclosure of such information if outside our reasonable control.</p>
+      </div>
+
+      <div id="rights" style="display:flex;flex-direction:column;gap:16px">
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-300)">05 · Your rights</span>
+        <h2 style="font-size:24px;font-weight:500;margin:0;color:var(--color-neutral-100)">Your rights</h2>
+        <p style="font-size:15px;line-height:1.7;color:var(--color-neutral-400);margin:0">You have the right at any time to:</p>
+        <div data-mgrid="1" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div onClick="{{ ctaRectify }}" style="cursor:pointer;border:1px solid var(--color-divider);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:6px;background:color-mix(in srgb, var(--color-text) 3%, transparent)" style-hover="border-color:var(--color-accent);background:color-mix(in srgb, var(--color-accent) 7%, transparent)">
+            <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--color-accent-300)">rectify</span>
+            <span style="font-size:14.5px;line-height:1.55;color:var(--color-neutral-300)">Rectify the personal information collected by us.</span>
+            <span style="margin-top:6px;font-size:12.5px;font-weight:600;color:var(--color-accent-300)">Contact us &rarr;</span>
+          </div>
+          <div onClick="{{ ctaObject }}" style="cursor:pointer;border:1px solid var(--color-divider);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:6px;background:color-mix(in srgb, var(--color-text) 3%, transparent)" style-hover="border-color:var(--color-accent);background:color-mix(in srgb, var(--color-accent) 7%, transparent)">
+            <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--color-accent-300)">object</span>
+            <span style="font-size:14.5px;line-height:1.55;color:var(--color-neutral-300)">Object to the processing of personal information (subject to legislation).</span>
+            <span style="margin-top:6px;font-size:12.5px;font-weight:600;color:var(--color-accent-300)">Contact us &rarr;</span>
+          </div>
+          <div onClick="{{ ctaReturn }}" style="cursor:pointer;border:1px solid var(--color-divider);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:6px;background:color-mix(in srgb, var(--color-text) 3%, transparent)" style-hover="border-color:var(--color-accent);background:color-mix(in srgb, var(--color-accent) 7%, transparent)">
+            <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--color-accent-300)">return / destroy</span>
+            <span style="font-size:14.5px;line-height:1.55;color:var(--color-neutral-300)">Request the return or destruction of personal information (subject to legislation).</span>
+            <span style="margin-top:6px;font-size:12.5px;font-weight:600;color:var(--color-accent-300)">Contact us &rarr;</span>
+          </div>
+          <div onClick="{{ ctaComplain }}" style="cursor:pointer;border:1px solid var(--color-divider);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:6px;background:color-mix(in srgb, var(--color-text) 3%, transparent)" style-hover="border-color:var(--color-accent);background:color-mix(in srgb, var(--color-accent) 7%, transparent)">
+            <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--color-accent-300)">complain</span>
+            <span style="font-size:14.5px;line-height:1.55;color:var(--color-neutral-300)">Lodge a complaint with the company.</span>
+            <span style="margin-top:6px;font-size:12.5px;font-weight:600;color:var(--color-accent-300)">Contact us &rarr;</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="contact" style="display:flex;flex-direction:column;gap:16px">
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-300)">06 · Contact</span>
+        <h2 style="font-size:24px;font-weight:500;margin:0;color:var(--color-neutral-100)">Questions and complaints</h2>
+        <p style="font-size:15px;line-height:1.7;color:var(--color-neutral-400);margin:0;text-wrap:pretty">To exercise any of these rights, or for any question about how we handle personal information, contact us:</p>
+        <div style="display:flex;gap:32px;flex-wrap:wrap;padding:22px 26px;border:1px solid var(--color-divider);border-radius:12px;background:color-mix(in srgb, var(--color-text) 3%, transparent)">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Email</span>
+            <a href="#" style="font-size:14.5px;text-decoration:none">support@bizvoip.co.za</a>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Call</span>
+            <span style="font-size:14.5px;color:var(--color-neutral-300)">+27 87 654 3210 · M–F 8am–5pm</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Location</span>
+            <span style="font-size:14.5px;color:var(--color-neutral-300)">Cape Town, South Africa</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- contact drawer -->
+  <div class="popia-overlay" data-open="{{ drawerOpen }}" onClick="{{ closeDrawer }}"></div>
+  <div class="popia-drawer" data-open="{{ drawerOpen }}" data-screen-label="Contact drawer">
+    <div style="display:flex;align-items:center;gap:12px;padding:20px 26px;border-bottom:1px solid var(--color-divider)">
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <span style="font-size:17px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-100)">Contact us</span>
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--color-accent-300)">{{ drawerSubject }}</span>
+      </div>
+      <span onClick="{{ closeDrawer }}" style="margin-left:auto;cursor:pointer;width:32px;height:32px;border-radius:8px;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--color-neutral-400)" style-hover="border-color:var(--color-accent);color:var(--color-accent)">&times;</span>
+    </div>
+    <sc-if value="{{ drawerSent }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:64px 32px;text-align:center">
+        <span style="width:46px;height:46px;border-radius:50%;background:color-mix(in srgb,var(--color-accent) 16%,transparent);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--color-accent-300)">&#10003;</span>
+        <span style="font-size:17px;font-weight:500;color:var(--color-neutral-100)">Request sent</span>
+        <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-400);margin:0;max-width:280px">Our team will come back to you within one business day regarding your {{ drawerTopic }} request.</p>
+        <span class="btn btn-secondary" onClick="{{ closeDrawer }}" style="margin-top:8px;padding:9px 20px;cursor:pointer">Close</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ drawerFormVisible }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:10px;padding:24px 26px;overflow-y:auto">
+        <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-400);margin:0">Send us the details and our team will action your request under POPIA. The subject line above is included automatically so we know exactly where you reached us from.</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Full name</label>
+          <input class="popia-field" placeholder="Your name">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Email</label>
+          <input class="popia-field" type="email" placeholder="you@company.co.za">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Phone (optional)</label>
+          <input class="popia-field" type="tel" placeholder="0876543210">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Details of your request</label>
+          <textarea class="popia-field" rows="5" placeholder="Tell us what personal information this concerns"></textarea>
+        </div>
+        <span class="btn btn-primary" onClick="{{ sendDrawer }}" style="cursor:pointer;justify-content:center;padding:12px 20px">Send request</span>
+        <span style="font-size:11.5px;line-height:1.55;color:var(--color-neutral-500)">Or email <a href="#">support@bizvoip.co.za</a> &middot; +27 87 654 3210 (M&ndash;F 8am&ndash;5pm)</span>
+      </div>
+    </sc-if>
+  </div>
+
+  <div data-screen-label="09 Footer" style="position:relative;overflow:hidden;padding:112px 144px 0;background:linear-gradient(to right,transparent,var(--color-divider) 144px,var(--color-divider) calc(100% - 144px),transparent) no-repeat top / 100% 1px">
+    <img data-fmark="1" src="assets/logo-africa-mark.png" alt="" style="position:absolute;right:144px;bottom:24px;width:374px;height:auto;filter:grayscale(1) brightness(.05);opacity:.12;pointer-events:none;user-select:none">
+    <span style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 20%,rgba(0,0,0,.7));pointer-events:none"></span>
+    <span style="position:absolute;left:-4%;top:0;width:42%;height:74%;background:radial-gradient(60% 70% at 30% 30%,color-mix(in srgb,#6C8CFF 12%,transparent),transparent 72%);filter:blur(40px);animation:fSpot 13s ease-in-out infinite;pointer-events:none"></span>
+    <div data-fgrid="1" style="position:relative;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:48px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:18px;max-width:300px">
+        <div style="display:flex;align-items:center">
+          <a href="Homepage.dc.html" style="display:block;text-decoration:none"><img data-logo="1" src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:26px;width:auto;display:block"></a>
+        </div>
+        <p style="font-size:14.2px;line-height:1.65;color:var(--color-neutral-400);margin:0">We build and host large-scale telecommunication applications &mdash; software development, hosting and support are our biggest divisions. We own the whole stack: data centre, ISP, hypervisor and the software that runs on it.</p>
+        <a href="#" style="width:34px;height:34px;border-radius:50%;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-size:12.6px;font-weight:600;color:var(--color-neutral-300);text-decoration:none" style-hover="border-color:#9184D9;color:#9184D9">in</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Services</span>
+        <a href="Office.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Office Telephony</a>
+        <a href="Call-Centre.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Call Centre Telephony</a>
+        <a href="Programmable-Telephony.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Programmable Telephony</a>
+        <a href="Voice%20AI.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Voice AI Agents</a>
+        <a href="Data-Centre.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Data Centre &amp; Hosting</a>
+        <a href="Software-Development.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Software Development</a>
+        <a href="Wholesale.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Wholesale &amp; Resellers</a>
+        <a href="Consulting.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Consulting</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Contact</span>
+        <a href="mailto:sales@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">sales@bizvoip.co.za</a>
+        <a href="mailto:support@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">support@bizvoip.co.za</a>
+        <a href="mailto:accounts@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">accounts@bizvoip.co.za</a>
+        <a href="tel:+27876543210" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">+27 87 654 3210</a>
+        <span style="font-size:14.2px;color:var(--color-neutral-400);line-height:1.25">Cape Town, South Africa</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Company</span>
+        <a href="POPIA.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Privacy Policy</a>
+        <a href="Company-Info.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Company Info</a>
+        <a href="Arch1medes.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Arch1medes Platform</a>
+      </div>
+    </div>
+    <div data-fbar="1" style="display:flex;align-items:center;gap:24px;margin-top:48px;padding:22px 0 28px;border-top:2px solid var(--color-divider);font-size:13.1px;color:var(--color-neutral-500)">
+      <span>&copy; 2026 Bizvoip (Pty) Ltd. All rights reserved.</span>
+      <span style="margin-left:auto">Reg 2020/637692/07 &middot; Cape Town, South Africa</span>
+    </div>
+  </div>
+
+
+  <div class="hy-mscrim" data-open="{{ mnavOpen }}" onClick="{{ closeMnav }}"></div>
+  <div class="hy-mnav" data-open="{{ mnavOpen }}" data-screen-label="Mobile menu">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--color-divider)">
+      <img src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:19px;width:auto;display:block">
+      <span onClick="{{ closeMnav }}" role="button" aria-label="Close" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;font-size:26px;line-height:1;color:var(--color-neutral-300);cursor:pointer">&times;</span>
+    </div>
+    <div style="display:flex;flex-direction:column;padding:8px 20px 20px;overflow-y:auto">
+      <a href="Office.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Office Telephony</a>
+      <a href="Call-Centre.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Call Centre Telephony</a>
+      <a href="Programmable-Telephony.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Programmable Telephony</a>
+      <a href="Voice%20AI.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Voice AI Agents</a>
+      <a href="Data-Centre.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Data Centre &amp; Hosting</a>
+      <a href="Software-Development.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Software Development</a>
+      <a href="Wholesale.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Wholesale Carrier</a>
+      <a href="Consulting.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Consulting</a>
+      <a href="Arch1medes.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Arch1medes</a>
+      <a href="Company-Info.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Company</a>
+      <span class="btn btn-primary" onClick="{{ openMnavDrawer }}" style="margin-top:22px;justify-content:center;padding:14px 20px;font-size:14.5px;border-color:#3FBF9F;color:#3FBF9F;cursor:pointer;text-align:center">Talk to an engineer</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showToc&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot;}}">
+class Component extends DCLogic {
+  state = { open: false, topic: 'rectification', cta: '', sent: false };
+  _open(topic, cta) { this.setState({ open: true, topic, cta, sent: false }); }
+  _subject() {
+    return '[POPIA page \u00b7 05 Your rights \u00b7 CTA: ' + (this.state.cta || this.state.topic) + '] ' + this.state.topic + ' request';
+  }
+
+  _markCurrentNav(tries) {
+    const t = tries || 0;
+    const cur = decodeURIComponent((location.pathname.split('/').pop() || '')).toLowerCase();
+    const links = document.querySelectorAll('[data-navfx] a, .hy-mnav a');
+    if (!links.length) { if (t < 20) setTimeout(() => this._markCurrentNav(t + 1), 150); return; }
+    links.forEach(a => {
+      const href = decodeURIComponent((a.getAttribute('href') || '').split('/').pop()).toLowerCase();
+      if (href && cur && href === cur) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  componentDidMount() {
+    this._markCurrentNav(0);
+  }
+
+  renderVals() {
+    return {
+      mnavOpen: !!this.state.mnavOpen,
+      toggleMnav: () => this.setState(s => ({ mnavOpen: !s.mnavOpen })),
+      closeMnav: () => this.setState({ mnavOpen: false }),
+      openMnavDrawer: () => { this.setState({ mnavOpen: false }); this._open('rectification', 'nav'); },
+      showToc: this.props.showToc ?? true,
+      drawerOpen: this.state.open,
+      drawerTopic: this.state.topic,
+      drawerSubject: this._subject(),
+      drawerSent: this.state.open && this.state.sent,
+      drawerFormVisible: !this.state.sent,
+      ctaRectify: () => this._open('rectification', 'rectify'),
+      ctaObject: () => this._open('processing objection', 'object'),
+      ctaReturn: () => this._open('return / destruction', 'return / destroy'),
+      ctaComplain: () => this._open('complaint', 'complain'),
+      closeDrawer: () => this.setState({ open: false }),
+      sendDrawer: () => this.setState({ sent: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

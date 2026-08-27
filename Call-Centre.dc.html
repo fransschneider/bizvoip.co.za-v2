@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/nocturne-cf13df9a-1202-4913-b4c6-5d7053bf32d9/styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <script src="_ds/nocturne-cf13df9a-1202-4913-b4c6-5d7053bf32d9/_ds_bundle.js"></script>
+  <style>
+    @keyframes fSpot{0%,100%{opacity:.55;transform:translateX(-2%)}50%{opacity:1;transform:translateX(2%)}}
+    @keyframes nOvershoot{0%,100%{transform:translateX(0)}18%{transform:translateX(18px)}30%{transform:translateX(-3px)}42%{transform:translateX(0)}}
+    [data-chev]{animation:nOvershoot 3s cubic-bezier(.2,.8,.3,1) infinite}
+    @keyframes gTall{0%,100%{opacity:.7;transform:scaleY(.9)}50%{opacity:1;transform:scaleY(1.16)}}
+    @keyframes mGlowLive{0%,100%{opacity:.62;transform:scaleX(1)}50%{opacity:1;transform:scaleX(1.08)}}
+    @property --rip{syntax:'<length>';inherits:false;initial-value:0px}
+    @keyframes mRip13{from{--rip:0px}to{--rip:13px}}
+    @keyframes mRiseTop{0%,100%{transform:scaleY(.82);opacity:.72}50%{transform:scaleY(1.18);opacity:1}}
+    .hy-overlay{position:fixed;inset:0;background:rgba(6,7,14,.55);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:60}
+    .hy-overlay[data-open="true"]{opacity:1;pointer-events:auto}
+    .hy-drawer{position:fixed;--acc-drawer:1;--color-accent:#F2B84B;--color-accent-300:color-mix(in srgb,#F2B84B 74%,var(--color-text));--color-accent-400:color-mix(in srgb,#F2B84B 88%,var(--color-text));top:0;right:0;bottom:0;width:460px;max-width:92vw;background:#12131d;border-left:1px solid var(--color-divider);box-shadow:-24px 0 60px rgba(0,0,0,.5);transform:translateX(104%);transition:transform .34s cubic-bezier(.22,.8,.2,1);z-index:61;display:flex;flex-direction:column;overflow:hidden}
+    .hy-drawer[data-open="true"]{transform:translateX(0)}
+    .hy-field{width:100%;box-sizing:border-box;background:color-mix(in srgb,var(--color-text) 4%,transparent);border:1px solid var(--color-divider);border-radius:9px;padding:11px 13px;font-family:var(--font-body);font-size:13.6px;color:var(--color-text);outline:none}
+    .hy-field:focus{border-color:var(--acc,#F2B84B)}
+    .hy-field::placeholder{color:var(--color-neutral-600)}
+    @keyframes hyLogoSpin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+    @keyframes hyLogoIdle{0%,87%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+    [data-logo]{transform-style:preserve-3d;animation:hyLogoIdle 10s ease-in-out infinite}
+    a:hover [data-logo]{animation:hyLogoSpin 1.2s ease-in-out}
+    [data-navfx] a[aria-current="page"],.hy-mnav a[aria-current="page"]{color:#3B9EE8 !important;font-weight:600}
+    [data-navfx] a{position:relative;display:inline-block;text-decoration:none;transition:color .2s ease,transform .22s cubic-bezier(.2,.7,.3,1)}
+    [data-navfx="07"] a:hover{color:var(--acc,#F2B84B);transform:translateY(-3px)}
+    @keyframes hyBtnGlow{0%,100%{box-shadow:0 0 14px -6px currentColor}50%{box-shadow:0 0 34px -2px currentColor}}
+    .btn:hover{animation:hyBtnGlow 1.5s ease-in-out infinite;background:color-mix(in srgb,currentColor 8%,transparent)}
+    body{margin:0;background:var(--color-bg);font-family:var(--font-body)}
+    a{color:#3B9EE8;text-decoration:none}a:hover{color:#8FA8FF}
+    @keyframes hyDriftA{0%{transform:translate(0,0) scale(1)}25%{transform:translate(3%,2%) scale(1.05)}50%{transform:translate(1%,4%) scale(1.02)}75%{transform:translate(-2%,1%) scale(1.06)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes hyDriftB{0%{transform:translate(0,0) scale(1.02)}25%{transform:translate(-3%,3%) scale(1)}50%{transform:translate(-1%,-2%) scale(1.05)}75%{transform:translate(2%,2%) scale(1.01)}100%{transform:translate(0,0) scale(1.02)}}
+    @keyframes hyDriftC{0%{transform:translate(0,0) scale(1)}25%{transform:translate(2%,-3%) scale(1.04)}50%{transform:translate(-2%,-1%) scale(1)}75%{transform:translate(-1%,3%) scale(1.05)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes hyBar{0%,100%{transform:scaleY(.18)}50%{transform:scaleY(1)}}
+    @keyframes hyPulse{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:1;transform:scale(1.2)}}
+    @keyframes hyRuleBreathe{0%,100%{width:18%}50%{width:46%}}
+    @keyframes hyRuleDot{0%,100%{opacity:.18}50%{opacity:1}}
+    @keyframes hyWordA{0%{opacity:0;transform:translateY(18px)}60%{opacity:1}100%{opacity:1;transform:translateY(0)}}
+    @keyframes hyWordB{0%{opacity:0;transform:translateY(18px)}60%{opacity:1}100%{opacity:1;transform:translateY(0)}}
+    @keyframes hyTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes hyPriceRun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes hyIconFall{0%{transform:translateY(0) rotate(-8deg);opacity:0}12%{opacity:1}86%{opacity:1}100%{transform:translateY(108vh) rotate(8deg);opacity:0}}
+    @keyframes hyBreathA{0%,100%{transform:scale(.82) translate(0,0)}50%{transform:scale(1.34) translate(6%,4%)}}
+    @keyframes hyBreathB{0%,100%{transform:scale(1.3) translate(0,0)}50%{transform:scale(.84) translate(-6%,-4%)}}
+      .hy-mscrim{position:fixed;inset:0;background:rgba(6,7,14,.6);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:80}
+    .hy-mscrim[data-open="true"]{opacity:1;pointer-events:auto}
+    .hy-mnav{position:fixed;top:0;right:0;bottom:0;width:min(340px,86vw);background:#12131d;border-left:1px solid var(--color-divider);box-shadow:-24px 0 60px rgba(0,0,0,.5);transform:translateX(105%);transition:transform .35s cubic-bezier(.32,.72,.28,1);z-index:81;display:flex;flex-direction:column}
+    .hy-mnav[data-open="true"]{transform:translateX(0)}
+    @media (max-width:900px){
+      [data-navfx]{display:none !important}
+      [data-navcta]{display:none !important}
+      [data-mnav-btn]{display:flex !important}
+      [data-hero-guard="nav"]{top:12px !important;left:auto !important;right:16px !important;padding:0 !important;gap:0 !important;background:none !important;border:none !important;box-shadow:none !important;backdrop-filter:none !important;justify-content:flex-end !important;overflow:visible !important}
+      [data-hero-guard="nav"] > a:first-child{display:none !important}
+      [data-sec="1.1"]{height:auto !important;min-height:100svh !important}
+      [data-hero-copy]{padding:92px 20px 44px !important;gap:16px !important;justify-content:center !important;flex:1 1 auto !important;min-height:0 !important}
+      [data-hero-copy] p{font-size:15.5px !important}
+      [data-hero-guard="ticker"]{position:relative !important;bottom:auto !important;margin-top:20px !important;padding-bottom:22px !important}
+      [data-sec="1.1"]{padding:0 20px 0 20px !important;}
+      [data-sec="2.1"]{padding:104px 20px 0 20px !important;}
+      [data-sec="2.2"]{padding:0 20px 104px 20px !important;}
+      [data-sec="3.1"]{padding:0 20px 104px 20px !important;}
+      [data-sec="4.1"]{padding:88px 20px 88px 20px !important;}
+      [data-sec="3.2"]{padding:104px 20px 104px 20px !important;grid-template-columns:1fr !important;gap:28px !important;}
+      [data-sec="3.3"]{padding:0 20px 104px 20px !important;grid-template-columns:1fr !important;gap:28px !important;}
+      [data-sec="5.1"]{padding:0 20px 104px 20px !important;}
+      [data-sec="5.2"]{padding:88px 20px 88px 20px !important;}
+      [data-sec="6.1"]{padding:104px 20px 104px 20px !important;grid-template-columns:1fr !important;gap:28px !important;}
+      [data-sec="6.15"]{padding:88px 20px 88px 20px !important;}
+      [data-sec="6.2"]{padding:104px 20px 104px 20px !important;grid-template-columns:1fr !important;gap:28px !important;}
+      [data-sec="9.1"]{padding:104px 20px 104px 20px !important;}
+      [data-screen-label="14 Footer"]{padding:80px 20px 0 !important;background-position:20px top !important}
+      [data-mgrid]{grid-template-columns:1fr !important}
+      [data-fgrid]{grid-template-columns:1fr 1fr !important;gap:32px 24px !important}
+      [data-fbar]{flex-wrap:wrap !important;gap:10px !important}
+      [data-fmark]{right:20px !important;width:220px !important}
+      [data-bleed]{margin:0 -20px !important;padding:0 20px !important}
+      [data-chev]{display:none !important}
+      [data-bub]{display:none !important}
+    }
+    @media (max-width:560px){
+      [data-fgrid]{grid-template-columns:1fr !important}
+      [data-cycleline]{white-space:normal !important}
+      [data-hero-copy] > div:first-child{gap:7px !important}
+    }
+</style>
+</helmet>
+<div style="min-height:100vh;background:var(--color-bg);color:var(--color-text);--acc:{{ accentHex }}">
+
+  <div data-sec="1.1" data-screen-label="01 Hero" style="position:relative;overflow:hidden;height:100vh;min-height:640px;display:flex;flex-direction:column;padding:0;background:var(--color-bg)">
+    <span style="position:absolute;left:-14%;top:-32%;width:64%;height:96%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--acc,#F2B84B) 24%,transparent),transparent 66%);filter:blur(12px);animation:hyDriftA 46s ease-in-out infinite"></span>
+    <span style="position:absolute;right:-16%;top:-24%;width:58%;height:88%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,#9184D9 28%,transparent),transparent 66%);filter:blur(12px);animation:hyDriftB 54s ease-in-out -7s infinite"></span>
+    <span style="position:absolute;left:24%;top:18%;width:52%;height:80%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,#E86FA4 16%,transparent),transparent 66%);filter:blur(14px);animation:hyDriftC 62s ease-in-out -14s infinite"></span>
+
+    <div data-hero-guard="nav" style="position:fixed;top:20px;left:40px;right:40px;z-index:50;display:flex;align-items:center;gap:clamp(8px,1.15vw,26px);flex-wrap:nowrap;box-sizing:border-box;overflow:hidden;padding:12px 22px;border-radius:999px;background:rgba(41,171,226,.11);border:1px solid rgba(41,171,226,.22);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 12px 32px rgba(0,0,0,.34)">
+      <a href="Homepage.dc.html" style="display:flex;align-items:center;flex:0 0 auto;color:inherit;text-decoration:none"><img data-logo="1" src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:20px;width:auto;display:block"></a>
+      <div data-navfx="07" style="display:flex;align-items:center;padding:12px 0;flex:1 1 auto;min-width:0;overflow:hidden;gap:clamp(5px,.85vw,22px);margin-left:clamp(5px,.85vw,20px);margin-right:8px;margin-top:-12px;margin-bottom:-12px;font-weight:600;font-size:clamp(9.6px,.82vw,13.4px);mask-image:linear-gradient(to right,#000 calc(100% - 18px),transparent);-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 18px),transparent);color:var(--color-neutral-300)"><a href="Office.dc.html" style="color:inherit;white-space:nowrap">Office</a><a href="Call-Centre.dc.html" style="color:inherit;white-space:nowrap">Call Centre</a><a href="Programmable-Telephony.dc.html" style="color:inherit;white-space:nowrap">Programmable</a><a href="Voice%20AI.dc.html" style="color:inherit;white-space:nowrap">Voice AI</a><a href="Data-Centre.dc.html" style="color:inherit;white-space:nowrap">DC &amp; Hosting</a><a href="Software-Development.dc.html" style="color:inherit;white-space:nowrap">Development</a><a href="Wholesale.dc.html" style="color:inherit;white-space:nowrap">Wholesale</a><a href="Consulting.dc.html" style="color:inherit;white-space:nowrap">Consulting</a></div>
+      <span data-navcta="1" class="btn btn-primary" onClick="{{ openDrawer }}" style="flex:0 0 auto;white-space:nowrap;padding:9px clamp(12px,1.4vw,20px);font-size:clamp(12px,.92vw,13px);border-color:var(--acc,#F2B84B);color:var(--acc,#F2B84B);cursor:pointer">Speak to a consultant</span>
+      <span data-mnav-btn="1" onClick="{{ toggleMnav }}" role="button" aria-label="Menu" style="display:none;flex:0 0 auto;width:44px;height:44px;box-sizing:border-box;align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer;border-radius:9px;border:none;background:#3FBF9F"><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i></span>
+    </div>
+
+    <span style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
+      <sc-for list="{{ heroIcons }}" as="ic" hint-placeholder-count="12">
+        <i class="{{ ic.cls }}" style="{{ ic.style }}">{{ ic.text }}<i class="{{ ic.subCls }}" style="{{ ic.subStyle }}"></i></i>
+      </sc-for>
+    </span>
+
+    <span style="position:absolute;left:0;right:0;bottom:0;height:300px;display:flex;align-items:flex-end;gap:6px;padding:0 56px;opacity:.18;pointer-events:none;mask-image:linear-gradient(to top,#000,transparent)">
+      <sc-for list="{{ heroBars }}" as="b" hint-placeholder-count="46">
+        <i style="{{ b.style }}"></i>
+      </sc-for>
+    </span>
+
+    <div data-hero-copy="1" style="position:relative;flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px;padding:96px 56px 96px">
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px">
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:var(--acc,#F2B84B);box-shadow:0 0 8px var(--acc,#F2B84B);animation:hyPulse 2.2s ease-in-out infinite"></i>Hypervisor Cloud</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:var(--acc,#F2B84B);box-shadow:0 0 8px var(--acc,#F2B84B);animation:hyPulse 2.2s ease-in-out infinite"></i>Vicidial Cluster</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:var(--acc,#F2B84B);box-shadow:0 0 8px var(--acc,#F2B84B);animation:hyPulse 2.2s ease-in-out .7s infinite"></i>AVM Cluster</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:var(--acc,#F2B84B);box-shadow:0 0 8px var(--acc,#F2B84B);animation:hyPulse 2.2s ease-in-out .7s infinite"></i>VoIP Network</span>
+        
+      </div>
+      <h1 style="font:500 clamp(30px,3.6vw,54px)/1.04 var(--font-heading);letter-spacing:-.04em;margin:0;max-width:min(1240px,100%);min-height:2.08em;color:var(--color-neutral-100);text-wrap:balance"><span>Goodbye click to dial.</span><br><span data-cycleline="1" style="white-space:nowrap">Hello <span style="{{ cycleStyle }}">{{ cycleWord }}</span> dialler.</span></h1>
+      <p style="font-size:18px;line-height:1.6;color:var(--color-neutral-300);margin:0;max-width:640px">Our mission is to automate the human effort it takes to run a call centre &mdash; real-time data omniscience, algorithmic and machine-learning intelligence, and automation across every dynamic of the call centre.</p>
+      <div style="display:flex;justify-content:center;gap:12px;margin-top:6px">
+        <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:13px 26px;font-size:14.5px;border-color:var(--acc,#F2B84B);color:var(--acc,#F2B84B);cursor:pointer">Speak to a consultant</span>
+      </div>
+    </div>
+
+    <div data-hero-guard="ticker" style="position:absolute;left:0;right:0;bottom:26px;overflow:hidden;pointer-events:none;mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent)">
+      <div style="display:flex;width:max-content;animation:hyTicker {{ tickerDur }}s linear infinite;font-family:ui-monospace,Menlo,monospace;font-size:12.4px;letter-spacing:.08em;color:var(--color-neutral-500)">
+        <div style="display:flex;gap:64px;padding-right:64px"><span><b style="color:var(--acc,#F2B84B);font-weight:500">20 years</b> building Vicidial</span><span><b style="color:#29ABE2;font-weight:500">4 000+</b> agents on one cluster</span><span><b style="color:var(--acc,#F2B84B);font-weight:500">52</b> servers in that cluster</span><span><b style="color:#E86FA4;font-weight:500">99.9%</b> client uptime</span><span><b style="color:#9184D9;font-weight:500">Millions</b> of calls a day</span><span><b style="color:#F2905B;font-weight:500">9c/min</b> to Vodacom and MTN</span><span><b style="color:#4a8fe8;font-weight:500">Per second</b> billing</span></div>
+        <div style="display:flex;gap:64px;padding-right:64px"><span><b style="color:var(--acc,#F2B84B);font-weight:500">20 years</b> building Vicidial</span><span><b style="color:#29ABE2;font-weight:500">4 000+</b> agents on one cluster</span><span><b style="color:var(--acc,#F2B84B);font-weight:500">52</b> servers in that cluster</span><span><b style="color:#E86FA4;font-weight:500">99.9%</b> client uptime</span><span><b style="color:#9184D9;font-weight:500">Millions</b> of calls a day</span><span><b style="color:#F2905B;font-weight:500">9c/min</b> to Vodacom and MTN</span><span><b style="color:#4a8fe8;font-weight:500">Per second</b> billing</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div data-sec="2.1" data-screen-label="02 Capability heading" style="padding:200px 120px 0;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 26px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">From your first campaign to thousands of agents.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:var(--acc,#F2B84B)">CALL CENTRE FEATURES</span>
+    </div>
+  </div>
+
+  <div data-sec="2.2" data-screen-label="03 Capability checklist" style="padding:0 120px 200px;background:var(--color-bg)">
+    <div data-mgrid="1" style="display:grid;grid-template-columns:1fr 1fr;gap:0 56px">
+      <sc-for list="{{ feats }}" as="f" hint-placeholder-count="10">
+        <div style="display:flex;gap:14px;padding:22px 0;border-top:1px solid var(--color-divider)">
+          <span style="{{ f.check }}">&#10003;</span>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <span style="font:500 16.5px/1.2 var(--font-heading);letter-spacing:-.015em">{{ f.t }}</span>
+            <span style="font-size:13.4px;line-height:1.58;color:var(--color-neutral-500)">{{ f.d }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div data-sec="3.1" data-screen-label="04 Pricing" style="padding:0 120px 200px;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 26px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">What it costs.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:var(--acc,#F2B84B)">PRICING</span>
+    </div>
+    <div data-bleed="1" style="margin:0 -120px;padding:0 120px;overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent)">
+      <div data-price-drag="1" style="cursor:grab;will-change:transform"><div style="display:flex;width:max-content;user-select:none;touch-action:pan-y;animation:hyPriceRun 52s linear infinite" style-hover="animation-play-state:paused">
+        <div style="display:flex;gap:20px;padding-right:20px">
+          <sc-for list="{{ priceCards }}" as="p" hint-placeholder-count="6">
+            <div style="{{ p.box }}">
+              <span style="{{ p.kicker }}">{{ p.kind }}</span>
+              <span style="font:500 21px/1.2 var(--font-heading);letter-spacing:-.015em">{{ p.title }}</span>
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px">
+                <span style="{{ p.priceStyle }}">{{ p.price }}</span>
+                <span style="font-size:13px;white-space:nowrap;color:var(--color-neutral-500)">{{ p.unit }}</span>
+              </div>
+              <span style="{{ p.rule }}"></span>
+              <span style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-500)">{{ p.note }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div aria-hidden="true" style="display:flex;gap:20px;padding-right:20px">
+          <sc-for list="{{ priceCards }}" as="p" hint-placeholder-count="6">
+            <div style="{{ p.box }}">
+              <span style="{{ p.kicker }}">{{ p.kind }}</span>
+              <span style="font:500 21px/1.2 var(--font-heading);letter-spacing:-.015em">{{ p.title }}</span>
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px">
+                <span style="{{ p.priceStyle }}">{{ p.price }}</span>
+                <span style="font-size:13px;white-space:nowrap;color:var(--color-neutral-500)">{{ p.unit }}</span>
+              </div>
+              <span style="{{ p.rule }}"></span>
+              <span style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-500)">{{ p.note }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </div>
+    </div>
+    <span style="display:block;margin-top:22px;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-600)">Drag to browse &middot; excluding VAT</span>
+  </div>
+
+  <div data-sec="4.1" data-screen-label="05 Vicidial credentials" style="position:relative;overflow:hidden;padding:120px;background:#221f47">
+    <span style="position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% -34%,transparent var(--rip) calc(var(--rip) + 11.4px),#111027 calc(var(--rip) + 12.2px),transparent calc(var(--rip) + 13px));animation:mRip13 1s linear infinite"></span>
+    <span style="position:absolute;left:-10%;right:-10%;top:-24%;height:136%;transform-origin:top;background:radial-gradient(86% 100% at 50% 0%,color-mix(in srgb,var(--acc,#F2B84B) 76%,transparent),color-mix(in srgb,var(--acc,#F2B84B) 26%,transparent) 46%,transparent 78%);filter:blur(24px);animation:gTall 10s ease-in-out infinite"></span>
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc,#F2B84B)">Premium hosted Vicidial</span>
+      <h2 style="font:500 58px/.98 var(--font-heading);margin:0;letter-spacing:-.038em;color:var(--color-neutral-100)">The most experienced Vicidial provider in Africa.</h2>
+      <p style="font-size:16.5px;line-height:1.64;color:var(--color-neutral-300);margin:0;max-width:760px">We have built and managed large Vicidial deployments since the start of the African Asterisk revolution &mdash; including a single 50-server cluster running over 4 000 agents. We modify it, extend it, integrate it, and back it with consultation and SLAs for teams running their own instance.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:8px">
+        <span class="tag tag-outline" style="font-size:12px;color:#F2905B;border-color:color-mix(in srgb,#F2905B 45%,transparent)">20 years on Vicidial</span><span class="tag tag-outline" style="font-size:12px;color:#8CC96B;border-color:color-mix(in srgb,#8CC96B 45%,transparent)">4 000+ agents</span><span class="tag tag-outline" style="font-size:12px;color:#29ABE2;border-color:color-mix(in srgb,#29ABE2 45%,transparent)">50-server cluster</span><span class="tag tag-outline" style="font-size:12px;color:#3FBF9F;border-color:color-mix(in srgb,#3FBF9F 45%,transparent)">99.9% uptime</span><span class="tag tag-outline" style="font-size:12px;color:#E86FA4;border-color:color-mix(in srgb,#E86FA4 45%,transparent)">hosted, cloud or on-site</span>
+      </div>
+    </div>
+  </div>
+
+  <div data-sec="3.2" data-screen-label="06 Vicidial experience" style="padding:200px 120px;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;background:var(--color-bg)">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#E86FA4">THE PREFERRED VICIDIAL PROVIDER</span>
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Twenty years of Vicidial experience, at super scale.</h2>
+      <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0">Vicidial is the world&rsquo;s most popular open-source call centre platform &mdash; more than 14 000 installations across over 100 countries, and the most complete answer for the great majority of call centre requirements. Our founders have been building large Vicidial solutions since the start of the African Asterisk revolution, almost twenty years ago. Our largest managed deployment, for CCI South Africa, ran as a single 50-server cluster supporting over 4 000 agents.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:2px">
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#E86FA4">&#10003;</span>Almost 20 years building large Vicidial deployments</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#E86FA4">&#10003;</span>Integrate Vicidial with any third party application</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#E86FA4">&#10003;</span>Fully managed hosting, monitoring, upgrades and tuning</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#E86FA4">&#10003;</span>Deployed anywhere in the world &mdash; on site or in the cloud</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#E86FA4">&#10003;</span>Consultation and SLAs for teams running their own instance</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#E86FA4">&#10003;</span>Migration from an existing installation without losing history</span>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <a href="Vicidial-Features.dc.html" class="btn btn-secondary" style="padding:12px 26px;color:#E86FA4;border-color:color-mix(in srgb,#E86FA4 60%,transparent)">Full feature list</a>
+      </div>
+    </div>
+    <div style="position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--color-divider)">
+      <img src="assets/illo-vicidial-1600.jpg" alt="A busy Vicidial call centre floor" style="display:block;width:100%;height:auto">
+    </div>
+  </div>
+
+  <div data-sec="3.3" data-screen-label="07 Vicidial development" style="padding:0 120px 200px;display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;background:var(--color-bg)">
+    <div style="position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--color-divider)">
+      <img src="assets/customisation-integration.jpg" alt="Engineers customising and integrating the Vicidial platform in the lab" style="display:block;width:100%;height:auto">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#9184D9">CUSTOMISATION AND INTEGRATION</span>
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Vicidial, bent to fit your business.</h2>
+      <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0">Open source only pays off if somebody can actually work on it. We modify Vicidial, develop new features inside it, and integrate it with whatever else your business runs &mdash; CRM, ERP, billing, workforce management or something written in-house. Changes are carried forward across upgrades, so a customised platform does not become a platform you can never patch.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:2px">
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#9184D9">&#10003;</span>New features developed inside the Vicidial codebase</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#9184D9">&#10003;</span>Two-way CRM and ERP integration &mdash; screen pop, dispositions, notes</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#9184D9">&#10003;</span>Custom agent interfaces and WebRTC extensions</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#9184D9">&#10003;</span>Bespoke reporting, wallboards and data exports</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#9184D9">&#10003;</span>API and webhook bridges to in-house systems</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#9184D9">&#10003;</span>Media streaming hooks for AI agents and transcription</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#9184D9">&#10003;</span>Patches carried forward so upgrades stay possible</span>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <span class="btn btn-secondary" onClick="{{ openDrawer }}" style="padding:12px 26px;color:#9184D9;border-color:color-mix(in srgb,#9184D9 60%,transparent);cursor:pointer">Speak to an engineer</span>
+      </div>
+    </div>
+  </div>
+
+  <div data-sec="5.1" data-screen-label="08 Vicidial FAQ" style="padding:0 120px 200px;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 26px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">More about Vicidial.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#29ABE2">QUESTIONS WE GET</span>
+    </div>
+    <div style="display:flex;flex-direction:column;max-width:900px">
+      <details name="vici-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">What is Vicidial?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">The world's most popular open-source call centre platform &mdash; auto-dial and click-to-dial campaigns, recording, wallboards, reporting and agent management in one suite. For most call centre requirements it is also the most affordable complete solution.</p>
+      </details>
+      <details name="vici-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">Is it hosted in the cloud or on-site?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">Either. We deploy Vicidial anywhere in the world &mdash; in our own high-throughput voice data centre, in your cloud, or on-site &mdash; as a fully managed or unmanaged service.</p>
+      </details>
+      <details name="vici-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">Can it be customised and integrated with our systems?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">Yes &mdash; that is our speciality. We modify Vicidial, develop new features for it, and integrate it with CRMs and other third-party applications to further enhance business efficiency.</p>
+      </details>
+      <details name="vici-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">How far does it scale?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">Further than most floors will ever need. Our largest managed deployment ran a single 50-server cluster supporting over 4 000 concurrent agents.</p>
+      </details>
+      <details name="vici-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">What does it cost?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">Standard service from R345 per user per month. Premium from R555 per user adds our super-low 9c per minute rate to Vodacom and MTN &mdash; with equally low rates to all other destinations, billed per second.</p>
+      </details>
+      <details name="vici-faq" style="border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">We already run our own Vicidial &mdash; can you still help?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">Yes. We offer consultation and service-level agreements for teams that maintain their own instance &mdash; advice and backup you can rely on, without handing over the keys.</p>
+      </details>
+      <a href="Vicidial-Features.dc.html" class="btn btn-secondary" style="align-self:flex-start;margin-top:26px;padding:12px 26px;color:#29ABE2;border-color:color-mix(in srgb,#29ABE2 60%,transparent)">Full feature list</a>
+    </div>
+  </div>
+
+  <div data-sec="5.2" data-screen-label="09 AVM leadership" style="position:relative;overflow:hidden;padding:120px;background:#221f47">
+    <span style="position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% -34%,transparent var(--rip) calc(var(--rip) + 11.4px),#111027 calc(var(--rip) + 12.2px),transparent calc(var(--rip) + 13px));animation:mRip13 1s linear infinite"></span>
+    <span style="position:absolute;left:-10%;right:-10%;top:-24%;height:136%;transform-origin:top;background:radial-gradient(86% 100% at 50% 0%,color-mix(in srgb,var(--acc,#F2B84B) 76%,transparent),color-mix(in srgb,var(--acc,#F2B84B) 26%,transparent) 46%,transparent 78%);filter:blur(24px);animation:gTall 10s ease-in-out infinite"></span>
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc,#F2B84B)">Powered by Arch1medes</span>
+      <h2 style="font:500 58px/.98 var(--font-heading);margin:0;letter-spacing:-.038em;color:var(--color-neutral-100)">The leaders in automatic voice messaging software in Africa.</h2>
+      <p style="font-size:16.5px;line-height:1.64;color:var(--color-neutral-300);margin:0;max-width:760px">Arch1medes is our own engine, written for this job and nothing else: millions of calls a day, hundreds of calls a second, and every answer handed straight into a workflow. It has carried the continent&rsquo;s highest-volume campaigns for years &mdash; broadcasts, surveys, reminders and alerts &mdash; with voicemail detection and pacing tuned per operator.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:8px">
+        <span class="tag tag-outline" style="font-size:12px;color:#E86FA4;border-color:color-mix(in srgb,#E86FA4 45%,transparent)">millions of calls a day</span><span class="tag tag-outline" style="font-size:12px;color:#9184D9;border-color:color-mix(in srgb,#9184D9 45%,transparent)">1000 calls per second</span><span class="tag tag-outline" style="font-size:12px;color:#F2905B;border-color:color-mix(in srgb,#F2905B 45%,transparent)">voicemail detection</span><span class="tag tag-outline" style="font-size:12px;color:#8CC96B;border-color:color-mix(in srgb,#8CC96B 45%,transparent)">dynamic CLIs</span><span class="tag tag-outline" style="font-size:12px;color:#F2905B;border-color:color-mix(in srgb,#F2905B 45%,transparent)">built in-house</span>
+      </div>
+      <a href="Arch1medes.dc.html" class="btn btn-secondary" style="margin-top:14px;padding:12px 26px;color:var(--acc,#F2B84B);border-color:color-mix(in srgb,var(--acc,#F2B84B) 60%,transparent)">Explore Arch1medes</a>
+    </div>
+  </div>
+
+  <div data-sec="6.1" data-screen-label="10 AVM" style="padding:200px 120px;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;background:var(--color-bg)">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#F2905B">AUTOMATIC VOICE MESSAGING</span>
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Contact millions of subscribers a day.</h2>
+      <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0">High-capacity broadcasting, surveys, reminders and alerts, with algorithmic intelligence that lifts answer rates while saving network resources.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:2px">
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Industry-leading voicemail detection, tunable per operator</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Speech recognition and text-to-speech for variable messages</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Dynamic outbound CLIs &mdash; a new number for every lead</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Mobile CLIs optional</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Self-service scheduling, reporting, exports and integrations</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Track statistics in real time including cost per lead</span>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <span class="btn btn-primary" onClick="{{ openAvm }}" style="padding:12px 26px;border-color:#F2905B;color:#F2905B;cursor:pointer">Speak to a consultant</span>
+      </div>
+    </div>
+    <img src="assets/avm-broadcast.jpg" alt="Isometric illustration of thousands of subscribers reached through one mobile network" style="display:block;width:100%;height:420px;object-fit:cover;border-radius:18px;border:1px solid var(--color-divider)">
+  </div>
+
+  <div data-sec="6.15" data-screen-label="11 High throughput statement" style="position:relative;overflow:hidden;padding:120px;background:#221f47">
+    <span style="position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% -34%,transparent var(--rip) calc(var(--rip) + 11.4px),#111027 calc(var(--rip) + 12.2px),transparent calc(var(--rip) + 13px));animation:mRip13 1s linear infinite"></span>
+    <span style="position:absolute;left:-10%;right:-10%;top:-24%;height:136%;transform-origin:top;background:radial-gradient(86% 100% at 50% 0%,color-mix(in srgb,var(--acc,#F2B84B) 76%,transparent),color-mix(in srgb,var(--acc,#F2B84B) 26%,transparent) 46%,transparent 78%);filter:blur(24px);animation:gTall 10s ease-in-out infinite"></span>
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc,#F2B84B)">High throughput VoIP trunks</span>
+      <h2 style="font:500 58px/.98 var(--font-heading);margin:0;letter-spacing:-.038em;color:var(--color-neutral-100)">When ordinary VoIP cannot keep up.</h2>
+      <p style="font-size:16.5px;line-height:1.64;color:var(--color-neutral-300);margin:0;max-width:760px">Call setup taxes a network far more than connected conversation &mdash; most South African operators manage only one or two thousand calls per second. We partnered with multiple upstream providers to carve out dedicated capacity for large-scale automated traffic.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:8px">
+        <span class="tag tag-outline" style="font-size:12px;color:#F2905B;border-color:color-mix(in srgb,#F2905B 45%,transparent)">10 000+ concurrent</span><span class="tag tag-outline" style="font-size:12px;color:#8CC96B;border-color:color-mix(in srgb,#8CC96B 45%,transparent)">1000 calls per second</span><span class="tag tag-outline" style="font-size:12px;color:#29ABE2;border-color:color-mix(in srgb,#29ABE2 45%,transparent)">your own internet</span><span class="tag tag-outline" style="font-size:12px;color:#3FBF9F;border-color:color-mix(in srgb,#3FBF9F 45%,transparent)">mobile CLIs</span><span class="tag tag-outline" style="font-size:12px;color:#E86FA4;border-color:color-mix(in srgb,#E86FA4 45%,transparent)">postpaid billing</span>
+      </div>
+    </div>
+  </div>
+
+  <div data-sec="6.2" data-screen-label="12 VoIP super trunks" style="padding:200px 120px;display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;background:var(--color-bg)">
+    <img src="assets/super-trunk-fibre.jpg" alt="Thousands of colour-coded channels flowing through a single trunk" style="display:block;width:100%;height:420px;object-fit:cover;border-radius:18px;border:1px solid var(--color-divider)">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#F2B84B">VOIP SUPER TRUNKS</span>
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Thousands of channels on a single SIP trunk.</h2>
+      <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0">For operators and contact centres whose traffic outgrows ordinary trunking. One trunk carries the whole estate &mdash; current implementations run 10 000 concurrent channels at 1000 calls per second &mdash; with a redundant trunk and mobile DIDs available where the traffic warrants them.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:2px">
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2B84B">&#10003;</span>A single trunk sized in thousands of channels, not tens</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2B84B">&#10003;</span>1000 calls per second sustained on live implementations</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2B84B">&#10003;</span>Optional redundant SIP trunk on a separate path</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2B84B">&#10003;</span>Optional mobile DIDs alongside geographic numbering</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2B84B">&#10003;</span>One registration and one dial plan to maintain</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2B84B">&#10003;</span>Channel and CPS headroom lifted without re-architecting</span>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:12px 26px;border-color:#F2B84B;color:#F2B84B;cursor:pointer">Speak to a consultant</span>
+      </div>
+    </div>
+  </div>
+
+  <div data-sec="9.1" data-screen-label="13 Close" style="position:relative;overflow:hidden;isolation:isolate;padding:200px 120px;display:flex;flex-direction:column;gap:18px;background:var(--color-bg)">
+    <div data-chev="1" style="position:absolute;right:90px;bottom:-56px;z-index:-1;display:flex;gap:26px;pointer-events:none"><span style="position:relative;display:block;width:120px;height:280px;background:color-mix(in srgb,var(--acc,#F2B84B) 78%,transparent);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"><span style="position:absolute;inset:3px;background:var(--color-bg);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"></span></span><span style="position:relative;display:block;width:120px;height:280px;background:color-mix(in srgb,var(--acc,#F2B84B) 78%,transparent);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"><span style="position:absolute;inset:3px;background:var(--color-bg);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"></span></span></div>
+    <div style="display:flex;align-items:baseline;gap:14px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Ready to put agents on the phones?</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:var(--acc,#F2B84B)">NEXT STEP</span>
+    </div>
+    <p style="position:relative;font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0;max-width:560px">Tell us the seat count, the campaigns and the dialling you have in mind &mdash; we will size the platform and the trunking around it.</p>
+    <p style="position:relative;font-size:14.5px;line-height:1.6;color:var(--color-neutral-500);margin:0;max-width:560px">Not sure which of these you need? Meet with us and we will work through the requirement together &mdash; we would rather scope it properly than sell you the wrong thing.</p>
+    <div style="position:relative;display:flex;gap:12px;margin-top:8px">
+      <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:12px 26px;border-color:var(--acc,#F2B84B);color:var(--acc,#F2B84B);cursor:pointer">Speak to a consultant</span>
+    </div>
+  </div>
+
+  <div data-screen-label="14 Footer" style="position:relative;overflow:hidden;padding:112px 120px 0;background:linear-gradient(to right,transparent,var(--color-divider) 120px,var(--color-divider) calc(100% - 120px),transparent) no-repeat top / 100% 1px">
+    <img data-fmark="1" src="assets/logo-africa-mark.png" alt="" style="position:absolute;right:120px;bottom:24px;width:374px;height:auto;filter:grayscale(1) brightness(.05);opacity:.12;pointer-events:none;user-select:none">
+    <span style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 20%,rgba(0,0,0,.7));pointer-events:none"></span>
+    <span style="position:absolute;left:-4%;top:0;width:42%;height:74%;background:radial-gradient(60% 70% at 30% 30%,color-mix(in srgb,#3FBF9F 12%,transparent),transparent 72%);filter:blur(40px);animation:fSpot 13s ease-in-out infinite;pointer-events:none"></span>
+    <div data-fgrid="1" style="position:relative;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:48px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:18px;max-width:300px">
+        <div style="display:flex;align-items:center">
+          <a href="Homepage.dc.html" style="display:block;text-decoration:none"><img data-logo="1" src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:26px;width:auto;display:block"></a>
+        </div>
+        <p style="font-size:14.2px;line-height:1.65;color:var(--color-neutral-400);margin:0">We build and host large-scale telecommunication applications &mdash; software development, hosting and support are our biggest divisions. We own the whole stack: data centre, ISP, hypervisor and the software that runs on it.</p>
+        <a href="#" style="width:34px;height:34px;border-radius:50%;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-size:12.6px;font-weight:600;color:var(--color-neutral-300);text-decoration:none" style-hover="border-color:#3FBF9F;color:#3FBF9F">in</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Services</span>
+        <a href="Office.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">Office Telephony</a>
+        <a href="Call-Centre.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">Call Centre Telephony</a>
+        <a href="Programmable-Telephony.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">Programmable Telephony</a>
+        <a href="Voice%20AI.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">Voice AI Agents</a>
+        <a href="Data-Centre.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">Data Centre &amp; Hosting</a>
+        <a href="Software-Development.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">Software Development</a>
+        <a href="Wholesale.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">Wholesale &amp; Resellers</a>
+        <a href="Consulting.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">Consulting</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Contact</span>
+        <a href="mailto:sales@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">sales@bizvoip.co.za</a>
+        <a href="mailto:support@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">support@bizvoip.co.za</a>
+        <a href="mailto:accounts@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">accounts@bizvoip.co.za</a>
+        <a href="tel:+27876543210" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">+27 87 654 3210</a>
+        <span style="font-size:14.2px;color:var(--color-neutral-400);line-height:1.25">Cape Town, South Africa</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Company</span>
+        <a href="POPIA.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">Privacy Policy</a>
+        <a href="Company-Info.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">Company Info</a>
+        <a href="Arch1medes.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#3FBF9F">Arch1medes Platform</a>
+      </div>
+    </div>
+    <div data-fbar="1" style="display:flex;align-items:center;gap:24px;margin-top:48px;padding:22px 0 28px;border-top:2px solid var(--color-divider);font-size:13.1px;color:var(--color-neutral-500)">
+      <span>&copy; 2026 Bizvoip (Pty) Ltd. All rights reserved.</span>
+      <span style="margin-left:auto">Reg 2020/637692/07 &middot; Cape Town, South Africa</span>
+    </div>
+  </div>
+
+  <div class="hy-overlay" data-open="{{ drawerOpen }}" onClick="{{ closeDrawer }}"></div>
+  <div class="hy-drawer" data-open="{{ drawerOpen }}" data-screen-label="Contact drawer">
+    <div style="display:flex;align-items:center;gap:12px;padding:20px 26px;border-bottom:1px solid var(--color-divider)">
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <span style="font-size:17px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-100)">Speak to a consultant</span>
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--acc,#3FBF9F)">{{ drawerRef }}</span>
+      </div>
+      <span onClick="{{ closeDrawer }}" style="margin-left:auto;cursor:pointer;width:32px;height:32px;border-radius:8px;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--color-neutral-400)" style-hover="border-color:var(--acc,#3FBF9F);color:var(--acc,#3FBF9F)">&times;</span>
+    </div>
+    <sc-if value="{{ drawerSent }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:64px 32px;text-align:center">
+        <span style="width:46px;height:46px;border-radius:50%;background:color-mix(in srgb,var(--acc,#3FBF9F) 16%,transparent);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--acc,#3FBF9F)">&#10003;</span>
+        <span style="font-size:17px;font-weight:500;color:var(--color-neutral-100)">Request sent</span>
+        <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-400);margin:0;max-width:290px">An engineer &mdash; not a call centre &mdash; will come back to you within one business day.</p>
+        <span class="btn btn-secondary" onClick="{{ closeDrawer }}" style="margin-top:8px;padding:9px 20px;cursor:pointer">Close</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ drawerFormVisible }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:12px;padding:24px 26px;overflow-y:auto">
+        <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-400);margin:0">Tell us what you need and we will put the right engineer on it.</p>
+        <sc-if value="{{ askAgents }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">How many agents do you have? <span style="color:var(--acc,#3FBF9F)">*</span></label>
+          <input class="hy-field" placeholder="e.g. 40" onInput="{{ setScope }}">
+        </div>
+        </sc-if>
+        <sc-if value="{{ askAvm }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">How many leads do you AVM a month? <span style="color:var(--acc,#3FBF9F)">*</span></label>
+            <input class="hy-field" placeholder="e.g. 250 000" onInput="{{ setLeads }}">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">How many concurrent channels do you need? <span style="color:var(--acc,#3FBF9F)">*</span></label>
+            <input class="hy-field" placeholder="e.g. 500" onInput="{{ setChannels }}">
+          </div>
+        </sc-if>
+        <sc-if value="{{ askAgents }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Mostly inbound or outbound calls? <span style="color:var(--acc,#3FBF9F)">*</span></label>
+          <div style="display:flex;gap:8px">
+            <span onClick="{{ pickIn }}" style="{{ styleIn }}">Inbound</span>
+            <span onClick="{{ pickOut }}" style="{{ styleOut }}">Outbound</span>
+            <span onClick="{{ pickBoth }}" style="{{ styleBoth }}">Both</span>
+          </div>
+        </div>
+        <sc-if value="{{ askDial }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">How do agents dial? <span style="color:var(--acc,#3FBF9F)">*</span></label>
+            <div style="display:flex;gap:8px">
+              <span onClick="{{ pickPower }}" style="{{ stylePower }}">Power dial</span>
+              <span onClick="{{ pickClick }}" style="{{ styleClick }}">Click to dial</span>
+            </div>
+          </div>
+        </sc-if>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Full name <span style="color:var(--acc,#3FBF9F)">*</span></label>
+          <input class="hy-field" placeholder="Your name" onInput="{{ setName }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Company <span style="color:var(--acc,#3FBF9F)">*</span></label>
+          <input class="hy-field" placeholder="Company name" onInput="{{ setCompany }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Email <span style="color:var(--acc,#3FBF9F)">*</span></label>
+          <input class="hy-field" type="email" placeholder="you@company.co.za" onInput="{{ setEmail }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Phone <span style="color:var(--acc,#3FBF9F)">*</span></label>
+          <input class="hy-field" type="tel" placeholder="0876543210" onInput="{{ setPhone }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Message</label>
+          <textarea class="hy-field" rows="4" placeholder="Anything else we should know"></textarea>
+        </div>
+        <span class="btn btn-primary" onClick="{{ sendDrawer }}" style="{{ sendStyle }}">Send request</span>
+        <sc-if value="{{ showMissing }}" hint-placeholder-val="{{ false }}">
+          <span style="font-size:11.8px;line-height:1.5;color:var(--acc,#3FBF9F)">{{ missingText }}</span>
+        </sc-if>
+        <span style="font-size:11.5px;line-height:1.55;color:var(--color-neutral-500)">Or email <a href="mailto:sales@bizvoip.co.za">sales@bizvoip.co.za</a> &middot; +27 87 654 3210 (M&ndash;F 8am&ndash;5pm)</span>
+      </div>
+    </sc-if>
+  </div>
+
+  <div class="hy-mscrim" data-open="{{ mnavOpen }}" onClick="{{ closeMnav }}"></div>
+  <div class="hy-mnav" data-open="{{ mnavOpen }}" data-screen-label="Mobile menu">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--color-divider)">
+      <img src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:19px;width:auto;display:block">
+      <span onClick="{{ closeMnav }}" role="button" aria-label="Close" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;font-size:26px;line-height:1;color:var(--color-neutral-300);cursor:pointer">&times;</span>
+    </div>
+    <div style="display:flex;flex-direction:column;padding:8px 20px 20px;overflow-y:auto">
+      <a href="Office.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Office Telephony</a>
+      <a href="Call-Centre.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Call Centre Telephony</a>
+      <a href="Programmable-Telephony.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Programmable Telephony</a>
+      <a href="Voice%20AI.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Voice AI Agents</a>
+      <a href="Data-Centre.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Data Centre &amp; Hosting</a>
+      <a href="Software-Development.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Software Development</a>
+      <a href="Wholesale.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Wholesale Carrier</a>
+      <a href="Consulting.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Consulting</a>
+      <a href="Arch1medes.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Arch1medes</a>
+      <a href="Company-Info.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#3FBF9F">Company</a>
+      <span class="btn btn-primary" onClick="{{ openDrawerFromMnav }}" style="margin-top:22px;justify-content:center;padding:14px 20px;font-size:14.5px;border-color:#3FBF9F;color:#3FBF9F;cursor:pointer;text-align:center">Speak to a consultant</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColour&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#3FBF9F&quot;,&quot;options&quot;:[&quot;#3FBF9F&quot;,&quot;#29ABE2&quot;,&quot;#3FBF9F&quot;,&quot;#E86FA4&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;heroWords&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;tickerSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:42,&quot;min&quot;:20,&quot;max&quot;:90,&quot;step&quot;:2,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+class Component extends DCLogic {
+  static W = [['automated', 'var(--acc,#3FBF9F)'], ['predictive', '#E86FA4'], ['power', '#3FBF9F'], ['adaptive', '#9184D9'], ['intelligent', 'var(--acc,#3FBF9F)'], ['algorithmic', '#8CC96B']];
+
+  static F = [
+    ['01', 'Auto dial and click-to-dial', 'Predictive, progressive and preview campaigns, blended with inbound queues on the same floor.', '#3FBF9F'],
+    ['02', 'Real-time wallboards', 'Live campaign, queue and agent metrics on the wall and on every supervisor screen.', '#9184D9'],
+    ['03', 'Data and agent management', 'Lists, recycling rules, dispositions, skills and shifts, all managed in one place.', '#29ABE2'],
+    ['04', 'Barge, whisper and listen', 'Coach a new agent mid-call or take the call over without the customer noticing.', '#E86FA4'],
+    ['05', 'Advanced reporting', 'The reporting QA actually asks for — by campaign, agent, disposition and hour.', '#3FBF9F'],
+    ['06', 'Call recording and voicemail detection', 'Every call recorded and searchable, with operator-tunable answering-machine detection.', '#F2905B'],
+    ['07', 'Remote agents on WebRTC', 'A browser and a headset is the whole agent desk — no VPN, no desk phone.', '#6C8CFF'],
+    ['08', 'Live transfer and conference', 'Warm transfers with context, three-way calls and supervisor escalation.', '#8CC96B'],
+    ['09', 'Scheduling and callbacks', 'Agent-owned and campaign-owned callbacks that fire when you promised they would.', '#B95FC4'],
+    ['10', 'Custom integrations', 'CRM, billing and in-house systems wired in by the engineers who run the platform.', '#29ABE2']
+  ];
+
+  static P = [
+    ['vicidial \u00b7 standard', 'var(--acc,#3FBF9F)', 'Vicidial Standard', 'R345', 'per user / month', 'The complete open-source call centre \u2014 campaigns, recording, wallboards and reporting, hosted and managed by us.'],
+    ['vicidial \u00b7 premium', '#29ABE2', 'Vicidial Premium', 'R555', 'per user / month \u00b7 9c / min', 'Everything in Standard plus a super-low 9c per minute rate to Vodacom and MTN, billed per second.'],
+    ['avm', 'var(--acc,#3FBF9F)', 'Automatic Voice Messaging', 'From R79', 'per channel / month', 'High-capacity voice messaging \u2014 broadcasts, surveys, reminders and alerts. Millions of contacts a day.'],
+    ['extras', '#9184D9', 'Disaster recovery', 'On quote', 'per cluster / month', 'Standby cluster with database replication, so a bad afternoon does not become a bad month.'],
+    ['extras', '#E86FA4', 'AWS backups', 'On quote', 'recordings and database', 'Recordings and database backed up off-site to AWS, with retention rules you choose.'],
+    ['services', '#F2905B', 'Consultation and SLA', 'On quote', 'for your own instance', 'Advice and backup for teams running their own Vicidial \u2014 without handing over the keys.']
+  ];
+
+  state = { tick: 0 , dOpen: false, dSent: false, avm: false, leads: '', channels: '', dir: null, dial: null, scope: '', f: { name: '', company: '', email: '', phone: '' }, tried: false, sec: '' };
+
+
+  _markCurrentNav(tries) {
+    const t = tries || 0;
+    const cur = decodeURIComponent((location.pathname.split('/').pop() || '')).toLowerCase();
+    const links = document.querySelectorAll('[data-navfx] a, .hy-mnav a');
+    if (!links.length) { if (t < 20) setTimeout(() => this._markCurrentNav(t + 1), 150); return; }
+    links.forEach(a => {
+      const href = decodeURIComponent((a.getAttribute('href') || '').split('/').pop()).toLowerCase();
+      if (href && cur && href === cur) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  componentDidMount() {
+    this._markCurrentNav(0);
+    this._t = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1800);
+    this._priceInit();
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+
+  _priceInit() {
+    // rAF is unreliable in this host, so the marquee is CSS-driven; drag is bound on
+    // the document (survives remounts) and nudges a wrapper transform
+    if (this._pBound) return;
+    this._pBound = true;
+    const wrapOf = e => (e.target && e.target.closest ? e.target.closest('[data-price-drag]') : null);
+    const inner = w => w && w.firstElementChild;
+    document.addEventListener('pointerdown', e => {
+      const w = wrapOf(e);
+      if (!w) return;
+      if (e.target && e.target.closest && e.target.closest('a')) return; // let card links click through
+      this._pW = w; this._pDrag = true; this._pX = e.clientX;
+      w.style.cursor = 'grabbing';
+      const t = inner(w); if (t) t.style.animationPlayState = 'paused';
+      e.preventDefault();
+    });
+    document.addEventListener('pointermove', e => {
+      if (!this._pDrag || !this._pW) return;
+      const t = inner(this._pW), half = t ? t.scrollWidth / 2 : 0;
+      this._pOff = (this._pOff || 0) + (e.clientX - this._pX);
+      this._pX = e.clientX;
+      if (half) this._pOff = ((this._pOff % half) + half) % half - half;
+      this._pW.style.transform = 'translateX(' + this._pOff.toFixed(1) + 'px)';
+    });
+    const end = () => {
+      if (!this._pDrag) return;
+      this._pDrag = false;
+      const w = this._pW;
+      if (w) { w.style.cursor = 'grab'; const t = inner(w); if (t) t.style.animationPlayState = ''; }
+    };
+    document.addEventListener('pointerup', end);
+    document.addEventListener('pointercancel', end);
+  }
+
+  _icons() {
+    const NAMES = ['ph-headset', 'ph-headset', 'agent', 'ph-user-circle', 'ph-users', 'ph-users-three', 'ph-chart-line-up', 'ph-trend-up', 'ph-presentation-chart', 'ph-desktop', 'ph-monitor', 'ph-laptop', 'agent', 'ph-user-list'];
+    const list = NAMES.concat(NAMES).concat(NAMES.slice(0, 3));
+    let s = 41;
+    const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    const sizes = list.map(() => 26 + Math.round(rnd() * 44));
+    const maxW = Math.max.apply(null, sizes) / 1200 * 100;
+    const LANES = Math.max(3, Math.min(9, Math.floor(97 / (maxW + 1.5))));
+    const gap = LANES > 1 ? (97 - maxW) / (LANES - 1) : 0;
+    const maxS = Math.max.apply(null, sizes);
+    const perLane = Math.max(1, Math.floor(760 / (maxS * 2.2)));
+    const buckets = [], durs = [];
+    for (let l = 0; l < LANES; l++) { buckets.push([]); durs.push(17 + rnd() * 13); }
+    const order = list.map((_, i) => i);
+    for (let k = order.length - 1; k > 0; k--) { const q = Math.floor(rnd() * (k + 1)), t = order[k]; order[k] = order[q]; order[q] = t; }
+    order.forEach((idx, k) => { const l = k % LANES; if (buckets[l].length < perLane) buckets[l].push(idx); });
+    const laneOf = {}, phase = {};
+    const minSep = (maxS * 2.2) / 760;
+    buckets.forEach((b, l) => {
+      const n = b.length, sep = Math.min(0.95 / Math.max(1, n), minSep);
+      const free = Math.max(0, 1 - n * sep), u = [];
+      for (let k = 0; k < n; k++) u.push(rnd());
+      u.sort((a, c) => a - c);
+      b.forEach((idx, k) => { laneOf[idx] = l; phase[idx] = sep * k + free * u[k]; });
+    });
+    return list.map((name, i) => {
+      const lane = laneOf[i];
+      if (lane == null) return null;
+      const size = sizes[i];
+      const x = lane * gap + rnd() * Math.max(0, maxW - size / 1200 * 100);
+      const dur = durs[lane], delay = -phase[i] * dur;
+      const op = (0.3 + rnd() * 0.26).toFixed(2);
+      const agent = name === 'agent';
+      const glyph = !agent && name.charAt(0) !== 'p';
+      return {
+        cls: agent ? 'ph ph-user' : (glyph ? '' : 'ph ' + name),
+        text: glyph ? name : '',
+        subCls: agent ? 'ph ph-headset' : '',
+        subStyle: agent
+          ? 'position:absolute;left:-38%;top:-18%;font-size:' + Math.round(size * 0.62) + 'px;line-height:1;font-style:normal;color:inherit'
+          : 'display:none',
+        style: 'position:absolute;top:-6%;left:' + x.toFixed(1) + '%;font-size:' + size + 'px;line-height:1;font-style:normal;color:rgba(0,0,0,' + op + ');animation:hyIconFall ' + dur.toFixed(1) + 's linear ' + delay.toFixed(1) + 's infinite'
+      };
+    }).filter(Boolean);
+  }
+
+  _bars(n, seed, h, w, col, dur) {
+    let s = seed;
+    const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    return Array.from({ length: n }, () => {
+      const hh = (0.18 + rnd() * 0.82) * h;
+      return { style: 'display:block;flex:1;min-width:' + w + 'px;height:' + hh.toFixed(0) + 'px;border-radius:3px;background:' + col + ';transform-origin:bottom;animation:hyBar ' + (dur + rnd() * 0.9).toFixed(2) + 's ease-in-out ' + (-rnd() * 2).toFixed(2) + 's infinite' };
+    });
+  }
+
+  _setF(k, v) { this.setState(s => { const f = Object.assign({}, s.f); f[k] = v; return { f: f }; }); }
+
+  _yn(on) {
+    return 'flex:1;text-align:center;padding:9px 14px;border-radius:8px;cursor:pointer;user-select:none;font-size:13px;transition:all .18s ease;border:1px solid ' +
+      (on ? 'var(--acc,#3FBF9F)' : 'var(--color-divider)') + ';background:' + (on ? 'color-mix(in srgb,var(--acc,#3FBF9F) 14%,transparent)' : 'transparent') +
+      ';color:' + (on ? 'var(--acc,#3FBF9F)' : 'var(--color-neutral-300)');
+  }
+
+  _missing() {
+    const f = this.state.f, out = [];
+    if (this.state.avm) {
+      if (!String(this.state.leads || '').trim()) out.push('leads a month');
+      if (!String(this.state.channels || '').trim()) out.push('concurrent channels');
+    } else {
+      if (!String(this.state.scope || '').trim()) out.push('agent count');
+      if (!this.state.dir) out.push('inbound or outbound');
+      if (this.state.dir !== 'in' && !this.state.dial) out.push('how agents dial');
+    }
+    if (!f.name.trim()) out.push('full name');
+    if (!f.company.trim()) out.push('company');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.trim())) out.push('a valid email');
+    if (!f.phone.trim()) out.push('phone');
+    return out;
+  }
+
+  _sec(e) {
+    const t = e && e.target && e.target.closest ? e.target.closest('[data-screen-label]') : null;
+    const l = t ? (t.getAttribute('data-screen-label') || '') : '';
+    return l.replace(/^[0-9]+\s*/, '').toLowerCase();
+  }
+
+  renderVals() {
+    const feats = Component.F.map(f => ({
+      n: f[0], t: f[1], d: f[2],
+      check: 'font-family:ui-monospace,Menlo,monospace;font-weight:700;color:' + f[3]
+    }));
+    const cards = Component.P.map(p => ({
+      kind: p[0], title: p[2], price: p[3], unit: p[4], note: p[5],
+      box: 'position:relative;overflow:hidden;flex:none;width:min(380px,78vw);box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:30px 28px 28px;border-radius:var(--radius-md,8px);border:1px solid color-mix(in srgb,' + p[1] + ' 26%,var(--color-divider));background:linear-gradient(160deg,color-mix(in srgb,' + p[1] + ' 9%,transparent),transparent 62%),var(--color-surface,#1b1d2b)',
+      kicker: 'font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:' + p[1],
+      priceStyle: 'font:500 42px/1 var(--font-heading);letter-spacing:-.035em;white-space:nowrap;color:' + p[1],
+      rule: 'height:1px;background:linear-gradient(to right,color-mix(in srgb,' + p[1] + ' 40%,transparent),transparent)'
+    }));
+    const w = (this.props.heroWords ?? true) ? Component.W[Math.floor(this.state.tick / 4) % Component.W.length] : Component.W[0];
+    return {
+      mnavOpen: !!this.state.mnavOpen,
+      toggleMnav: () => this.setState(s => ({ mnavOpen: !s.mnavOpen })),
+      closeMnav: () => this.setState({ mnavOpen: false }),
+      openDrawerFromMnav: () => this.setState({ mnavOpen: false, dOpen: true, dSent: false }),
+      drawerRef: 'bizvoip.co.za \u00b7 call centre telephony' + (this.state.sec ? ' \u00b7 ' + this.state.sec : ''),
+      drawerOpen: this.state.dOpen,
+      drawerSent: this.state.dOpen && this.state.dSent,
+      drawerFormVisible: !this.state.dSent,
+      openDrawer: e => this.setState({ dOpen: true, dSent: false, avm: false, sec: this._sec(e) }),
+      openAvm: e => this.setState({ dOpen: true, dSent: false, avm: true, sec: this._sec(e) }),
+      askAgents: !this.state.avm,
+      askAvm: this.state.avm,
+      setLeads: e => this.setState({ leads: e.target.value }),
+      setChannels: e => this.setState({ channels: e.target.value }),
+      closeDrawer: () => this.setState({ dOpen: false }),
+      sendDrawer: () => this._missing().length ? this.setState({ tried: true }) : this.setState({ dSent: true, tried: false }),
+      setScope: e => this.setState({ scope: e.target.value }),
+      pickIn: () => this.setState({ dir: 'in', dial: null }),
+      pickOut: () => this.setState({ dir: 'out' }),
+      pickBoth: () => this.setState({ dir: 'both' }),
+      styleIn: this._yn(this.state.dir === 'in'),
+      styleOut: this._yn(this.state.dir === 'out'),
+      styleBoth: this._yn(this.state.dir === 'both'),
+      askDial: this.state.dir === 'out' || this.state.dir === 'both',
+      pickPower: () => this.setState({ dial: 'power' }),
+      pickClick: () => this.setState({ dial: 'click' }),
+      stylePower: this._yn(this.state.dial === 'power'),
+      styleClick: this._yn(this.state.dial === 'click'),
+      setName: e => this._setF('name', e.target.value),
+      setCompany: e => this._setF('company', e.target.value),
+      setEmail: e => this._setF('email', e.target.value),
+      setPhone: e => this._setF('phone', e.target.value),
+      sendStyle: 'cursor:pointer;justify-content:center;padding:12px 20px;transition:all .2s ease;' + (this._missing().length ? 'border-color:var(--color-divider);color:var(--color-neutral-600)' : 'border-color:var(--acc,#3FBF9F);color:var(--acc,#3FBF9F)'),
+      showMissing: this.state.tried && this._missing().length > 0,
+      missingText: this._missing().length ? 'Still needed: ' + this._missing().join(', ') + '.' : '',
+      cycleWord: w[0],
+      cycleStyle: 'display:inline-block;color:' + w[1] + ';animation:' + (Math.floor(this.state.tick / 4) % 2 ? 'hyWordA' : 'hyWordB') + ' .7s cubic-bezier(.2,.8,.2,1) both',
+      heroBars: this._bars(46, 11, 260, 6, 'rgba(0,0,0,1)', 1.6),
+      avmBars: this._bars(30, 29, 74, 4, 'color-mix(in srgb,#29ABE2 55%,transparent)', 1.2),
+      heroIcons: this._icons(),
+      accentHex: this.props.accentColour ?? '#3FBF9F',
+      tickerDur: this.props.tickerSpeed ?? 42,
+      feats: feats,
+      priceCards: cards
+    };
+  }
+}
+</script>
+</body>
+</html>

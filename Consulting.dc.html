@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/nocturne-cf13df9a-1202-4913-b4c6-5d7053bf32d9/styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <script src="_ds/nocturne-cf13df9a-1202-4913-b4c6-5d7053bf32d9/_ds_bundle.js"></script>
+  <style>
+    @keyframes fSpot{0%,100%{opacity:.55;transform:translateX(-2%)}50%{opacity:1;transform:translateX(2%)}}
+    @keyframes nOvershoot{0%,100%{transform:translateX(0)}18%{transform:translateX(18px)}30%{transform:translateX(-3px)}42%{transform:translateX(0)}}
+    [data-chev]{animation:nOvershoot 3s cubic-bezier(.2,.8,.3,1) infinite}
+    @keyframes gTall{0%,100%{opacity:.7;transform:scaleY(.9)}50%{opacity:1;transform:scaleY(1.16)}}
+    @keyframes mGlowLive{0%,100%{opacity:.62;transform:scaleX(1)}50%{opacity:1;transform:scaleX(1.08)}}
+    @property --rip{syntax:'<length>';inherits:false;initial-value:0px}
+    @keyframes mRip13{from{--rip:0px}to{--rip:13px}}
+    @keyframes mRiseTop{0%,100%{transform:scaleY(.82);opacity:.72}50%{transform:scaleY(1.18);opacity:1}}
+    .hy-overlay{position:fixed;inset:0;background:rgba(6,7,14,.55);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:60}
+    .hy-overlay[data-open="true"]{opacity:1;pointer-events:auto}
+    .hy-drawer{position:fixed;--acc-drawer:1;--color-accent:#6C8CFF;--color-accent-300:color-mix(in srgb,#6C8CFF 74%,var(--color-text));--color-accent-400:color-mix(in srgb,#6C8CFF 88%,var(--color-text));top:0;right:0;bottom:0;width:460px;max-width:92vw;background:#12131d;border-left:1px solid var(--color-divider);box-shadow:-24px 0 60px rgba(0,0,0,.5);transform:translateX(104%);transition:transform .34s cubic-bezier(.22,.8,.2,1);z-index:61;display:flex;flex-direction:column;overflow:hidden}
+    .hy-drawer[data-open="true"]{transform:translateX(0)}
+    .hy-field{width:100%;box-sizing:border-box;background:color-mix(in srgb,var(--color-text) 4%,transparent);border:1px solid var(--color-divider);border-radius:9px;padding:11px 13px;font-family:var(--font-body);font-size:13.6px;color:var(--color-text);outline:none}
+    .hy-field:focus{border-color:#6C8CFF}
+    .hy-field::placeholder{color:var(--color-neutral-600)}
+    @keyframes hyLogoSpin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+    @keyframes hyLogoIdle{0%,87%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+    [data-logo]{transform-style:preserve-3d;animation:hyLogoIdle 10s ease-in-out infinite}
+    a:hover [data-logo]{animation:hyLogoSpin 1.2s ease-in-out}
+    [data-navfx] a[aria-current="page"],.hy-mnav a[aria-current="page"]{color:#3B9EE8 !important;font-weight:600}
+    [data-navfx] a{position:relative;display:inline-block;text-decoration:none;transition:color .2s ease,transform .22s cubic-bezier(.2,.7,.3,1)}
+    [data-navfx="07"] a:hover{color:#6C8CFF;transform:translateY(-3px)}
+    @keyframes hyBtnGlow{0%,100%{box-shadow:0 0 14px -6px currentColor}50%{box-shadow:0 0 34px -2px currentColor}}
+    .btn:hover{animation:hyBtnGlow 1.5s ease-in-out infinite;background:color-mix(in srgb,currentColor 8%,transparent)}
+    body{margin:0;background:var(--color-bg);font-family:var(--font-body)}
+    a{color:#3B9EE8;text-decoration:none}a:hover{color:#8FA8FF}
+    @keyframes hyDriftA{0%{transform:translate(0,0) scale(1)}25%{transform:translate(3%,2%) scale(1.05)}50%{transform:translate(1%,4%) scale(1.02)}75%{transform:translate(-2%,1%) scale(1.06)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes hyDriftB{0%{transform:translate(0,0) scale(1.02)}25%{transform:translate(-3%,3%) scale(1)}50%{transform:translate(-1%,-2%) scale(1.05)}75%{transform:translate(2%,2%) scale(1.01)}100%{transform:translate(0,0) scale(1.02)}}
+    @keyframes hyDriftC{0%{transform:translate(0,0) scale(1)}25%{transform:translate(2%,-3%) scale(1.04)}50%{transform:translate(-2%,-1%) scale(1)}75%{transform:translate(-1%,3%) scale(1.05)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes hyBar{0%,100%{transform:scaleY(.18)}50%{transform:scaleY(1)}}
+    @keyframes hyPulse{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:1;transform:scale(1.2)}}
+    @keyframes hyWordA{0%{opacity:0;transform:translateY(18px)}60%{opacity:1}100%{opacity:1;transform:translateY(0)}}
+    @keyframes hyWordB{0%{opacity:0;transform:translateY(18px)}60%{opacity:1}100%{opacity:1;transform:translateY(0)}}
+    @keyframes hyTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes hyPriceRun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes hyIconFall{0%{transform:translateY(0) rotate(-8deg);opacity:0}12%{opacity:1}86%{opacity:1}100%{transform:translateY(108vh) rotate(8deg);opacity:0}}
+    @keyframes hyRuleBreathe{0%,100%{width:18%}50%{width:46%}}
+    @keyframes hyRuleDot{0%,100%{opacity:.18}50%{opacity:1}}
+    @keyframes hyBreathA{0%,100%{transform:scale(.82) translate(0,0)}50%{transform:scale(1.34) translate(6%,4%)}}
+    @keyframes hyBreathB{0%,100%{transform:scale(1.3) translate(0,0)}50%{transform:scale(.84) translate(-6%,-4%)}}
+      .hy-mscrim{position:fixed;inset:0;background:rgba(6,7,14,.6);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:80}
+    .hy-mscrim[data-open="true"]{opacity:1;pointer-events:auto}
+    .hy-mnav{position:fixed;top:0;right:0;bottom:0;width:min(340px,86vw);background:#12131d;border-left:1px solid var(--color-divider);box-shadow:-24px 0 60px rgba(0,0,0,.5);transform:translateX(105%);transition:transform .35s cubic-bezier(.32,.72,.28,1);z-index:81;display:flex;flex-direction:column}
+    .hy-mnav[data-open="true"]{transform:translateX(0)}
+    @media (max-width:900px){
+      [data-navfx]{display:none !important}
+      [data-navcta]{display:none !important}
+      [data-mnav-btn]{display:flex !important}
+      [data-hero-guard="nav"]{top:12px !important;left:auto !important;right:16px !important;padding:0 !important;gap:0 !important;background:none !important;border:none !important;box-shadow:none !important;backdrop-filter:none !important;justify-content:flex-end !important;overflow:visible !important}
+      [data-hero-guard="nav"] > a:first-child{display:none !important}
+      [data-sec="1.1"]{height:auto !important;min-height:100svh !important}
+      [data-hero-copy]{padding:92px 20px 44px !important;gap:16px !important;justify-content:center !important;flex:1 1 auto !important;min-height:0 !important}
+      [data-hero-copy] p{font-size:15.5px !important}
+      [data-hero-guard="ticker"]{position:relative !important;bottom:auto !important;margin-top:20px !important;padding-bottom:22px !important}
+      [data-sec="1.1"]{padding:0 20px 0 20px !important;}
+      [data-sec="2.1"]{padding:104px 20px 0 20px !important;}
+      [data-sec="2.2"]{padding:0 20px 0 20px !important;}
+      [data-sec="6.1"]{padding:104px 20px 104px 20px !important;}
+      [data-sec="4.1"]{padding:88px 20px 88px 20px !important;}
+      [data-sec="5.1"]{padding:104px 20px 104px 20px !important;grid-template-columns:1fr !important;gap:28px !important;}
+      [data-sec="5.2"]{padding:104px 20px 104px 20px !important;grid-template-columns:1fr !important;gap:28px !important;}
+      [data-sec="5.3"]{padding:104px 20px 104px 20px !important;grid-template-columns:1fr !important;gap:28px !important;}
+      [data-sec="6.2"]{padding:0 20px 104px 20px !important;}
+      [data-sec="7.1"]{padding:104px 20px 104px 20px !important;}
+      [data-screen-label="11 Footer"]{padding:80px 20px 0 !important;background-position:20px top !important}
+      [data-mgrid]{grid-template-columns:1fr !important}
+      [data-fgrid]{grid-template-columns:1fr 1fr !important;gap:32px 24px !important}
+      [data-fbar]{flex-wrap:wrap !important;gap:10px !important}
+      [data-fmark]{right:20px !important;width:220px !important}
+      [data-bleed]{margin:0 -20px !important;padding:0 20px !important}
+      [data-chev]{display:none !important}
+      [data-bub]{display:none !important}
+    }
+    @media (max-width:560px){
+      [data-fgrid]{grid-template-columns:1fr !important}
+      [data-cycleline]{white-space:normal !important}
+      [data-hero-copy] > div:first-child{gap:7px !important}
+    }
+</style>
+</helmet>
+<div style="min-height:100vh;background:var(--color-bg);color:var(--color-text)">
+
+  <div data-sec="1.1" data-screen-label="01 Hero" style="position:relative;overflow:hidden;height:100vh;min-height:640px;display:flex;flex-direction:column;padding:0;background:var(--color-bg)">
+    <span style="position:absolute;left:-14%;top:-32%;width:64%;height:96%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,#6C8CFF 28%,transparent),transparent 66%);filter:blur(12px);animation:hyDriftA 46s ease-in-out infinite"></span>
+    <span style="position:absolute;right:-16%;top:-24%;width:58%;height:88%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,#29ABE2 24%,transparent),transparent 66%);filter:blur(12px);animation:hyDriftB 54s ease-in-out -7s infinite"></span>
+    <span style="position:absolute;left:24%;top:18%;width:52%;height:80%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,#F2905B 14%,transparent),transparent 66%);filter:blur(14px);animation:hyDriftC 62s ease-in-out -14s infinite"></span>
+
+    <div data-hero-guard="nav" style="position:fixed;top:20px;left:40px;right:40px;z-index:50;display:flex;align-items:center;gap:clamp(8px,1.15vw,26px);flex-wrap:nowrap;box-sizing:border-box;overflow:hidden;padding:12px 22px;border-radius:999px;background:rgba(41,171,226,.11);border:1px solid rgba(41,171,226,.22);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 12px 32px rgba(0,0,0,.34)">
+      <a href="Homepage.dc.html" style="display:flex;align-items:center;flex:0 0 auto;color:inherit;text-decoration:none"><img data-logo="1" src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:20px;width:auto;display:block"></a>
+      <div data-navfx="07" style="display:flex;align-items:center;padding:12px 0;flex:1 1 auto;min-width:0;overflow:hidden;gap:clamp(5px,.85vw,22px);margin-left:clamp(5px,.85vw,20px);margin-right:8px;margin-top:-12px;margin-bottom:-12px;font-weight:600;font-size:clamp(9.6px,.82vw,13.4px);mask-image:linear-gradient(to right,#000 calc(100% - 18px),transparent);-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 18px),transparent);color:var(--color-neutral-300)"><a href="Office.dc.html" style="color:inherit;white-space:nowrap">Office</a><a href="Call-Centre.dc.html" style="color:inherit;white-space:nowrap">Call Centre</a><a href="Programmable-Telephony.dc.html" style="color:inherit;white-space:nowrap">Programmable</a><a href="Voice%20AI.dc.html" style="color:inherit;white-space:nowrap">Voice AI</a><a href="Data-Centre.dc.html" style="color:inherit;white-space:nowrap">DC &amp; Hosting</a><a href="Software-Development.dc.html" style="color:inherit;white-space:nowrap">Development</a><a href="Wholesale.dc.html" style="color:inherit;white-space:nowrap">Wholesale</a><a href="Consulting.dc.html" style="color:inherit;white-space:nowrap">Consulting</a></div>
+      <span data-navcta="1" class="btn btn-primary" onClick="{{ openDrawer }}" style="flex:0 0 auto;white-space:nowrap;padding:9px clamp(12px,1.4vw,20px);font-size:clamp(12px,.92vw,13px);border-color:#6C8CFF;color:#6C8CFF;cursor:pointer">Book a meeting</span>
+      <span data-mnav-btn="1" onClick="{{ toggleMnav }}" role="button" aria-label="Menu" style="display:none;flex:0 0 auto;width:44px;height:44px;box-sizing:border-box;align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer;border-radius:9px;border:none;background:#6C8CFF"><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i></span>
+    </div>
+
+    <span style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
+      <sc-for list="{{ heroIcons }}" as="ic" hint-placeholder-count="12">
+        <i class="{{ ic.cls }}" style="{{ ic.style }}"></i>
+      </sc-for>
+    </span>
+
+    <span style="position:absolute;left:0;right:0;bottom:0;height:300px;display:flex;align-items:flex-end;gap:6px;padding:0 56px;opacity:.18;pointer-events:none;mask-image:linear-gradient(to top,#000,transparent)">
+      <sc-for list="{{ heroBars }}" as="b" hint-placeholder-count="46">
+        <i style="{{ b.style }}"></i>
+      </sc-for>
+    </span>
+
+    <div data-hero-copy="1" style="position:relative;flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px;padding:96px 56px 96px">
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px">
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#6C8CFF;box-shadow:0 0 8px #6C8CFF;animation:hyPulse 2.2s ease-in-out 0s infinite"></i>Operators, not resellers</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#6C8CFF;box-shadow:0 0 8px #6C8CFF;animation:hyPulse 2.2s ease-in-out .6s infinite"></i>Building since 2010</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#6C8CFF;box-shadow:0 0 8px #6C8CFF;animation:hyPulse 2.2s ease-in-out 1.2s infinite"></i>Vendor-neutral advice</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#6C8CFF;box-shadow:0 0 8px #6C8CFF;animation:hyPulse 2.2s ease-in-out 1.2s infinite"></i>License Free</span>
+      </div>
+      <h1 style="font:500 clamp(30px,3.6vw,54px)/1.04 var(--font-heading);letter-spacing:-.04em;margin:0;max-width:min(1240px,100%);min-height:2.08em;color:var(--color-neutral-100);text-wrap:balance"><span>We will tell you</span><br><span data-cycleline="1" style="white-space:nowrap">what to do about <span style="{{ cycleStyle }}">{{ cycleWord }}</span>.</span></h1>
+      <p style="font-size:18px;line-height:1.6;color:var(--color-neutral-300);margin:0;max-width:660px">We run the telephony, the data centre, the cloud and the software ourselves &mdash; so when we advise you, it comes from operating this every day rather than selling it. Bring the problem; we will tell you what we would do, what it costs and what we would leave alone.</p>
+      <div style="display:flex;justify-content:center;gap:12px;margin-top:6px">
+        <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:13px 26px;font-size:14.5px;border-color:#6C8CFF;color:#6C8CFF;cursor:pointer">Book a meeting</span>
+      </div>
+    </div>
+
+    <div data-hero-guard="ticker" style="position:absolute;left:0;right:0;bottom:26px;overflow:hidden;pointer-events:none;mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent)">
+      <div style="display:flex;width:max-content;animation:hyTicker 42s linear infinite;font-family:ui-monospace,Menlo,monospace;font-size:12.4px;letter-spacing:.08em;color:var(--color-neutral-500)">
+        <div style="display:flex;gap:64px;padding-right:64px"><span><b style="color:#6C8CFF;font-weight:500">Telephony</b> architecture and carriers</span><span><b style="color:#F2905B;font-weight:500">Managed clouds</b> designed for growth</span><span><b style="color:#9184D9;font-weight:500">Software</b> scoped before it is built</span><span><b style="color:#29ABE2;font-weight:500">Capacity</b> planned on real numbers</span><span><b style="color:#3FBF9F;font-weight:500">Migrations</b> with a rollback at every step</span><span><b style="color:#E86FA4;font-weight:500">Retainers</b> for the decisions that keep coming</span></div>
+        <div style="display:flex;gap:64px;padding-right:64px"><span><b style="color:#6C8CFF;font-weight:500">Telephony</b> architecture and carriers</span><span><b style="color:#F2905B;font-weight:500">Managed clouds</b> designed for growth</span><span><b style="color:#9184D9;font-weight:500">Software</b> scoped before it is built</span><span><b style="color:#29ABE2;font-weight:500">Capacity</b> planned on real numbers</span><span><b style="color:#3FBF9F;font-weight:500">Migrations</b> with a rollback at every step</span><span><b style="color:#E86FA4;font-weight:500">Retainers</b> for the decisions that keep coming</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div data-sec="2.1" data-screen-label="02 Capability heading" style="padding:200px 120px 0;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 26px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Advice from the people who carry the traffic.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#6C8CFF">WHERE WE HELP</span>
+    </div>
+  </div>
+
+  <div data-sec="2.2" data-screen-label="03 Capability checklist" style="padding:0 120px;background:var(--color-bg)">
+    <div data-mgrid="1" style="display:grid;grid-template-columns:1fr 1fr;gap:0 56px">
+      <sc-for list="{{ feats }}" as="f" hint-placeholder-count="10">
+        <div style="display:flex;gap:14px;padding:22px 0;border-top:1px solid var(--color-divider)">
+          <span style="{{ f.check }}">&#10003;</span>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <span style="font:500 16.5px/1.2 var(--font-heading);letter-spacing:-.015em">{{ f.t }}</span>
+            <span style="font-size:13.4px;line-height:1.58;color:var(--color-neutral-500)">{{ f.d }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div data-sec="6.1" data-screen-label="04 Engagements" style="padding:200px 120px;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 26px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">How an engagement is shaped.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#3FBF9F">WAYS TO WORK WITH US</span>
+    </div>
+    <div data-bleed="1" style="margin:0 -120px;padding:0 120px;overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent)">
+      <div data-price-drag="1" style="cursor:grab;will-change:transform"><div style="display:flex;width:max-content;user-select:none;touch-action:pan-y;animation:hyPriceRun 52s linear infinite" style-hover="animation-play-state:paused">
+        <div style="display:flex;gap:20px;padding-right:20px">
+          <sc-for list="{{ priceCards }}" as="p" hint-placeholder-count="6">
+            <div style="{{ p.box }}">
+              <span style="{{ p.kicker }}">{{ p.kind }}</span>
+              <span style="font:500 21px/1.2 var(--font-heading);letter-spacing:-.015em">{{ p.title }}</span>
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px">
+                <span style="{{ p.priceStyle }}">{{ p.price }}</span>
+                <span style="font-size:13px;white-space:nowrap;color:var(--color-neutral-500)">{{ p.unit }}</span>
+              </div>
+              <span style="{{ p.rule }}"></span>
+              <span style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-500)">{{ p.note }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:20px;padding-right:20px">
+          <sc-for list="{{ priceCards }}" as="p" hint-placeholder-count="6">
+            <div style="{{ p.box }}">
+              <span style="{{ p.kicker }}">{{ p.kind }}</span>
+              <span style="font:500 21px/1.2 var(--font-heading);letter-spacing:-.015em">{{ p.title }}</span>
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px">
+                <span style="{{ p.priceStyle }}">{{ p.price }}</span>
+                <span style="font-size:13px;white-space:nowrap;color:var(--color-neutral-500)">{{ p.unit }}</span>
+              </div>
+              <span style="{{ p.rule }}"></span>
+              <span style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-500)">{{ p.note }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </div>
+    </div>
+    <span style="display:block;margin-top:22px;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-600)">Drag to browse &middot; quoted per engagement</span>
+  </div>
+
+  <div data-sec="4.1" data-screen-label="05 Statement" style="position:relative;overflow:hidden;padding:120px;background:{{ bandBg }}">
+    <span style="position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% -34%,transparent var(--rip) calc(var(--rip) + 11.4px),{{ bandRing }} calc(var(--rip) + 12.2px),transparent calc(var(--rip) + 13px));animation:mRip13 1s linear infinite"></span>
+    <span style="position:absolute;left:-10%;right:-10%;top:-24%;height:136%;transform-origin:top;background:radial-gradient(86% 100% at 50% 0%,color-mix(in srgb,#6C8CFF 76%,transparent),color-mix(in srgb,#6C8CFF 26%,transparent) 46%,transparent 78%);filter:blur(24px);animation:gTall 10s ease-in-out infinite"></span>
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#6C8CFF">Why ask us</span>
+      <h2 style="font:500 58px/.98 var(--font-heading);margin:0;letter-spacing:-.038em;color:var(--color-neutral-100)">We own every layer we would advise you on.</h2>
+      <p style="font-size:16.5px;line-height:1.64;color:var(--color-neutral-300);margin:0;max-width:760px">The trunks, the switches, the data centre, the hypervisor, the ISP links and the software on top &mdash; all of it is ours, and all of it carries production traffic. That is a different position from a consultancy that has only read about it, and a different incentive from a vendor that needs you to buy something.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:8px">
+        <span class="tag tag-outline" style="font-size:12px;color:#29ABE2;border-color:color-mix(in srgb,#29ABE2 45%,transparent)">telephony</span><span class="tag tag-outline" style="font-size:12px;color:#F2905B;border-color:color-mix(in srgb,#F2905B 45%,transparent)">managed clouds</span><span class="tag tag-outline" style="font-size:12px;color:#9184D9;border-color:color-mix(in srgb,#9184D9 45%,transparent)">software</span><span class="tag tag-outline" style="font-size:12px;color:#3FBF9F;border-color:color-mix(in srgb,#3FBF9F 45%,transparent)">our own data centre</span><span class="tag tag-outline" style="font-size:12px;color:#F2B84B;border-color:color-mix(in srgb,#F2B84B 45%,transparent)">no vendor quota</span>
+      </div>
+    </div>
+  </div>
+
+  <div data-sec="5.1" data-screen-label="06 Telephony consulting" style="padding:200px 120px;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;background:var(--color-bg)">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#29ABE2">TELEPHONY CONSULTING</span>
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Get the voice layer right before you scale it.</h2>
+      <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0">Most voice problems are architecture problems wearing a carrier&rsquo;s uniform: trunks sized by guesswork, routing nobody has read in years, dial plans grown by accretion. We review what you carry, model where it breaks and re-specify the parts that matter &mdash; from a single office PBX to a contact centre running thousands of concurrent calls.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:2px">
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Trunk and channel sizing against your real concurrency and CPS</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Least-cost routing and carrier mix reviewed on your own CDRs</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Dial plans, IVRs and queue design rebuilt around how you work</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>PBX, contact centre and programmable platform selection</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Number strategy and porting &mdash; geographic, 0800, 0860 and mobile</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Quality, latency and codec troubleshooting on live traffic</span>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:12px 26px;border-color:#29ABE2;color:#29ABE2;cursor:pointer">Book a meeting</span>
+      </div>
+    </div>
+    <img src="assets/consulting-telephony-mesh.jpg" alt="Isometric illustration of callers connected across a phone platform" style="display:block;width:100%;height:420px;object-fit:cover;border-radius:18px;border:1px solid var(--color-divider)">
+  </div>
+
+  <div style="background:var(--color-bg)">
+    <div style="position:relative;height:6px">
+      <span style="position:absolute;left:0;right:0;top:0;height:1px;background:var(--color-divider);mask-image:linear-gradient(to right,#000 calc(100% - 34px),transparent calc(100% - 34px))"></span>
+      <span style="position:absolute;right:24px;top:-1px;width:3px;height:3px;border-radius:50%;background:#F2905B;animation:hyRuleDot 3.6s ease-in-out infinite"></span>
+      <span style="position:absolute;right:13px;top:-1px;width:3px;height:3px;border-radius:50%;background:#F2905B;animation:hyRuleDot 3.6s ease-in-out -.4s infinite"></span>
+      <span style="position:absolute;right:2px;top:-1px;width:3px;height:3px;border-radius:50%;background:#F2905B;animation:hyRuleDot 3.6s ease-in-out -.8s infinite"></span>
+      <span style="position:absolute;left:0;top:3px;height:2px;width:38%;background:linear-gradient(to right,color-mix(in srgb,#F2905B 60%,transparent),transparent);animation:hyRuleBreathe 9s ease-in-out infinite"></span>
+    </div>
+  </div>
+
+  <div data-sec="5.2" data-screen-label="07 Managed clouds" style="padding:200px 120px;display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;background:var(--color-bg)">
+    <img src="assets/consulting-managed-clouds.jpg" alt="Engineers racking and monitoring servers in the data centre" style="display:block;width:100%;height:420px;object-fit:cover;border-radius:18px;border:1px solid var(--color-divider)">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#F2905B">MANAGED CLOUDS</span>
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Your own cloud, designed by people who run one.</h2>
+      <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0">Standing up private infrastructure means a hypervisor, its own network, redundant ISP links and hardware chosen correctly the first time &mdash; then the foresight to design for growth you have not had yet. We do that design work, and we can run it afterwards, in our Teraco environment, in yours, or split across both.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:2px">
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Hypervisor and cluster design, sized to the workload</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Network fabric and redundant ISP links, isolated per tenant</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Hardware specified for the job rather than the brochure</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Storage, replication and backup strategy that is actually tested</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Headroom planned in, so growth is an addition not a rebuild</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#F2905B">&#10003;</span>Ongoing management, or a handover to your own team</span>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:12px 26px;border-color:#F2905B;color:#F2905B;cursor:pointer">Book a meeting</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--color-bg)">
+    <div style="position:relative;height:6px">
+      <span style="position:absolute;left:0;right:0;top:0;height:1px;background:var(--color-divider);mask-image:linear-gradient(to right,#000 calc(100% - 34px),transparent calc(100% - 34px))"></span>
+      <span style="position:absolute;right:24px;top:-1px;width:3px;height:3px;border-radius:50%;background:#8CC96B;animation:hyRuleDot 3.6s ease-in-out infinite"></span>
+      <span style="position:absolute;right:13px;top:-1px;width:3px;height:3px;border-radius:50%;background:#8CC96B;animation:hyRuleDot 3.6s ease-in-out -.4s infinite"></span>
+      <span style="position:absolute;right:2px;top:-1px;width:3px;height:3px;border-radius:50%;background:#8CC96B;animation:hyRuleDot 3.6s ease-in-out -.8s infinite"></span>
+      <span style="position:absolute;left:0;top:3px;height:2px;width:38%;background:linear-gradient(to right,color-mix(in srgb,#8CC96B 60%,transparent),transparent);animation:hyRuleBreathe 9s ease-in-out infinite"></span>
+    </div>
+  </div>
+
+  <div data-sec="5.3" data-screen-label="08 Software development" style="padding:200px 120px;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;background:var(--color-bg)">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#8CC96B">SOFTWARE DEVELOPMENT</span>
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Scope it honestly, then build it to last.</h2>
+      <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0">We have built high-throughput telephony software since 2010 &mdash; thousands of variables inside milliseconds, at tens of thousands of concurrent calls, with rating, month-end billing and real-time monitoring on top. That is the harshest constraint in the industry, which makes most other software a simpler version of the same engineering. We will tell you what to build, what to buy, and what to leave alone.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:2px">
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Requirements, architecture and costing before anyone commits</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Third-party integrations &mdash; CRM, ERP and helpdesk into telephony</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Longevity-first design on technology that will still be here</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Rating, billing and live balance engines</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Real-time monitoring on streams instead of nightly batches</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Built and operated by us, or handed to your team with the knowledge</span>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:12px 26px;border-color:#8CC96B;color:#8CC96B;cursor:pointer">Book a meeting</span>
+        <a href="Software-Development.dc.html" class="btn btn-secondary" style="padding:12px 26px;color:#8CC96B;border-color:color-mix(in srgb,#8CC96B 60%,transparent)">See the development page</a>
+      </div>
+    </div>
+    <img src="assets/consulting-software-scoping.jpg" alt="Two engineers reviewing code and system flow on screen" style="display:block;width:100%;height:420px;object-fit:cover;border-radius:18px;border:1px solid var(--color-divider)">
+  </div>
+
+  <div data-sec="6.2" data-screen-label="09 FAQ" style="padding:0 120px 200px;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 26px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">More about consulting with us.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#F2B84B">QUESTIONS WE GET</span>
+    </div>
+    <div style="display:flex;flex-direction:column;max-width:900px">
+      <details name="pg-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">Do we have to buy your services afterwards?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">No. The engagement is the advice; if the right answer is your existing carrier, your existing platform or a competitor&rsquo;s product, that is what the report will say.</p>
+      </details>
+      <details name="pg-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">Can you review something we have already built?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">Yes &mdash; that is most of this work. We audit what is running, quantify where it will break and give you an ordered list of what to fix first.</p>
+      </details>
+      <details name="pg-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">Will you work alongside our own team or vendor?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">Routinely. We can advise, oversee implementation, or transfer the knowledge so your team carries it from there.</p>
+      </details>
+      <details name="pg-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">How long does a review take?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">Small reviews are days; a full telephony, cloud and software assessment is typically two to four weeks depending on how much traffic and code there is to read.</p>
+      </details>
+    </div>
+  </div>
+
+  <div style="background:var(--color-bg)">
+    <div style="position:relative;height:6px">
+      <span style="position:absolute;left:0;right:0;top:0;height:1px;background:var(--color-divider);mask-image:linear-gradient(to right,#000 calc(100% - 34px),transparent calc(100% - 34px))"></span>
+      <span style="position:absolute;right:24px;top:-1px;width:3px;height:3px;border-radius:50%;background:#6C8CFF;animation:hyRuleDot 3.6s ease-in-out infinite"></span>
+      <span style="position:absolute;right:13px;top:-1px;width:3px;height:3px;border-radius:50%;background:#6C8CFF;animation:hyRuleDot 3.6s ease-in-out -.4s infinite"></span>
+      <span style="position:absolute;right:2px;top:-1px;width:3px;height:3px;border-radius:50%;background:#6C8CFF;animation:hyRuleDot 3.6s ease-in-out -.8s infinite"></span>
+      <span style="position:absolute;left:0;top:3px;height:2px;width:38%;background:linear-gradient(to right,color-mix(in srgb,#6C8CFF 60%,transparent),transparent);animation:hyRuleBreathe 9s ease-in-out infinite"></span>
+    </div>
+  </div>
+
+  <div data-sec="7.1" data-screen-label="10 Close" style="position:relative;overflow:hidden;isolation:isolate;padding:200px 120px;display:flex;flex-direction:column;gap:18px;background:var(--color-bg)">
+    <div data-chev="1" style="position:absolute;right:90px;bottom:-56px;z-index:-1;display:flex;gap:26px;pointer-events:none"><span style="position:relative;display:block;width:120px;height:280px;background:color-mix(in srgb,#6C8CFF 78%,transparent);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"><span style="position:absolute;inset:3px;background:var(--color-bg);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"></span></span><span style="position:relative;display:block;width:120px;height:280px;background:color-mix(in srgb,#6C8CFF 78%,transparent);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"><span style="position:absolute;inset:3px;background:var(--color-bg);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"></span></span></div>
+    <div style="display:flex;align-items:baseline;gap:14px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Bring us the problem, not the purchase order.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#6C8CFF">NEXT STEP</span>
+    </div>
+    <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0;max-width:560px">Tell us what is not working, or what you are about to commit to. We will review it, say what we would do and cost it honestly.</p>
+    <p style="position:relative;font-size:14.5px;line-height:1.6;color:var(--color-neutral-500);margin:0;max-width:560px">Not sure which of these you need? Meet with us and we will work through the requirement together &mdash; we would rather scope it properly than sell you the wrong thing.</p>
+    <div style="display:flex;gap:12px;margin-top:8px">
+      <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:12px 26px;border-color:#6C8CFF;color:#6C8CFF;cursor:pointer">Book a meeting</span>
+    </div>
+  </div>
+
+  <div data-screen-label="11 Footer" style="position:relative;overflow:hidden;padding:112px 120px 0;background:linear-gradient(to right,transparent,var(--color-divider) 120px,var(--color-divider) calc(100% - 120px),transparent) no-repeat top / 100% 1px">
+    <img data-fmark="1" src="assets/logo-africa-mark.png" alt="" style="position:absolute;right:120px;bottom:24px;width:374px;height:auto;filter:grayscale(1) brightness(.05);opacity:.12;pointer-events:none;user-select:none">
+    <span style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 20%,rgba(0,0,0,.7));pointer-events:none"></span>
+    <span style="position:absolute;left:-4%;top:0;width:42%;height:74%;background:radial-gradient(60% 70% at 30% 30%,color-mix(in srgb,#6C8CFF 12%,transparent),transparent 72%);filter:blur(40px);animation:fSpot 13s ease-in-out infinite;pointer-events:none"></span>
+    <div data-fgrid="1" style="position:relative;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:48px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:18px;max-width:300px">
+        <div style="display:flex;align-items:center">
+          <a href="Homepage.dc.html" style="display:block;text-decoration:none"><img data-logo="1" src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:26px;width:auto;display:block"></a>
+        </div>
+        <p style="font-size:14.2px;line-height:1.65;color:var(--color-neutral-400);margin:0">We build and host large-scale telecommunication applications &mdash; software development, hosting and support are our biggest divisions. We own the whole stack: data centre, ISP, hypervisor and the software that runs on it.</p>
+        <a href="#" style="width:34px;height:34px;border-radius:50%;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-size:12.6px;font-weight:600;color:var(--color-neutral-300);text-decoration:none" style-hover="border-color:#6C8CFF;color:#6C8CFF">in</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Services</span>
+        <a href="Office.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">Office Telephony</a>
+        <a href="Call-Centre.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">Call Centre Telephony</a>
+        <a href="Programmable-Telephony.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">Programmable Telephony</a>
+        <a href="Voice%20AI.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">Voice AI Agents</a>
+        <a href="Data-Centre.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">Data Centre &amp; Hosting</a>
+        <a href="Software-Development.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">Software Development</a>
+        <a href="Wholesale.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">Wholesale &amp; Resellers</a>
+        <a href="Consulting.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">Consulting</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Contact</span>
+        <a href="mailto:sales@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">sales@bizvoip.co.za</a>
+        <a href="mailto:support@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">support@bizvoip.co.za</a>
+        <a href="mailto:accounts@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">accounts@bizvoip.co.za</a>
+        <a href="tel:+27876543210" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">+27 87 654 3210</a>
+        <span style="font-size:14.2px;color:var(--color-neutral-400);line-height:1.25">Cape Town, South Africa</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Company</span>
+        <a href="POPIA.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">Privacy Policy</a>
+        <a href="Company-Info.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">Company Info</a>
+        <a href="Arch1medes.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#6C8CFF">Arch1medes Platform</a>
+      </div>
+    </div>
+    <div data-fbar="1" style="display:flex;align-items:center;gap:24px;margin-top:48px;padding:22px 0 28px;border-top:2px solid var(--color-divider);font-size:13.1px;color:var(--color-neutral-500)">
+      <span>&copy; 2026 Bizvoip (Pty) Ltd. All rights reserved.</span>
+      <span style="margin-left:auto">Reg 2020/637692/07 &middot; Cape Town, South Africa</span>
+    </div>
+  </div>
+
+  <div class="hy-overlay" data-open="{{ drawerOpen }}" onClick="{{ closeDrawer }}"></div>
+  <div class="hy-drawer" data-open="{{ drawerOpen }}" data-screen-label="Contact drawer">
+    <div style="display:flex;align-items:center;gap:12px;padding:20px 26px;border-bottom:1px solid var(--color-divider)">
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <span style="font-size:17px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-100)">Book a meeting</span>
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#6C8CFF">{{ drawerRef }}</span>
+      </div>
+      <span onClick="{{ closeDrawer }}" style="margin-left:auto;cursor:pointer;width:32px;height:32px;border-radius:8px;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--color-neutral-400)" style-hover="border-color:#6C8CFF;color:#6C8CFF">&times;</span>
+    </div>
+    <sc-if value="{{ drawerSent }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:64px 32px;text-align:center">
+        <span style="width:46px;height:46px;border-radius:50%;background:color-mix(in srgb,#6C8CFF 16%,transparent);display:flex;align-items:center;justify-content:center;font-size:20px;color:#6C8CFF">&#10003;</span>
+        <span style="font-size:17px;font-weight:500;color:var(--color-neutral-100)">Request sent</span>
+        <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-400);margin:0;max-width:290px">An engineer &mdash; not a call centre &mdash; will come back to you within one business day to set up the meeting.</p>
+        <span class="btn btn-secondary" onClick="{{ closeDrawer }}" style="margin-top:8px;padding:9px 20px;cursor:pointer">Close</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ drawerFormVisible }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:12px;padding:24px 26px;overflow-y:auto">
+        <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-400);margin:0">Tell us what you are weighing up and we will put the right engineer in the meeting.</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">What would you like reviewed? <span style="color:#6C8CFF">*</span></label>
+          <input class="hy-field" placeholder="e.g. trunk capacity, private cloud, a build we are planning" onInput="{{ setScope }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Full name <span style="color:#6C8CFF">*</span></label>
+          <input class="hy-field" placeholder="Your name" onInput="{{ setName }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Company <span style="color:#6C8CFF">*</span></label>
+          <input class="hy-field" placeholder="Company name" onInput="{{ setCompany }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Email <span style="color:#6C8CFF">*</span></label>
+          <input class="hy-field" type="email" placeholder="you@company.co.za" onInput="{{ setEmail }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Phone <span style="color:#6C8CFF">*</span></label>
+          <input class="hy-field" type="tel" placeholder="0876543210" onInput="{{ setPhone }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Message</label>
+          <textarea class="hy-field" rows="4" placeholder="Anything else we should know"></textarea>
+        </div>
+        <span class="btn btn-primary" onClick="{{ sendDrawer }}" style="{{ sendStyle }}">Send request</span>
+        <sc-if value="{{ showMissing }}" hint-placeholder-val="{{ false }}">
+          <span style="font-size:11.8px;line-height:1.5;color:#6C8CFF">{{ missingText }}</span>
+        </sc-if>
+        <span style="font-size:11.5px;line-height:1.55;color:var(--color-neutral-500)">Or email <a href="mailto:sales@bizvoip.co.za">sales@bizvoip.co.za</a> &middot; +27 87 654 3210 (M&ndash;F 8am&ndash;5pm)</span>
+      </div>
+    </sc-if>
+  </div>
+
+  <div class="hy-mscrim" data-open="{{ mnavOpen }}" onClick="{{ closeMnav }}"></div>
+  <div class="hy-mnav" data-open="{{ mnavOpen }}" data-screen-label="Mobile menu">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--color-divider)">
+      <img src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:19px;width:auto;display:block">
+      <span onClick="{{ closeMnav }}" role="button" aria-label="Close" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;font-size:26px;line-height:1;color:var(--color-neutral-300);cursor:pointer">&times;</span>
+    </div>
+    <div style="display:flex;flex-direction:column;padding:8px 20px 20px;overflow-y:auto">
+      <a href="Office.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#6C8CFF">Office Telephony</a>
+      <a href="Call-Centre.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#6C8CFF">Call Centre Telephony</a>
+      <a href="Programmable-Telephony.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#6C8CFF">Programmable Telephony</a>
+      <a href="Voice%20AI.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#6C8CFF">Voice AI Agents</a>
+      <a href="Data-Centre.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#6C8CFF">Data Centre &amp; Hosting</a>
+      <a href="Software-Development.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#6C8CFF">Software Development</a>
+      <a href="Wholesale.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#6C8CFF">Wholesale Carrier</a>
+      <a href="Consulting.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#6C8CFF">Consulting</a>
+      <a href="Arch1medes.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#6C8CFF">Arch1medes</a>
+      <a href="Company-Info.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#6C8CFF">Company</a>
+      <span class="btn btn-primary" onClick="{{ openDrawerFromMnav }}" style="margin-top:22px;justify-content:center;padding:14px 20px;font-size:14.5px;border-color:#6C8CFF;color:#6C8CFF;cursor:pointer;text-align:center">Book a meeting</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;bandGround&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Deep ocean&quot;,&quot;options&quot;:[&quot;Darker purple&quot;,&quot;Deep violet&quot;,&quot;Midnight&quot;,&quot;Navy&quot;,&quot;Deep ocean&quot;,&quot;Steel blue&quot;,&quot;Petrol&quot;,&quot;Cobalt shade&quot;,&quot;Denim&quot;,&quot;Ink blue&quot;,&quot;Dusk blue&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Statement band&quot;}}">
+class Component extends DCLogic {
+  static ACC = '#6C8CFF';
+  static GROUNDS = {
+    'Darker purple': ['#191138', '#0d0822'],
+    'Deep violet': ['#150f2e', '#0a0719'],
+    'Midnight': ['#0f1730', '#08101f'],
+    'Navy': ['#101c38', '#091226'],
+    'Deep ocean': ['#0d1e2e', '#07131f'],
+    'Steel blue': ['#182436', '#0e1724'],
+    'Petrol': ['#0e2230', '#081720'],
+    'Cobalt shade': ['#11203f', '#0a142b'],
+    'Denim': ['#1a2740', '#101a2c'],
+    'Ink blue': ['#0b1424', '#060d18'],
+    'Dusk blue': ['#1c2a45', '#111b30']
+  };
+  static W = [['the whole stack', '#6C8CFF'], ['telephony', '#29ABE2'], ['the cloud', '#F2905B'], ['your software', '#9184D9'], ['the network', '#3FBF9F'], ['the carriers', '#F2B84B'], ['the numbers', '#E86FA4'], ['all of it', '#8CC96B']];
+
+  static I = ['ph-code', 'ph-terminal-window', 'ph-git-merge', 'ph-database', 'ph-stack', 'ph-brackets-curly', 'ph-bug', 'ph-cpu', 'ph-git-branch', 'ph-cloud-arrow-up'];
+
+  static F = [
+    ['01', 'Independent technical advice', 'We are operators first, so the recommendation comes from running this, not from a vendor brochure.', '#29ABE2'],
+    ['02', 'Telephony architecture reviews', 'Trunking, routing, dial plans and capacity examined against what you actually carry.', '#F2B84B'],
+    ['03', 'Cloud and hosting design', 'Hypervisor, network and ISP design sized for the workload and the growth behind it.', '#6C8CFF'],
+    ['04', 'Software and integration scoping', 'What to build, what to buy and what to leave alone — costed before anyone commits.', '#E86FA4'],
+    ['05', 'Cost and carrier analysis', 'Where the spend actually goes, and which routes or contracts are quietly wrong.', '#8CC96B'],
+    ['06', 'Migration and porting plans', 'Sequenced cutovers with a rollback at every step, so nothing goes dark at 9am.', '#F2905B'],
+    ['07', 'Capacity and load planning', 'Concurrent calls, CPS, storage and compute projected against a real growth curve.', '#9184D9'],
+    ['08', 'Resilience and continuity', 'Where the single points of failure are, what they cost, and what to fix first.', '#3FBF9F'],
+    ['09', 'Compliance and POPIA posture', 'Recording, retention and data handling reviewed against what the rules require.', '#B95FC4'],
+    ['10', 'Implementation oversight', 'We stay on the engagement while it is built — by us, by you, or by your vendor.', '#29ABE2']
+  ];
+
+  static P = [
+    ['review', '#6C8CFF', 'Technical review', 'On quote', 'per engagement', 'A written assessment of what you run today, what it costs and what we would change first.'],
+    ['telephony', '#29ABE2', 'Telephony consulting', 'On quote', 'per engagement', 'Trunking, routing, dial plans, capacity and carriers — reviewed and re-specified.'],
+    ['cloud', '#F2905B', 'Cloud and hosting design', 'On quote', 'per design', 'Hypervisor, network and ISP architecture designed around the workload, with room to grow.'],
+    ['software', '#9184D9', 'Software scoping', 'On quote', 'per project', 'Requirements, architecture and honest costing before a line of code is written.'],
+    ['migration', '#3FBF9F', 'Migration planning', 'On quote', 'per migration', 'A sequenced cutover plan with rollbacks, tested against the traffic you actually carry.'],
+    ['retainer', '#E86FA4', 'Advisory retainer', 'On quote', 'per month', 'Ongoing access to the engineers who run this every day, for the decisions that keep coming.']
+  ];
+
+  state = { tick: 0 , dOpen: false, dSent: false, scope: '', f: { name: '', company: '', email: '', phone: '' }, tried: false, sec: '' };
+
+
+  _markCurrentNav(tries) {
+    const t = tries || 0;
+    const cur = decodeURIComponent((location.pathname.split('/').pop() || '')).toLowerCase();
+    const links = document.querySelectorAll('[data-navfx] a, .hy-mnav a');
+    if (!links.length) { if (t < 20) setTimeout(() => this._markCurrentNav(t + 1), 150); return; }
+    links.forEach(a => {
+      const href = decodeURIComponent((a.getAttribute('href') || '').split('/').pop()).toLowerCase();
+      if (href && cur && href === cur) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  componentDidMount() {
+    this._markCurrentNav(0);
+    this._t = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1800);
+    this._priceInit();
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+
+  _priceInit() {
+    // rAF is unreliable in this host, so the marquee is CSS-driven; drag is bound on
+    // the document (survives remounts) and nudges a wrapper transform
+    if (this._pBound) return;
+    this._pBound = true;
+    const wrapOf = e => (e.target && e.target.closest ? e.target.closest('[data-price-drag]') : null);
+    const inner = w => w && w.firstElementChild;
+    document.addEventListener('pointerdown', e => {
+      const w = wrapOf(e);
+      if (!w) return;
+      if (e.target && e.target.closest && e.target.closest('a')) return; // let card links click through
+      this._pW = w; this._pDrag = true; this._pX = e.clientX;
+      w.style.cursor = 'grabbing';
+      const t = inner(w); if (t) t.style.animationPlayState = 'paused';
+      e.preventDefault();
+    });
+    document.addEventListener('pointermove', e => {
+      if (!this._pDrag || !this._pW) return;
+      const t = inner(this._pW), half = t ? t.scrollWidth / 2 : 0;
+      this._pOff = (this._pOff || 0) + (e.clientX - this._pX);
+      this._pX = e.clientX;
+      if (half) this._pOff = ((this._pOff % half) + half) % half - half;
+      this._pW.style.transform = 'translateX(' + this._pOff.toFixed(1) + 'px)';
+    });
+    const end = () => {
+      if (!this._pDrag) return;
+      this._pDrag = false;
+      const w = this._pW;
+      if (w) { w.style.cursor = 'grab'; const t = inner(w); if (t) t.style.animationPlayState = ''; }
+    };
+    document.addEventListener('pointerup', end);
+    document.addEventListener('pointercancel', end);
+  }
+
+  _icons() {
+    const NAMES = Component.I;
+    const list = NAMES.concat(NAMES).concat(NAMES.slice(0, 3));
+    let s = 41;
+    const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    const sizes = list.map(() => 26 + Math.round(rnd() * 44));
+    const maxW = Math.max.apply(null, sizes) / 1200 * 100;
+    const LANES = Math.max(3, Math.min(9, Math.floor(97 / (maxW + 1.5))));
+    const gap = LANES > 1 ? (97 - maxW) / (LANES - 1) : 0;
+    const maxS = Math.max.apply(null, sizes);
+    const perLane = Math.max(1, Math.floor(760 / (maxS * 2.2)));
+    const buckets = [], durs = [];
+    for (let l = 0; l < LANES; l++) { buckets.push([]); durs.push(17 + rnd() * 13); }
+    const order = list.map((_, i) => i);
+    for (let k = order.length - 1; k > 0; k--) { const q = Math.floor(rnd() * (k + 1)), t = order[k]; order[k] = order[q]; order[q] = t; }
+    order.forEach((idx, k) => { const l = k % LANES; if (buckets[l].length < perLane) buckets[l].push(idx); });
+    const laneOf = {}, phase = {};
+    const minSep = (maxS * 2.2) / 760;
+    buckets.forEach((b, l) => {
+      const n = b.length, sep = Math.min(0.95 / Math.max(1, n), minSep);
+      const free = Math.max(0, 1 - n * sep), u = [];
+      for (let k = 0; k < n; k++) u.push(rnd());
+      u.sort((a, c) => a - c);
+      b.forEach((idx, k) => { laneOf[idx] = l; phase[idx] = sep * k + free * u[k]; });
+    });
+    return list.map((name, i) => {
+      const lane = laneOf[i];
+      if (lane == null) return null;
+      const size = sizes[i];
+      const x = lane * gap + rnd() * Math.max(0, maxW - size / 1200 * 100);
+      const dur = durs[lane], delay = -phase[i] * dur;
+      const op = (0.3 + rnd() * 0.26).toFixed(2);
+      return {
+        cls: 'ph ' + name,
+        style: 'position:absolute;top:-6%;left:' + x.toFixed(1) + '%;font-size:' + size + 'px;line-height:1;font-style:normal;color:rgba(0,0,0,' + op + ');animation:hyIconFall ' + dur.toFixed(1) + 's linear ' + delay.toFixed(1) + 's infinite'
+      };
+    }).filter(Boolean);
+  }
+
+  _bars(n, seed, h, w, col, dur) {
+    let s = seed;
+    const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    return Array.from({ length: n }, () => {
+      const hh = (0.18 + rnd() * 0.82) * h;
+      return { style: 'display:block;flex:1;min-width:' + w + 'px;height:' + hh.toFixed(0) + 'px;border-radius:3px;background:' + col + ';transform-origin:bottom;animation:hyBar ' + (dur + rnd() * 0.9).toFixed(2) + 's ease-in-out ' + (-rnd() * 2).toFixed(2) + 's infinite' };
+    });
+  }
+
+  _setF(k, v) { this.setState(s => { const f = Object.assign({}, s.f); f[k] = v; return { f: f }; }); }
+
+  _missing() {
+    const f = this.state.f, out = [];
+    if (!String(this.state.scope || '').trim()) out.push('what to review');
+    if (!f.name.trim()) out.push('full name');
+    if (!f.company.trim()) out.push('company');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.trim())) out.push('a valid email');
+    if (!f.phone.trim()) out.push('phone');
+    return out;
+  }
+
+  _sec(e) {
+    const t = e && e.target && e.target.closest ? e.target.closest('[data-screen-label]') : null;
+    const l = t ? (t.getAttribute('data-screen-label') || '') : '';
+    return l.replace(/^[0-9]+\s*/, '').toLowerCase();
+  }
+
+  renderVals() {
+    const g = Component.GROUNDS[this.props.bandGround] || Component.GROUNDS["Darker purple"];
+    const feats = Component.F.map(f => ({
+      n: f[0], t: f[1], d: f[2],
+      check: 'font-family:ui-monospace,Menlo,monospace;font-weight:700;color:' + f[3]
+    }));
+    const cards = Component.P.map(p => ({
+      kind: p[0], title: p[2], price: p[3], unit: p[4], note: p[5],
+      box: 'position:relative;overflow:hidden;flex:none;width:min(380px,78vw);box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:30px 28px 28px;border-radius:var(--radius-md,8px);border:1px solid color-mix(in srgb,' + p[1] + ' 26%,var(--color-divider));background:linear-gradient(160deg,color-mix(in srgb,' + p[1] + ' 9%,transparent),transparent 62%),var(--color-surface,#1b1d2b)',
+      kicker: 'font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:' + p[1],
+      priceStyle: 'font:500 42px/1 var(--font-heading);letter-spacing:-.035em;white-space:nowrap;color:' + p[1],
+      rule: 'height:1px;background:linear-gradient(to right,color-mix(in srgb,' + p[1] + ' 40%,transparent),transparent)'
+    }));
+    const w = Component.W[Math.floor(this.state.tick / 4) % Component.W.length];
+    return {
+      mnavOpen: !!this.state.mnavOpen,
+      toggleMnav: () => this.setState(s => ({ mnavOpen: !s.mnavOpen })),
+      closeMnav: () => this.setState({ mnavOpen: false }),
+      openDrawerFromMnav: () => this.setState({ mnavOpen: false, dOpen: true, dSent: false }),
+      bandBg: g[0], bandRing: g[1],
+      drawerRef: 'bizvoip.co.za \u00b7 consulting' + (this.state.sec ? ' \u00b7 ' + this.state.sec : ''),
+      drawerOpen: this.state.dOpen,
+      drawerSent: this.state.dOpen && this.state.dSent,
+      drawerFormVisible: !this.state.dSent,
+      openDrawer: e => this.setState({ dOpen: true, dSent: false, sec: this._sec(e) }),
+      closeDrawer: () => this.setState({ dOpen: false }),
+      sendDrawer: () => this._missing().length ? this.setState({ tried: true }) : this.setState({ dSent: true, tried: false }),
+      setScope: e => this.setState({ scope: e.target.value }),
+      setName: e => this._setF('name', e.target.value),
+      setCompany: e => this._setF('company', e.target.value),
+      setEmail: e => this._setF('email', e.target.value),
+      setPhone: e => this._setF('phone', e.target.value),
+      sendStyle: 'cursor:pointer;justify-content:center;padding:12px 20px;transition:all .2s ease;' + (this._missing().length ? 'border-color:var(--color-divider);color:var(--color-neutral-600)' : 'border-color:#6C8CFF;color:#6C8CFF'),
+      showMissing: this.state.tried && this._missing().length > 0,
+      missingText: this._missing().length ? 'Still needed: ' + this._missing().join(', ') + '.' : '',
+      cycleWord: w[0],
+      cycleStyle: 'display:inline-block;color:' + w[1] + ';animation:' + (Math.floor(this.state.tick / 4) % 2 ? 'hyWordA' : 'hyWordB') + ' .7s cubic-bezier(.2,.8,.2,1) both',
+      heroBars: this._bars(46, 11, 260, 6, 'rgba(0,0,0,1)', 1.6),
+      heroIcons: this._icons(),
+      feats: feats,
+      priceCards: cards
+    };
+  }
+}
+</script>
+</body>
+</html>

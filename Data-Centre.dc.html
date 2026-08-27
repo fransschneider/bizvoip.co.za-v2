@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/nocturne-cf13df9a-1202-4913-b4c6-5d7053bf32d9/styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <script src="_ds/nocturne-cf13df9a-1202-4913-b4c6-5d7053bf32d9/_ds_bundle.js"></script>
+  <style>
+    @keyframes fSpot{0%,100%{opacity:.55;transform:translateX(-2%)}50%{opacity:1;transform:translateX(2%)}}
+    @keyframes nOvershoot{0%,100%{transform:translateX(0)}18%{transform:translateX(18px)}30%{transform:translateX(-3px)}42%{transform:translateX(0)}}
+    [data-chev]{animation:nOvershoot 3s cubic-bezier(.2,.8,.3,1) infinite}
+    @keyframes gTall{0%,100%{opacity:.7;transform:scaleY(.9)}50%{opacity:1;transform:scaleY(1.16)}}
+    @keyframes mGlowLive{0%,100%{opacity:.62;transform:scaleX(1)}50%{opacity:1;transform:scaleX(1.08)}}
+    @property --rip{syntax:'<length>';inherits:false;initial-value:0px}
+    @keyframes mRip13{from{--rip:0px}to{--rip:13px}}
+    @keyframes mRiseTop{0%,100%{transform:scaleY(.82);opacity:.72}50%{transform:scaleY(1.18);opacity:1}}
+    .hy-overlay{position:fixed;inset:0;background:rgba(6,7,14,.55);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:60}
+    .hy-overlay[data-open="true"]{opacity:1;pointer-events:auto}
+    .hy-drawer{position:fixed;--acc-drawer:1;--color-accent:#F2905B;--color-accent-300:color-mix(in srgb,#F2905B 74%,var(--color-text));--color-accent-400:color-mix(in srgb,#F2905B 88%,var(--color-text));top:0;right:0;bottom:0;width:460px;max-width:92vw;background:#12131d;border-left:1px solid var(--color-divider);box-shadow:-24px 0 60px rgba(0,0,0,.5);transform:translateX(104%);transition:transform .34s cubic-bezier(.22,.8,.2,1);z-index:61;display:flex;flex-direction:column;overflow:hidden}
+    .hy-drawer[data-open="true"]{transform:translateX(0)}
+    .hy-field{width:100%;box-sizing:border-box;background:color-mix(in srgb,var(--color-text) 4%,transparent);border:1px solid var(--color-divider);border-radius:9px;padding:11px 13px;font-family:var(--font-body);font-size:13.6px;color:var(--color-text);outline:none}
+    .hy-field:focus{border-color:#F2905B}
+    .hy-field::placeholder{color:var(--color-neutral-600)}
+    @keyframes hyLogoSpin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+    @keyframes hyLogoIdle{0%,87%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+    [data-logo]{transform-style:preserve-3d;animation:hyLogoIdle 10s ease-in-out infinite}
+    a:hover [data-logo]{animation:hyLogoSpin 1.2s ease-in-out}
+    [data-navfx] a[aria-current="page"],.hy-mnav a[aria-current="page"]{color:#3B9EE8 !important;font-weight:600}
+    [data-navfx] a{position:relative;display:inline-block;text-decoration:none;transition:color .2s ease,transform .22s cubic-bezier(.2,.7,.3,1)}
+    [data-navfx="07"] a:hover{color:#F2905B;transform:translateY(-3px)}
+    @keyframes hyBtnGlow{0%,100%{box-shadow:0 0 14px -6px currentColor}50%{box-shadow:0 0 34px -2px currentColor}}
+    .btn:hover{animation:hyBtnGlow 1.5s ease-in-out infinite;background:color-mix(in srgb,currentColor 8%,transparent)}
+    body{margin:0;background:var(--color-bg);font-family:var(--font-body)}
+    a{color:#3B9EE8;text-decoration:none}a:hover{color:#8FA8FF}
+    @keyframes hyDriftA{0%{transform:translate(0,0) scale(1)}25%{transform:translate(3%,2%) scale(1.05)}50%{transform:translate(1%,4%) scale(1.02)}75%{transform:translate(-2%,1%) scale(1.06)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes hyDriftB{0%{transform:translate(0,0) scale(1.02)}25%{transform:translate(-3%,3%) scale(1)}50%{transform:translate(-1%,-2%) scale(1.05)}75%{transform:translate(2%,2%) scale(1.01)}100%{transform:translate(0,0) scale(1.02)}}
+    @keyframes hyDriftC{0%{transform:translate(0,0) scale(1)}25%{transform:translate(2%,-3%) scale(1.04)}50%{transform:translate(-2%,-1%) scale(1)}75%{transform:translate(-1%,3%) scale(1.05)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes hyBar{0%,100%{transform:scaleY(.18)}50%{transform:scaleY(1)}}
+    @keyframes hyPulse{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:1;transform:scale(1.2)}}
+    @keyframes hyWordA{0%{opacity:0;transform:translateY(18px)}60%{opacity:1}100%{opacity:1;transform:translateY(0)}}
+    @keyframes hyWordB{0%{opacity:0;transform:translateY(18px)}60%{opacity:1}100%{opacity:1;transform:translateY(0)}}
+    @keyframes hyTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes hyPriceRun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes hyBlink{0%,49%{opacity:1}50%,100%{opacity:.25}}
+    @keyframes hyIconFall{0%{transform:translateY(0) rotate(-8deg);opacity:0}12%{opacity:1}86%{opacity:1}100%{transform:translateY(108vh) rotate(8deg);opacity:0}}
+    @keyframes hyRuleBreathe{0%,100%{width:18%}50%{width:46%}}
+    @keyframes hyRuleDot{0%,100%{opacity:.18}50%{opacity:1}}
+    @keyframes hyBreathA{0%,100%{transform:scale(.82) translate(0,0)}50%{transform:scale(1.34) translate(6%,4%)}}
+    @keyframes hyBreathB{0%,100%{transform:scale(1.3) translate(0,0)}50%{transform:scale(.84) translate(-6%,-4%)}}
+      .hy-mscrim{position:fixed;inset:0;background:rgba(6,7,14,.6);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:80}
+    .hy-mscrim[data-open="true"]{opacity:1;pointer-events:auto}
+    .hy-mnav{position:fixed;top:0;right:0;bottom:0;width:min(340px,86vw);background:#12131d;border-left:1px solid var(--color-divider);box-shadow:-24px 0 60px rgba(0,0,0,.5);transform:translateX(105%);transition:transform .35s cubic-bezier(.32,.72,.28,1);z-index:81;display:flex;flex-direction:column}
+    .hy-mnav[data-open="true"]{transform:translateX(0)}
+    @media (max-width:900px){
+      [data-navfx]{display:none !important}
+      [data-navcta]{display:none !important}
+      [data-mnav-btn]{display:flex !important}
+      [data-hero-guard="nav"]{top:12px !important;left:auto !important;right:16px !important;padding:0 !important;gap:0 !important;background:none !important;border:none !important;box-shadow:none !important;backdrop-filter:none !important;justify-content:flex-end !important;overflow:visible !important}
+      [data-hero-guard="nav"] > a:first-child{display:none !important}
+      [data-sec="1.1"]{height:auto !important;min-height:100svh !important}
+      [data-hero-copy]{padding:92px 20px 44px !important;gap:16px !important;justify-content:center !important;flex:1 1 auto !important;min-height:0 !important}
+      [data-hero-copy] p{font-size:15.5px !important}
+      [data-hero-guard="ticker"]{position:relative !important;bottom:auto !important;margin-top:20px !important;padding-bottom:22px !important}
+      [data-sec="1.1"]{padding:0 20px 0 20px !important;}
+      [data-sec="2.1"]{padding:104px 20px 0 20px !important;}
+      [data-sec="2.2"]{padding:0 20px 104px 20px !important;}
+      [data-sec="3.1"]{padding:0 20px 104px 20px !important;}
+      [data-sec="4.1"]{padding:88px 20px 88px 20px !important;}
+      [data-sec="5.1"]{padding:104px 20px 104px 20px !important;grid-template-columns:1fr !important;gap:28px !important;}
+      [data-sec="5.2"]{padding:104px 20px 104px 20px !important;grid-template-columns:1fr !important;gap:28px !important;}
+      [data-sec="6.1"]{padding:104px 20px 104px 20px !important;}
+      [data-sec="7.1"]{padding:104px 20px 104px 20px !important;}
+      [data-screen-label="10 Footer"]{padding:80px 20px 0 !important;background-position:20px top !important}
+      [data-mgrid]{grid-template-columns:1fr !important}
+      [data-fgrid]{grid-template-columns:1fr 1fr !important;gap:32px 24px !important}
+      [data-fbar]{flex-wrap:wrap !important;gap:10px !important}
+      [data-fmark]{right:20px !important;width:220px !important}
+      [data-bleed]{margin:0 -20px !important;padding:0 20px !important}
+      [data-chev]{display:none !important}
+      [data-bub]{display:none !important}
+    }
+    @media (max-width:560px){
+      [data-fgrid]{grid-template-columns:1fr !important}
+      [data-cycleline]{white-space:normal !important}
+      [data-hero-copy] > div:first-child{gap:7px !important}
+    }
+</style>
+  <script src="image-slot.js"></script>
+</helmet>
+<div style="min-height:100vh;background:var(--color-bg);color:var(--color-text)">
+
+  <div data-sec="1.1" data-screen-label="01 Hero" style="position:relative;overflow:hidden;height:100vh;min-height:640px;display:flex;flex-direction:column;padding:0;background:var(--color-bg)">
+    <span style="position:absolute;left:-14%;top:-32%;width:64%;height:96%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,#F2905B 26%,transparent),transparent 66%);filter:blur(12px);animation:hyDriftA 46s ease-in-out infinite"></span>
+    <span style="position:absolute;right:-16%;top:-24%;width:58%;height:88%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,#29ABE2 26%,transparent),transparent 66%);filter:blur(12px);animation:hyDriftB 54s ease-in-out -7s infinite"></span>
+    <span style="position:absolute;left:24%;top:18%;width:52%;height:80%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,#9184D9 16%,transparent),transparent 66%);filter:blur(14px);animation:hyDriftC 62s ease-in-out -14s infinite"></span>
+
+    <div data-hero-guard="nav" style="position:fixed;top:20px;left:40px;right:40px;z-index:50;display:flex;align-items:center;gap:clamp(8px,1.15vw,26px);flex-wrap:nowrap;box-sizing:border-box;overflow:hidden;padding:12px 22px;border-radius:999px;background:rgba(41,171,226,.11);border:1px solid rgba(41,171,226,.22);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 12px 32px rgba(0,0,0,.34)">
+      <a href="Homepage.dc.html" style="display:flex;align-items:center;flex:0 0 auto;color:inherit;text-decoration:none"><img data-logo="1" src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:20px;width:auto;display:block"></a>
+      <div data-navfx="07" style="display:flex;align-items:center;padding:12px 0;flex:1 1 auto;min-width:0;overflow:hidden;gap:clamp(5px,.85vw,22px);margin-left:clamp(5px,.85vw,20px);margin-right:8px;margin-top:-12px;margin-bottom:-12px;font-weight:600;font-size:clamp(9.6px,.82vw,13.4px);mask-image:linear-gradient(to right,#000 calc(100% - 18px),transparent);-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 18px),transparent);color:var(--color-neutral-300)"><a href="Office.dc.html" style="color:inherit;white-space:nowrap">Office</a><a href="Call-Centre.dc.html" style="color:inherit;white-space:nowrap">Call Centre</a><a href="Programmable-Telephony.dc.html" style="color:inherit;white-space:nowrap">Programmable</a><a href="Voice%20AI.dc.html" style="color:inherit;white-space:nowrap">Voice AI</a><a href="Data-Centre.dc.html" style="color:inherit;white-space:nowrap">DC &amp; Hosting</a><a href="Software-Development.dc.html" style="color:inherit;white-space:nowrap">Development</a><a href="Wholesale.dc.html" style="color:inherit;white-space:nowrap">Wholesale</a><a href="Consulting.dc.html" style="color:inherit;white-space:nowrap">Consulting</a></div>
+      <span data-navcta="1" class="btn btn-primary" onClick="{{ openDrawer }}" style="flex:0 0 auto;white-space:nowrap;padding:9px clamp(12px,1.4vw,20px);font-size:clamp(12px,.92vw,13px);border-color:#F2905B;color:#F2905B;cursor:pointer">Talk to an engineer</span>
+      <span data-mnav-btn="1" onClick="{{ toggleMnav }}" role="button" aria-label="Menu" style="display:none;flex:0 0 auto;width:44px;height:44px;box-sizing:border-box;align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer;border-radius:9px;border:none;background:#F2905B"><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i></span>
+    </div>
+
+    <span style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
+      <sc-for list="{{ heroIcons }}" as="ic" hint-placeholder-count="12">
+        <i class="{{ ic.cls }}" style="{{ ic.style }}"></i>
+      </sc-for>
+    </span>
+
+    <span style="position:absolute;left:0;right:0;bottom:0;height:300px;display:flex;align-items:flex-end;gap:6px;padding:0 56px;opacity:.18;pointer-events:none;mask-image:linear-gradient(to top,#000,transparent)">
+      <sc-for list="{{ heroBars }}" as="b" hint-placeholder-count="46">
+        <i style="{{ b.style }}"></i>
+      </sc-for>
+    </span>
+
+    <div data-hero-copy="1" style="position:relative;flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px;padding:96px 56px 96px">
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px">
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#F2905B;box-shadow:0 0 8px #F2905B;animation:hyPulse 2.2s ease-in-out .5s infinite"></i>Dual Power</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#F2905B;box-shadow:0 0 8px #F2905B;animation:hyPulse 2.2s ease-in-out 1s infinite"></i>Dual ISP</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#F2905B;box-shadow:0 0 8px #F2905B;animation:hyPulse 2.2s ease-in-out 1.5s infinite"></i>Dual Network</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#F2905B;box-shadow:0 0 8px #F2905B;animation:hyPulse 2.2s ease-in-out 2s infinite"></i>DDoS Protection</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#F2905B;box-shadow:0 0 8px #F2905B;animation:hyPulse 2.2s ease-in-out 2s infinite"></i>Dell Server Farms</span>
+      </div>
+      <h1 style="font:500 clamp(30px,3.6vw,54px)/1.04 var(--font-heading);letter-spacing:-.04em;margin:0;max-width:min(1240px,100%);min-height:2.08em;color:var(--color-neutral-100);text-wrap:balance"><span>A data centre</span><br><span data-cycleline="1" style="white-space:nowrap">built for <span style="{{ cycleStyle }}">{{ cycleWord }}</span>.</span></h1>
+      <p style="font-size:18px;line-height:1.6;color:var(--color-neutral-300);margin:0;max-width:660px">Our purpose-built environment inside Teraco &mdash; Africa’s premier carrier-neutral data centre &mdash; engineered for high-throughput, real-time voice. Every layer is duplicated: power, network, storage and compute, so a single failure never becomes a dropped call.</p>
+      <div style="display:flex;justify-content:center;gap:12px;margin-top:6px">
+        <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:13px 26px;font-size:14.5px;border-color:#F2905B;color:#F2905B;cursor:pointer">Talk to an engineer</span>
+      </div>
+    </div>
+
+    <div data-hero-guard="ticker" style="position:absolute;left:0;right:0;bottom:26px;overflow:hidden;pointer-events:none;mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent)">
+      <div style="display:flex;width:max-content;animation:hyTicker 42s linear infinite;font-family:ui-monospace,Menlo,monospace;font-size:12.4px;letter-spacing:.08em;color:var(--color-neutral-500)">
+        <div style="display:flex;gap:64px;padding-right:64px"><span><b style="color:#F2905B;font-weight:500">Everything</b> &times;2</span><span><b style="color:#F2B84B;font-weight:500">A+B</b> power feeds</span><span><b style="color:#29ABE2;font-weight:500">2&times;10G</b> uplinks</span><span><b style="color:#9184D9;font-weight:500">Automatic</b> failover</span><span><b style="color:#E86FA4;font-weight:500">Carrier-neutral</b> Teraco</span><span><b style="color:#F2905B;font-weight:500">24/7</b> monitoring</span><span><b style="color:#4a8fe8;font-weight:500">RTP-tuned</b> network paths</span></div>
+        <div style="display:flex;gap:64px;padding-right:64px"><span><b style="color:#F2905B;font-weight:500">Everything</b> &times;2</span><span><b style="color:#F2B84B;font-weight:500">A+B</b> power feeds</span><span><b style="color:#29ABE2;font-weight:500">2&times;10G</b> uplinks</span><span><b style="color:#9184D9;font-weight:500">Automatic</b> failover</span><span><b style="color:#E86FA4;font-weight:500">Carrier-neutral</b> Teraco</span><span><b style="color:#F2905B;font-weight:500">24/7</b> monitoring</span><span><b style="color:#4a8fe8;font-weight:500">RTP-tuned</b> network paths</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div data-sec="2.1" data-screen-label="02 Capability heading" style="padding:200px 120px 0;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 26px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Real-time voice does not forgive downtime.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#F2905B">EVERYTHING &times;2</span>
+    </div>
+  </div>
+
+  <div data-sec="2.2" data-screen-label="03 Capability checklist" style="padding:0 120px 200px;background:var(--color-bg)">
+    <div data-mgrid="1" style="display:grid;grid-template-columns:1fr 1fr;gap:0 56px">
+      <sc-for list="{{ feats }}" as="f" hint-placeholder-count="10">
+        <div style="display:flex;gap:14px;padding:22px 0;border-top:1px solid var(--color-divider)">
+          <span style="{{ f.check }}">&#10003;</span>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <span style="font:500 16.5px/1.2 var(--font-heading);letter-spacing:-.015em">{{ f.t }}</span>
+            <span style="font-size:13.4px;line-height:1.58;color:var(--color-neutral-500)">{{ f.d }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div data-sec="3.1" data-screen-label="04 Offer cards" style="padding:0 120px 200px;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 26px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Ways to take the infrastructure.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#F2905B">WHAT WE HOST</span>
+    </div>
+    <div data-bleed="1" style="margin:0 -120px;padding:0 120px;overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent)">
+      <div data-price-drag="1" style="cursor:grab;will-change:transform"><div style="display:flex;width:max-content;user-select:none;touch-action:pan-y;animation:hyPriceRun 52s linear infinite" style-hover="animation-play-state:paused">
+        <div style="display:flex;gap:20px;padding-right:20px">
+          <sc-for list="{{ priceCards }}" as="p" hint-placeholder-count="6">
+            <div style="{{ p.box }}">
+              <span style="{{ p.kicker }}">{{ p.kind }}</span>
+              <span style="font:500 21px/1.2 var(--font-heading);letter-spacing:-.015em">{{ p.title }}</span>
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px">
+                <span style="{{ p.priceStyle }}">{{ p.price }}</span>
+                <span style="font-size:13px;white-space:nowrap;color:var(--color-neutral-500)">{{ p.unit }}</span>
+              </div>
+              <span style="{{ p.rule }}"></span>
+              <span style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-500)">{{ p.note }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:20px;padding-right:20px">
+          <sc-for list="{{ priceCards }}" as="p" hint-placeholder-count="6">
+            <div style="{{ p.box }}">
+              <span style="{{ p.kicker }}">{{ p.kind }}</span>
+              <span style="font:500 21px/1.2 var(--font-heading);letter-spacing:-.015em">{{ p.title }}</span>
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px">
+                <span style="{{ p.priceStyle }}">{{ p.price }}</span>
+                <span style="font-size:13px;white-space:nowrap;color:var(--color-neutral-500)">{{ p.unit }}</span>
+              </div>
+              <span style="{{ p.rule }}"></span>
+              <span style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-500)">{{ p.note }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </div>
+    </div>
+    <span style="display:block;margin-top:22px;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-600)">Drag to browse &middot; quoted per workload</span>
+  </div>
+
+  <div data-sec="4.1" data-screen-label="05 Statement" style="position:relative;overflow:hidden;padding:120px;background:#2a1c42">
+    <span style="position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% -34%,transparent var(--rip) calc(var(--rip) + 11.4px),#170f26 calc(var(--rip) + 12.2px),transparent calc(var(--rip) + 13px));animation:mRip13 1s linear infinite"></span>
+    <span style="position:absolute;left:-10%;right:-10%;top:-24%;height:136%;transform-origin:top;background:radial-gradient(86% 100% at 50% 0%,color-mix(in srgb,#F2905B 76%,transparent),color-mix(in srgb,#F2905B 26%,transparent) 46%,transparent 78%);filter:blur(24px);animation:gTall 10s ease-in-out infinite"></span>
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#F2905B">Built for voice</span>
+      <h2 style="font:500 58px/.98 var(--font-heading);margin:0;letter-spacing:-.038em;color:var(--color-neutral-100)">A web page can retry. A phone call cannot.</h2>
+      <p style="font-size:16.5px;line-height:1.64;color:var(--color-neutral-300);margin:0;max-width:760px">Our environment is engineered around that one truth &mdash; low-latency network paths tuned for RTP, duplicated hardware at every layer, and no single point of failure anywhere in the stack. The same environment suits fintech and anything else that cannot wait &mdash; any high-demand application needing dedicated, enterprise-class resources rather than a share of someone else's.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:8px">
+        <span class="tag tag-outline" style="font-size:12px;color:#F2905B;border-color:color-mix(in srgb,#F2905B 45%,transparent)">Everything &times;2</span>        <span class="tag tag-outline" style="font-size:12px;color:#8CC96B;border-color:color-mix(in srgb,#8CC96B 45%,transparent)">Teraco carrier-neutral</span>        <span class="tag tag-outline" style="font-size:12px;color:#29ABE2;border-color:color-mix(in srgb,#29ABE2 45%,transparent)">A+B power</span>        <span class="tag tag-outline" style="font-size:12px;color:#3FBF9F;border-color:color-mix(in srgb,#3FBF9F 45%,transparent)">Dual ISP uplinks</span>        <span class="tag tag-outline" style="font-size:12px;color:#E86FA4;border-color:color-mix(in srgb,#E86FA4 45%,transparent)">Dual network</span><span class="tag tag-outline" style="font-size:12px;color:#9184D9;border-color:color-mix(in srgb,#9184D9 45%,transparent)">High availability</span>
+      </div>
+    </div>
+  </div>
+
+  <div data-sec="5.1" data-screen-label="06 Detail" style="padding:200px 120px;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;background:var(--color-bg)">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#8CC96B">INSIDE THE RACK</span>
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Rent the iron. We keep it running.</h2>
+      <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0">Dedicated servers rented from us and hosted in our racks &mdash; specified to your workload, deployed in days and backed by our engineers. No capital outlay, no hardware risk, no data centre visits.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:2px">
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Specified to your workload &mdash; voice, database or compute</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Hardware failures are our problem, fixed on our time</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Redundant power and network included</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Scale up by ordering another box, not another budget</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Financing options on longer terms</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#8CC96B">&#10003;</span>Remote hands whenever something needs a physical touch</span>
+      </div>
+    </div>
+    <img src="assets/dc-rack-stack.jpg" alt="Stacked Dell PowerEdge servers wired into the voice network" style="display:block;width:100%;height:420px;object-fit:cover;border-radius:18px;border:1px solid var(--color-divider)">
+  </div>
+
+  <div style="background:var(--color-bg)">
+    <div style="position:relative;height:6px">
+      <span style="position:absolute;left:0;right:0;top:0;height:1px;background:var(--color-divider);mask-image:linear-gradient(to right,#000 calc(100% - 34px),transparent calc(100% - 34px))"></span>
+      <span style="position:absolute;right:24px;top:-1px;width:3px;height:3px;border-radius:50%;background:#29ABE2;animation:hyRuleDot 3.6s ease-in-out infinite"></span>
+      <span style="position:absolute;right:13px;top:-1px;width:3px;height:3px;border-radius:50%;background:#29ABE2;animation:hyRuleDot 3.6s ease-in-out -.4s infinite"></span>
+      <span style="position:absolute;right:2px;top:-1px;width:3px;height:3px;border-radius:50%;background:#29ABE2;animation:hyRuleDot 3.6s ease-in-out -.8s infinite"></span>
+      <span style="position:absolute;left:0;top:3px;height:2px;width:38%;background:linear-gradient(to right,color-mix(in srgb,#29ABE2 60%,transparent),transparent);animation:hyRuleBreathe 9s ease-in-out infinite"></span>
+    </div>
+  </div>
+
+  <div data-sec="5.2" data-screen-label="07 Managed private cloud" style="padding:200px 120px;display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;background:var(--color-bg)">
+    <div style="position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--color-divider);height:420px">
+      <image-slot id="dc-private-cloud" shape="rect" style="width:100%;height:100%" placeholder="Drop the private cloud image here"></image-slot>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#29ABE2">MANAGED PRIVATE CLOUD</span>
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Your own private cloud, without the unknowns.</h2>
+      <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0;text-wrap:pretty">We help clients design, build and manage their own private cloud infrastructure &mdash; and we take away the unknown, scary parts of it. Standing up your own hypervisor means its own network and ISP links, hardware chosen correctly the first time, and the foresight to design for the growth you have not had yet. We have done it enough times to know where it hurts.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:2px">
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Hypervisor design, build and ongoing management</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Its own network fabric, isolated from everything else</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Redundant ISP links, sized for the traffic you run</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Hardware specified for the workload, not the brochure</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Headroom planned in, so growth is an addition not a rebuild</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Hosted in our racks, or in yours, or split across both</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Financing available on the build, so it need not be capital up front</span>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:12px 26px;border-color:#29ABE2;color:#29ABE2;cursor:pointer">Talk to an engineer</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--color-bg)">
+    <div style="position:relative;height:6px">
+      <span style="position:absolute;left:0;right:0;top:0;height:1px;background:var(--color-divider);mask-image:linear-gradient(to right,#000 calc(100% - 34px),transparent calc(100% - 34px))"></span>
+      <span style="position:absolute;right:24px;top:-1px;width:3px;height:3px;border-radius:50%;background:#9184D9;animation:hyRuleDot 3.6s ease-in-out infinite"></span>
+      <span style="position:absolute;right:13px;top:-1px;width:3px;height:3px;border-radius:50%;background:#9184D9;animation:hyRuleDot 3.6s ease-in-out -.4s infinite"></span>
+      <span style="position:absolute;right:2px;top:-1px;width:3px;height:3px;border-radius:50%;background:#9184D9;animation:hyRuleDot 3.6s ease-in-out -.8s infinite"></span>
+      <span style="position:absolute;left:0;top:3px;height:2px;width:38%;background:linear-gradient(to right,color-mix(in srgb,#9184D9 60%,transparent),transparent);animation:hyRuleBreathe 9s ease-in-out infinite"></span>
+    </div>
+  </div>
+
+  <div data-sec="6.1" data-screen-label="08 FAQ" style="padding:200px 120px;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 26px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">More about the data centre.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#9184D9">QUESTIONS WE GET</span>
+    </div>
+    <div style="display:flex;flex-direction:column;max-width:900px">
+      <details name="pg-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">Where is it?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">Inside Teraco Isando, Johannesburg &mdash; Africa’s premier carrier-neutral facility &mdash; which is why we can reach so many networks in so few hops.</p>
+      </details>
+      <details name="pg-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">Can we bring our own hardware?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">Yes. Colocation is available by the U or by the rack, in the same voice-tuned environment we run our own platforms on.</p>
+      </details>
+      <details name="pg-faq" style="border-top:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">Do you manage the operating system and software too?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">On managed services, yes: patching, monitoring, backups and the pager. On unmanaged rentals we hand you the keys and keep the hardware healthy.</p>
+      </details>
+      <details name="pg-faq" style="border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);padding:4px 0">
+        <summary style="cursor:pointer;padding:18px 0;font-size:16px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-200)">What happens when something fails at 2am?</summary>
+        <p style="font-size:14px;line-height:1.65;color:var(--color-neutral-400);margin:0 0 18px;max-width:700px">Redundancy absorbs it and monitoring wakes an engineer. That is the whole point of duplicating every layer.</p>
+      </details>
+    </div>
+  </div>
+
+  <div style="background:var(--color-bg)">
+    <div style="position:relative;height:6px">
+      <span style="position:absolute;left:0;right:0;top:0;height:1px;background:var(--color-divider);mask-image:linear-gradient(to right,#000 calc(100% - 34px),transparent calc(100% - 34px))"></span>
+      <span style="position:absolute;right:24px;top:-1px;width:3px;height:3px;border-radius:50%;background:#F2905B;animation:hyRuleDot 3.6s ease-in-out infinite"></span>
+      <span style="position:absolute;right:13px;top:-1px;width:3px;height:3px;border-radius:50%;background:#F2905B;animation:hyRuleDot 3.6s ease-in-out -.4s infinite"></span>
+      <span style="position:absolute;right:2px;top:-1px;width:3px;height:3px;border-radius:50%;background:#F2905B;animation:hyRuleDot 3.6s ease-in-out -.8s infinite"></span>
+      <span style="position:absolute;left:0;top:3px;height:2px;width:38%;background:linear-gradient(to right,color-mix(in srgb,#F2905B 60%,transparent),transparent);animation:hyRuleBreathe 9s ease-in-out infinite"></span>
+    </div>
+  </div>
+
+  <div data-sec="7.1" data-screen-label="09 Close" style="position:relative;overflow:hidden;isolation:isolate;padding:200px 120px;display:flex;flex-direction:column;gap:18px;background:var(--color-bg)">
+    <div data-chev="1" style="position:absolute;right:90px;bottom:-56px;z-index:-1;display:flex;gap:26px;pointer-events:none"><span style="position:relative;display:block;width:120px;height:280px;background:color-mix(in srgb,#F2905B 78%,transparent);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"><span style="position:absolute;inset:3px;background:var(--color-bg);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"></span></span><span style="position:relative;display:block;width:120px;height:280px;background:color-mix(in srgb,#F2905B 78%,transparent);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"><span style="position:absolute;inset:3px;background:var(--color-bg);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"></span></span></div>
+    <div style="display:flex;align-items:baseline;gap:14px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Need infrastructure that never sleeps?</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#F2905B">NEXT STEP</span>
+    </div>
+    <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0;max-width:560px">Tell us your workload &mdash; we will spec the hardware, wire the redundancy and carry the pager.</p>
+    <p style="position:relative;font-size:14.5px;line-height:1.6;color:var(--color-neutral-500);margin:0;max-width:560px">Not sure which of these you need? Meet with us and we will work through the requirement together &mdash; we would rather scope it properly than sell you the wrong thing.</p>
+    <div style="display:flex;gap:12px;margin-top:8px">
+      <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:12px 26px;border-color:#F2905B;color:#F2905B;cursor:pointer">Talk to an engineer</span>
+    </div>
+  </div>
+
+  <div data-screen-label="10 Footer" style="position:relative;overflow:hidden;padding:112px 120px 0;background:linear-gradient(to right,transparent,var(--color-divider) 120px,var(--color-divider) calc(100% - 120px),transparent) no-repeat top / 100% 1px">
+    <img data-fmark="1" src="assets/logo-africa-mark.png" alt="" style="position:absolute;right:120px;bottom:24px;width:374px;height:auto;filter:grayscale(1) brightness(.05);opacity:.12;pointer-events:none;user-select:none">
+    <span style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 20%,rgba(0,0,0,.7));pointer-events:none"></span>
+    <span style="position:absolute;left:-4%;top:0;width:42%;height:74%;background:radial-gradient(60% 70% at 30% 30%,color-mix(in srgb,#F2905B 12%,transparent),transparent 72%);filter:blur(40px);animation:fSpot 13s ease-in-out infinite;pointer-events:none"></span>
+    <div data-fgrid="1" style="position:relative;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:48px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:18px;max-width:300px">
+        <div style="display:flex;align-items:center">
+          <a href="Homepage.dc.html" style="display:block;text-decoration:none"><img data-logo="1" src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:26px;width:auto;display:block"></a>
+        </div>
+        <p style="font-size:14.2px;line-height:1.65;color:var(--color-neutral-400);margin:0">We build and host large-scale telecommunication applications &mdash; software development, hosting and support are our biggest divisions. We own the whole stack: data centre, ISP, hypervisor and the software that runs on it.</p>
+        <a href="#" style="width:34px;height:34px;border-radius:50%;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-size:12.6px;font-weight:600;color:var(--color-neutral-300);text-decoration:none" style-hover="border-color:#F2905B;color:#F2905B">in</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Services</span>
+        <a href="Office.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">Office Telephony</a>
+        <a href="Call-Centre.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">Call Centre Telephony</a>
+        <a href="Programmable-Telephony.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">Programmable Telephony</a>
+        <a href="Voice%20AI.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">Voice AI Agents</a>
+        <a href="Data-Centre.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">Data Centre &amp; Hosting</a>
+        <a href="Software-Development.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">Software Development</a>
+        <a href="Wholesale.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">Wholesale &amp; Resellers</a>
+        <a href="Consulting.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">Consulting</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Contact</span>
+        <a href="mailto:sales@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">sales@bizvoip.co.za</a>
+        <a href="mailto:support@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">support@bizvoip.co.za</a>
+        <a href="mailto:accounts@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">accounts@bizvoip.co.za</a>
+        <a href="tel:+27876543210" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">+27 87 654 3210</a>
+        <span style="font-size:14.2px;color:var(--color-neutral-400);line-height:1.25">Cape Town, South Africa</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Company</span>
+        <a href="POPIA.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">Privacy Policy</a>
+        <a href="Company-Info.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">Company Info</a>
+        <a href="Arch1medes.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#F2905B">Arch1medes Platform</a>
+      </div>
+    </div>
+    <div data-fbar="1" style="display:flex;align-items:center;gap:24px;margin-top:48px;padding:22px 0 28px;border-top:2px solid var(--color-divider);font-size:13.1px;color:var(--color-neutral-500)">
+      <span>&copy; 2026 Bizvoip (Pty) Ltd. All rights reserved.</span>
+      <span style="margin-left:auto">Reg 2020/637692/07 &middot; Cape Town, South Africa</span>
+    </div>
+  </div>
+
+  <div class="hy-overlay" data-open="{{ drawerOpen }}" onClick="{{ closeDrawer }}"></div>
+  <div class="hy-drawer" data-open="{{ drawerOpen }}" data-screen-label="Contact drawer">
+    <div style="display:flex;align-items:center;gap:12px;padding:20px 26px;border-bottom:1px solid var(--color-divider)">
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <span style="font-size:17px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-100)">Talk to an engineer</span>
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#F2905B">{{ drawerRef }}</span>
+      </div>
+      <span onClick="{{ closeDrawer }}" style="margin-left:auto;cursor:pointer;width:32px;height:32px;border-radius:8px;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--color-neutral-400)" style-hover="border-color:#F2905B;color:#F2905B">&times;</span>
+    </div>
+    <sc-if value="{{ drawerSent }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:64px 32px;text-align:center">
+        <span style="width:46px;height:46px;border-radius:50%;background:color-mix(in srgb,#F2905B 16%,transparent);display:flex;align-items:center;justify-content:center;font-size:20px;color:#F2905B">&#10003;</span>
+        <span style="font-size:17px;font-weight:500;color:var(--color-neutral-100)">Request sent</span>
+        <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-400);margin:0;max-width:290px">An engineer &mdash; not a call centre &mdash; will come back to you within one business day.</p>
+        <span class="btn btn-secondary" onClick="{{ closeDrawer }}" style="margin-top:8px;padding:9px 20px;cursor:pointer">Close</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ drawerFormVisible }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:12px;padding:24px 26px;overflow-y:auto">
+        <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-400);margin:0">Tell us what you need and we will put the right engineer on it.</p>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">What are you interested in? <span style="color:#F2905B">*</span> <span style="letter-spacing:0;text-transform:none;color:var(--color-neutral-600)">pick up to 2</span></label>
+          <div data-mgrid="1" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <sc-for list="{{ interests }}" as="o" hint-placeholder-count="4">
+              <span onClick="{{ o.toggle }}" style="{{ o.style }}"><i style="{{ o.boxStyle }}">{{ o.check }}</i>{{ o.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Full name <span style="color:#F2905B">*</span></label>
+          <input class="hy-field" placeholder="Your name" onInput="{{ setName }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Company <span style="color:#F2905B">*</span></label>
+          <input class="hy-field" placeholder="Company name" onInput="{{ setCompany }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Email <span style="color:#F2905B">*</span></label>
+          <input class="hy-field" type="email" placeholder="you@company.co.za" onInput="{{ setEmail }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Phone <span style="color:#F2905B">*</span></label>
+          <input class="hy-field" type="tel" placeholder="0876543210" onInput="{{ setPhone }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Message</label>
+          <textarea class="hy-field" rows="4" placeholder="Anything else we should know"></textarea>
+        </div>
+        <span class="btn btn-primary" onClick="{{ sendDrawer }}" style="{{ sendStyle }}">Send request</span>
+        <sc-if value="{{ showMissing }}" hint-placeholder-val="{{ false }}">
+          <span style="font-size:11.8px;line-height:1.5;color:#F2905B">{{ missingText }}</span>
+        </sc-if>
+        <span style="font-size:11.5px;line-height:1.55;color:var(--color-neutral-500)">Or email <a href="mailto:sales@bizvoip.co.za">sales@bizvoip.co.za</a> &middot; +27 87 654 3210 (M&ndash;F 8am&ndash;5pm)</span>
+      </div>
+    </sc-if>
+  </div>
+
+  <div class="hy-mscrim" data-open="{{ mnavOpen }}" onClick="{{ closeMnav }}"></div>
+  <div class="hy-mnav" data-open="{{ mnavOpen }}" data-screen-label="Mobile menu">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--color-divider)">
+      <img src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:19px;width:auto;display:block">
+      <span onClick="{{ closeMnav }}" role="button" aria-label="Close" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;font-size:26px;line-height:1;color:var(--color-neutral-300);cursor:pointer">&times;</span>
+    </div>
+    <div style="display:flex;flex-direction:column;padding:8px 20px 20px;overflow-y:auto">
+      <a href="Office.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#F2905B">Office Telephony</a>
+      <a href="Call-Centre.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#F2905B">Call Centre Telephony</a>
+      <a href="Programmable-Telephony.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#F2905B">Programmable Telephony</a>
+      <a href="Voice%20AI.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#F2905B">Voice AI Agents</a>
+      <a href="Data-Centre.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#F2905B">Data Centre &amp; Hosting</a>
+      <a href="Software-Development.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#F2905B">Software Development</a>
+      <a href="Wholesale.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#F2905B">Wholesale Carrier</a>
+      <a href="Consulting.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#F2905B">Consulting</a>
+      <a href="Arch1medes.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#F2905B">Arch1medes</a>
+      <a href="Company-Info.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#F2905B">Company</a>
+      <span class="btn btn-primary" onClick="{{ openDrawerFromMnav }}" style="margin-top:22px;justify-content:center;padding:14px 20px;font-size:14.5px;border-color:#F2905B;color:#F2905B;cursor:pointer;text-align:center">Talk to an engineer</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  static ACC = '#F2905B';
+  static W = [['voice', '#F2905B'], ['real time', '#9184D9'], ['uptime', '#8CC96B'], ['low latency', '#29ABE2'], ['redundancy', '#F2B84B'], ['scale', '#E86FA4']];
+
+  static I = ['ph-hard-drives', 'ph-hard-drive', 'ph-database', 'ph-buildings', 'ph-network', 'ph-network-x', 'ph-share-network', 'ph-tree-structure', 'ph-cloud', 'ph-cloud-arrow-up', 'ph-cloud-check', 'ph-stack'];
+
+  static F = [
+    ['01', 'Duplicated power', 'A+B feeds with UPS and generator behind them, so a utility failure is a non-event.', '#29ABE2'],
+    ['02', 'Duplicated network', 'Redundant 10G uplinks on separate paths, with automatic failover between them.', '#F2B84B'],
+    ['03', 'Duplicated storage and compute', 'Replicated storage and clustered compute — no single box carries your service.', '#6C8CFF'],
+    ['04', 'Dual ISP connectivity', 'Two independent ISPs, each reached over dual fibre links, so no cable or carrier is a single point of failure.', '#E86FA4'],
+    ['05', 'Real-time DDoS protection', 'Attack traffic scrubbed in real time via BGP route injection, before it reaches our hardware or services.', '#8CC96B'],
+    ['06', 'Managed private cloud', 'Clustered compute, replicated databases and orchestration run as a service.', '#F2905B'],
+    ['07', 'Disaster recovery', 'Standby capacity and replication, so a bad afternoon never becomes a bad month.', '#9184D9'],
+    ['08', 'AWS backup options', 'Recordings and databases pushed off-site with retention rules you choose.', '#3FBF9F'],
+    ['09', '24/7 monitoring and alerting', 'Real-time alerting on the things that matter, watched by people who can fix them.', '#B95FC4'],
+    ['10', 'Multi-tenant ready', 'Resell capacity to your own clients on infrastructure that carries your brand.', '#29ABE2']
+  ];
+
+  static P = [
+    ['rentals', '#F2905B', 'Dedicated server rental', 'On quote', 'per server / month', 'Specified to your workload and hosted in our racks. Hardware failures are our problem, on our time.'],
+    ['colocation', '#29ABE2', 'Colocation', 'On quote', 'by the U or the rack', 'Bring your own hardware into a voice-tuned environment with redundant power and uplinks.'],
+    ['cloud', '#9184D9', 'Managed private cloud', 'On quote', 'per cluster / month', 'Docker swarms, VMs or bare metal, designed and operated by us while you consume capacity.'],
+    ['dr', '#F2B84B', 'Disaster recovery', 'On quote', 'per cluster / month', 'Standby cluster with database replication and a tested failover path.'],
+    ['backups', '#E86FA4', 'AWS backups', 'On quote', 'recordings and database', 'Off-site backups of recordings and databases, with retention you control.'],
+    ['monitoring', '#F2905B', 'Monitoring and alerting', 'Included', 'on managed services', '24/7 monitoring with real-time alerting, and engineers who answer the alert.']
+  ];
+
+  state = { tick: 0 , dOpen: false, dSent: false, scope: '', f: { name: '', company: '', email: '', phone: '' }, tried: false, sec: '' };
+
+
+  _markCurrentNav(tries) {
+    const t = tries || 0;
+    const cur = decodeURIComponent((location.pathname.split('/').pop() || '')).toLowerCase();
+    const links = document.querySelectorAll('[data-navfx] a, .hy-mnav a');
+    if (!links.length) { if (t < 20) setTimeout(() => this._markCurrentNav(t + 1), 150); return; }
+    links.forEach(a => {
+      const href = decodeURIComponent((a.getAttribute('href') || '').split('/').pop()).toLowerCase();
+      if (href && cur && href === cur) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  componentDidMount() {
+    this._markCurrentNav(0);
+    this._t = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1800);
+    this._priceInit();
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+
+  _priceInit() {
+    // rAF is unreliable in this host, so the marquee is CSS-driven; drag is bound on
+    // the document (survives remounts) and nudges a wrapper transform
+    if (this._pBound) return;
+    this._pBound = true;
+    const wrapOf = e => (e.target && e.target.closest ? e.target.closest('[data-price-drag]') : null);
+    const inner = w => w && w.firstElementChild;
+    document.addEventListener('pointerdown', e => {
+      const w = wrapOf(e);
+      if (!w) return;
+      if (e.target && e.target.closest && e.target.closest('a')) return; // let card links click through
+      this._pW = w; this._pDrag = true; this._pX = e.clientX;
+      w.style.cursor = 'grabbing';
+      const t = inner(w); if (t) t.style.animationPlayState = 'paused';
+      e.preventDefault();
+    });
+    document.addEventListener('pointermove', e => {
+      if (!this._pDrag || !this._pW) return;
+      const t = inner(this._pW), half = t ? t.scrollWidth / 2 : 0;
+      this._pOff = (this._pOff || 0) + (e.clientX - this._pX);
+      this._pX = e.clientX;
+      if (half) this._pOff = ((this._pOff % half) + half) % half - half;
+      this._pW.style.transform = 'translateX(' + this._pOff.toFixed(1) + 'px)';
+    });
+    const end = () => {
+      if (!this._pDrag) return;
+      this._pDrag = false;
+      const w = this._pW;
+      if (w) { w.style.cursor = 'grab'; const t = inner(w); if (t) t.style.animationPlayState = ''; }
+    };
+    document.addEventListener('pointerup', end);
+    document.addEventListener('pointercancel', end);
+  }
+
+  _icons() {
+    const NAMES = Component.I;
+    const list = NAMES.concat(NAMES).concat(NAMES.slice(0, 3));
+    let s = 41;
+    const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    const sizes = list.map(() => 26 + Math.round(rnd() * 44));
+    const maxW = Math.max.apply(null, sizes) / 1200 * 100;
+    const LANES = Math.max(3, Math.min(9, Math.floor(97 / (maxW + 1.5))));
+    const gap = LANES > 1 ? (97 - maxW) / (LANES - 1) : 0;
+    const maxS = Math.max.apply(null, sizes);
+    const perLane = Math.max(1, Math.floor(760 / (maxS * 2.2)));
+    const buckets = [], durs = [];
+    for (let l = 0; l < LANES; l++) { buckets.push([]); durs.push(17 + rnd() * 13); }
+    const order = list.map((_, i) => i);
+    for (let k = order.length - 1; k > 0; k--) { const q = Math.floor(rnd() * (k + 1)), t = order[k]; order[k] = order[q]; order[q] = t; }
+    order.forEach((idx, k) => { const l = k % LANES; if (buckets[l].length < perLane) buckets[l].push(idx); });
+    const laneOf = {}, phase = {};
+    const minSep = (maxS * 2.2) / 760;
+    buckets.forEach((b, l) => {
+      const n = b.length, sep = Math.min(0.95 / Math.max(1, n), minSep);
+      const free = Math.max(0, 1 - n * sep), u = [];
+      for (let k = 0; k < n; k++) u.push(rnd());
+      u.sort((a, c) => a - c);
+      b.forEach((idx, k) => { laneOf[idx] = l; phase[idx] = sep * k + free * u[k]; });
+    });
+    return list.map((name, i) => {
+      const lane = laneOf[i];
+      if (lane == null) return null;
+      const size = sizes[i];
+      const x = lane * gap + rnd() * Math.max(0, maxW - size / 1200 * 100);
+      const dur = durs[lane], delay = -phase[i] * dur;
+      const op = (0.3 + rnd() * 0.26).toFixed(2);
+      return {
+        cls: 'ph ' + name,
+        style: 'position:absolute;top:-6%;left:' + x.toFixed(1) + '%;font-size:' + size + 'px;line-height:1;font-style:normal;color:rgba(0,0,0,' + op + ');animation:hyIconFall ' + dur.toFixed(1) + 's linear ' + delay.toFixed(1) + 's infinite'
+      };
+    }).filter(Boolean);
+  }
+
+  _bars(n, seed, h, w, col, dur) {
+    let s = seed;
+    const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    return Array.from({ length: n }, () => {
+      const hh = (0.18 + rnd() * 0.82) * h;
+      return { style: 'display:block;flex:1;min-width:' + w + 'px;height:' + hh.toFixed(0) + 'px;border-radius:3px;background:' + col + ';transform-origin:bottom;animation:hyBar ' + (dur + rnd() * 0.9).toFixed(2) + 's ease-in-out ' + (-rnd() * 2).toFixed(2) + 's infinite' };
+    });
+  }
+
+  _setF(k, v) { this.setState(s => { const f = Object.assign({}, s.f); f[k] = v; return { f: f }; }); }
+
+  _missing() {
+    const f = this.state.f, out = [];
+    if (!String(this.state.scope || '').trim()) out.push('your requirement');
+    if (!f.name.trim()) out.push('full name');
+    if (!f.company.trim()) out.push('company');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.trim())) out.push('a valid email');
+    if (!f.phone.trim()) out.push('phone');
+    return out;
+  }
+
+  _sec(e) {
+    const t = e && e.target && e.target.closest ? e.target.closest('[data-screen-label]') : null;
+    const l = t ? (t.getAttribute('data-screen-label') || '') : '';
+    return l.replace(/^[0-9]+\s*/, '').toLowerCase();
+  }
+
+
+  _interests() {
+    const opts = ['Colocation', 'Server Rental', 'Managed Clouds', 'Financing'];
+    const sel = this.state.interests || [];
+    return opts.map(label => {
+      const on = sel.indexOf(label) >= 0;
+      const full = !on && sel.length >= 2;
+      return {
+        label: label,
+        check: on ? '\u2713' : '',
+        toggle: () => {
+          const cur = this.state.interests || [];
+          const has = cur.indexOf(label) >= 0;
+          if (has) this.setState({ interests: cur.filter(x => x !== label) });
+          else if (cur.length < 2) this.setState({ interests: cur.concat([label]) });
+        },
+        style: 'box-sizing:border-box;display:flex;align-items:center;gap:9px;min-height:40px;padding:0 11px;border-radius:9px;font-size:13.2px;user-select:none;'
+          + 'border:1px solid ' + (on ? '#F2905B' : 'var(--color-divider)')
+          + ';background:' + (on ? 'color-mix(in srgb,#F2905B 12%,transparent)' : 'color-mix(in srgb,var(--color-text) 3%,transparent)')
+          + ';color:' + (on ? 'var(--color-neutral-100)' : full ? 'var(--color-neutral-600)' : 'var(--color-neutral-300)')
+          + ';cursor:' + (full ? 'not-allowed' : 'pointer')
+          + ';transition:border-color .2s ease,background .2s ease,color .2s ease',
+        boxStyle: 'flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:4px;font-size:10.5px;font-style:normal;line-height:1;'
+          + 'border:1px solid ' + (on ? '#F2905B' : 'var(--color-neutral-600)')
+          + ';background:' + (on ? '#F2905B' : 'transparent') + ';color:#12131d'
+      };
+    });
+  }
+
+  renderVals() {
+    const feats = Component.F.map(f => ({
+      n: f[0], t: f[1], d: f[2],
+      check: 'font-family:ui-monospace,Menlo,monospace;font-weight:700;color:' + f[3]
+    }));
+    const cards = Component.P.map(p => ({
+      kind: p[0], title: p[2], price: p[3], unit: p[4], note: p[5],
+      box: 'position:relative;overflow:hidden;flex:none;width:min(380px,78vw);box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:30px 28px 28px;border-radius:var(--radius-md,8px);border:1px solid color-mix(in srgb,' + p[1] + ' 26%,var(--color-divider));background:linear-gradient(160deg,color-mix(in srgb,' + p[1] + ' 9%,transparent),transparent 62%),var(--color-surface,#1b1d2b)',
+      kicker: 'font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:' + p[1],
+      priceStyle: 'font:500 42px/1 var(--font-heading);letter-spacing:-.035em;white-space:nowrap;color:' + p[1],
+      rule: 'height:1px;background:linear-gradient(to right,color-mix(in srgb,' + p[1] + ' 40%,transparent),transparent)'
+    }));
+    const w = Component.W[Math.floor(this.state.tick / 4) % Component.W.length];
+    return {
+      mnavOpen: !!this.state.mnavOpen,
+      toggleMnav: () => this.setState(s => ({ mnavOpen: !s.mnavOpen })),
+      closeMnav: () => this.setState({ mnavOpen: false }),
+      openDrawerFromMnav: () => this.setState({ mnavOpen: false, dOpen: true, dSent: false }),
+      interests: this._interests(),
+      drawerRef: 'bizvoip.co.za \u00b7 data centre & hosting' + (this.state.sec ? ' \u00b7 ' + this.state.sec : ''),
+      drawerOpen: this.state.dOpen,
+      drawerSent: this.state.dOpen && this.state.dSent,
+      drawerFormVisible: !this.state.dSent,
+      openDrawer: e => this.setState({ dOpen: true, dSent: false, sec: this._sec(e) }),
+      closeDrawer: () => this.setState({ dOpen: false }),
+      sendDrawer: () => this._missing().length ? this.setState({ tried: true }) : this.setState({ dSent: true, tried: false }),
+      setScope: e => this.setState({ scope: e.target.value }),
+      setName: e => this._setF('name', e.target.value),
+      setCompany: e => this._setF('company', e.target.value),
+      setEmail: e => this._setF('email', e.target.value),
+      setPhone: e => this._setF('phone', e.target.value),
+      sendStyle: 'cursor:pointer;justify-content:center;padding:12px 20px;transition:all .2s ease;' + (this._missing().length ? 'border-color:var(--color-divider);color:var(--color-neutral-600)' : 'border-color:#F2905B;color:#F2905B'),
+      showMissing: this.state.tried && this._missing().length > 0,
+      missingText: this._missing().length ? 'Still needed: ' + this._missing().join(', ') + '.' : '',
+      cycleWord: w[0],
+      cycleStyle: 'display:inline-block;color:' + w[1] + ';animation:' + (Math.floor(this.state.tick / 4) % 2 ? 'hyWordA' : 'hyWordB') + ' .7s cubic-bezier(.2,.8,.2,1) both',
+      heroBars: this._bars(46, 11, 260, 6, 'rgba(0,0,0,1)', 1.6),
+      panelBars: this._bars(30, 29, 74, 4, 'color-mix(in srgb,' + Component.ACC + ' 55%,transparent)', 1.2),
+      heroIcons: this._icons(),
+      racks: (() => {
+        const unitRow = (hue, seed) => Array.from({ length: 8 }, (_, i) => {
+          const on = (i * 7 + seed) % 3 === 0;
+          return { style: 'flex:1;height:16px;border-radius:2px;background:' + (on ? hue : 'rgba(255,255,255,.10)') + ';opacity:' + (on ? '.85' : '1') };
+        });
+        const row = (t, tag, hue, dur, del, seed) => ({
+          t: t, tag: tag,
+          dot: 'width:6px;height:6px;border-radius:50%;background:' + hue + ';animation:hyPulse ' + dur + ' ease-in-out ' + del + ' infinite',
+          tagStyle: 'margin-left:auto;color:' + hue,
+          units: unitRow(hue, seed)
+        });
+        return [
+          row('voice cluster A', 'primary', '#F2905B', '2s', '0s', 1),
+          row('voice cluster B', 'mirror', '#29ABE2', '2.4s', '-0.6s', 2),
+          row('database A', 'primary', '#8CC96B', '2.2s', '-1s', 4),
+          row('database B', 'replica', '#9184D9', '2.6s', '-1.4s', 5),
+          row('network A', 'active', '#F2B84B', '2.3s', '-0.3s', 3),
+          row('network B', 'standby', '#F2905B', '2.7s', '-1.8s', 6)
+        ];
+      })(),
+      feats: feats,
+      priceCards: cards
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/nocturne-cf13df9a-1202-4913-b4c6-5d7053bf32d9/styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <script src="_ds/nocturne-cf13df9a-1202-4913-b4c6-5d7053bf32d9/_ds_bundle.js"></script>
+  <style>
+    @keyframes fSpot{0%,100%{opacity:.55;transform:translateX(-2%)}50%{opacity:1;transform:translateX(2%)}}
+    @keyframes nOvershoot{0%,100%{transform:translateX(0)}18%{transform:translateX(18px)}30%{transform:translateX(-3px)}42%{transform:translateX(0)}}
+    [data-chev]{animation:nOvershoot 3s cubic-bezier(.2,.8,.3,1) infinite}
+    @keyframes gTall{0%,100%{opacity:.7;transform:scaleY(.9)}50%{opacity:1;transform:scaleY(1.16)}}
+    @keyframes mGlowLive{0%,100%{opacity:.62;transform:scaleX(1)}50%{opacity:1;transform:scaleX(1.08)}}
+    @property --rip{syntax:'<length>';inherits:false;initial-value:0px}
+    @keyframes mRip13{from{--rip:0px}to{--rip:13px}}
+    @keyframes mRiseTop{0%,100%{transform:scaleY(.82);opacity:.72}50%{transform:scaleY(1.18);opacity:1}}
+    .hy-overlay{position:fixed;inset:0;background:rgba(6,7,14,.55);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:60}
+    .hy-overlay[data-open="true"]{opacity:1;pointer-events:auto}
+    .hy-drawer{position:fixed;--acc-drawer:1;--color-accent:#9184D9;--color-accent-300:color-mix(in srgb,#9184D9 74%,var(--color-text));--color-accent-400:color-mix(in srgb,#9184D9 88%,var(--color-text));top:0;right:0;bottom:0;width:460px;max-width:92vw;background:#12131d;border-left:1px solid var(--color-divider);box-shadow:-24px 0 60px rgba(0,0,0,.5);transform:translateX(104%);transition:transform .34s cubic-bezier(.22,.8,.2,1);z-index:61;display:flex;flex-direction:column;overflow:hidden}
+    .hy-drawer[data-open="true"]{transform:translateX(0)}
+    .hy-field{width:100%;box-sizing:border-box;background:color-mix(in srgb,var(--color-text) 4%,transparent);border:1px solid var(--color-divider);border-radius:9px;padding:11px 13px;font-family:var(--font-body);font-size:13.6px;color:var(--color-text);outline:none}
+    .hy-field:focus{border-color:#29ABE2}
+    .hy-field::placeholder{color:var(--color-neutral-600)}
+    @keyframes hyLogoSpin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+    @keyframes hyLogoIdle{0%,87%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+    [data-logo]{transform-style:preserve-3d;animation:hyLogoIdle 10s ease-in-out infinite}
+    a:hover [data-logo]{animation:hyLogoSpin 1.2s ease-in-out}
+    [data-navfx] a[aria-current="page"],.hy-mnav a[aria-current="page"]{color:#3B9EE8 !important;font-weight:600}
+    [data-navfx] a{position:relative;display:inline-block;text-decoration:none;transition:color .2s ease,transform .22s cubic-bezier(.2,.7,.3,1)}
+    [data-navfx="07"] a:hover{color:#29ABE2;transform:translateY(-3px)}
+    @keyframes hyBtnGlow{0%,100%{box-shadow:0 0 14px -6px currentColor}50%{box-shadow:0 0 34px -2px currentColor}}
+    .btn:hover{animation:hyBtnGlow 1.5s ease-in-out infinite;background:color-mix(in srgb,currentColor 8%,transparent)}
+    body{margin:0;background:var(--color-bg);font-family:var(--font-body)}
+    a{color:#3B9EE8;text-decoration:none}a:hover{color:#8FA8FF}
+    @keyframes hyDriftA{0%{transform:translate(0,0) scale(1)}25%{transform:translate(3%,2%) scale(1.05)}50%{transform:translate(1%,4%) scale(1.02)}75%{transform:translate(-2%,1%) scale(1.06)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes hyDriftB{0%{transform:translate(0,0) scale(1.02)}25%{transform:translate(-3%,3%) scale(1)}50%{transform:translate(-1%,-2%) scale(1.05)}75%{transform:translate(2%,2%) scale(1.01)}100%{transform:translate(0,0) scale(1.02)}}
+    @keyframes hyDriftC{0%{transform:translate(0,0) scale(1)}25%{transform:translate(2%,-3%) scale(1.04)}50%{transform:translate(-2%,-1%) scale(1)}75%{transform:translate(-1%,3%) scale(1.05)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes hyBar{0%,100%{transform:scaleY(.18)}50%{transform:scaleY(1)}}
+    @keyframes hyPulse{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:1;transform:scale(1.2)}}
+    @keyframes hyWordA{0%{opacity:0;transform:translateY(18px)}60%{opacity:1}100%{opacity:1;transform:translateY(0)}}
+    @keyframes hyWordB{0%{opacity:0;transform:translateY(18px)}60%{opacity:1}100%{opacity:1;transform:translateY(0)}}
+    @keyframes hyTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes hyPriceRun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes hyIconFall{0%{transform:translateY(0) rotate(-8deg);opacity:0}12%{opacity:1}86%{opacity:1}100%{transform:translateY(108vh) rotate(8deg);opacity:0}}
+    @keyframes hyRuleBreathe{0%,100%{width:18%}50%{width:46%}}
+    @keyframes hyRuleDot{0%,100%{opacity:.18}50%{opacity:1}}
+    @keyframes hyBreathA{0%,100%{transform:scale(.82) translate(0,0)}50%{transform:scale(1.34) translate(6%,4%)}}
+    @keyframes hyBreathB{0%,100%{transform:scale(1.3) translate(0,0)}50%{transform:scale(.84) translate(-6%,-4%)}}
+      .hy-mscrim{position:fixed;inset:0;background:rgba(6,7,14,.6);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:80}
+    .hy-mscrim[data-open="true"]{opacity:1;pointer-events:auto}
+    .hy-mnav{position:fixed;top:0;right:0;bottom:0;width:min(340px,86vw);background:#12131d;border-left:1px solid var(--color-divider);box-shadow:-24px 0 60px rgba(0,0,0,.5);transform:translateX(105%);transition:transform .35s cubic-bezier(.32,.72,.28,1);z-index:81;display:flex;flex-direction:column}
+    .hy-mnav[data-open="true"]{transform:translateX(0)}
+    @media (max-width:900px){
+      [data-navfx]{display:none !important}
+      [data-navcta]{display:none !important}
+      [data-mnav-btn]{display:flex !important}
+      [data-hero-guard="nav"]{top:12px !important;left:auto !important;right:16px !important;padding:0 !important;gap:0 !important;background:none !important;border:none !important;box-shadow:none !important;backdrop-filter:none !important;justify-content:flex-end !important;overflow:visible !important}
+      [data-hero-guard="nav"] > a:first-child{display:none !important}
+      [data-sec="1.1"]{height:auto !important;min-height:100svh !important}
+      [data-hero-copy]{padding:92px 20px 44px !important;gap:16px !important;justify-content:center !important;flex:1 1 auto !important;min-height:0 !important}
+      [data-hero-copy] p{font-size:15.5px !important}
+      [data-hero-guard="ticker"]{position:relative !important;bottom:auto !important;margin-top:20px !important;padding-bottom:22px !important}
+      [data-sec="2.1"]{padding:104px 20px 0 !important}
+      [data-sec="2.2"]{padding:0 20px 104px !important}
+      [data-sec="3.1"]{padding:0 20px 104px !important}
+      [data-sec="4.1"]{padding:88px 20px !important}
+      [data-sec="5.1"],[data-sec="5.2"]{padding:104px 20px !important;grid-template-columns:1fr !important;gap:28px !important}
+      [data-sec="6.1"]{padding:104px 20px !important}
+      [data-sec="9.1"]{padding:120px 20px !important}
+      [data-screen-label="10 Footer"]{padding:80px 20px 0 !important;background-position:20px top !important}
+      [data-fgrid]{grid-template-columns:1fr 1fr !important;gap:32px 24px !important}
+      [data-fbar]{flex-wrap:wrap !important;gap:10px !important}
+      [data-fmark]{right:20px !important;width:220px !important}
+      [data-bleed]{margin:0 -20px !important;padding:0 20px !important}
+      [data-chev]{display:none !important}
+      [data-sec="2.2"] > div,[data-sec="6.1"] > div{grid-template-columns:1fr !important}
+    }
+    @media (max-width:560px){
+      [data-cycleline]{white-space:normal !important}
+      [data-fgrid]{grid-template-columns:1fr !important}
+      [data-hero-copy] > div:first-child{gap:7px !important}
+    }
+</style>
+</helmet>
+<div style="min-height:100vh;background:var(--color-bg);color:var(--color-text)">
+
+  <div data-sec="1.1" data-screen-label="01 Hero" style="position:relative;overflow:hidden;height:100vh;min-height:640px;display:flex;flex-direction:column;padding:0;background:var(--color-bg)">
+    <span style="position:absolute;left:-14%;top:-32%;width:64%;height:96%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,#9184D9 30%,transparent),transparent 66%);filter:blur(12px);animation:hyDriftA 46s ease-in-out infinite"></span>
+    <span style="position:absolute;right:-16%;top:-24%;width:58%;height:88%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,#9184D9 26%,transparent),transparent 66%);filter:blur(12px);animation:hyDriftB 54s ease-in-out -7s infinite"></span>
+    <span style="position:absolute;left:24%;top:18%;width:52%;height:80%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,#9184D9 16%,transparent),transparent 66%);filter:blur(14px);animation:hyDriftC 62s ease-in-out -14s infinite"></span>
+
+    <div data-hero-guard="nav" style="position:fixed;top:20px;left:40px;right:40px;z-index:50;display:flex;align-items:center;gap:clamp(8px,1.15vw,26px);flex-wrap:nowrap;box-sizing:border-box;overflow:hidden;padding:12px 22px;border-radius:999px;background:rgba(41,171,226,.11);border:1px solid rgba(41,171,226,.22);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 12px 32px rgba(0,0,0,.34)">
+      <a href="Homepage.dc.html" style="display:flex;align-items:center;flex:0 0 auto;color:inherit;text-decoration:none"><img data-logo="1" src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:20px;width:auto;display:block"></a>
+      <div data-navfx="07" style="display:flex;align-items:center;padding:12px 0;flex:1 1 auto;min-width:0;overflow:hidden;gap:clamp(5px,.85vw,22px);margin-left:clamp(5px,.85vw,20px);margin-right:8px;margin-top:-12px;margin-bottom:-12px;font-weight:600;font-size:clamp(9.6px,.82vw,13.4px);mask-image:linear-gradient(to right,#000 calc(100% - 18px),transparent);-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 18px),transparent);color:var(--color-neutral-300)"><a href="Office.dc.html" style="color:inherit;white-space:nowrap">Office</a><a href="Call-Centre.dc.html" style="color:inherit;white-space:nowrap">Call Centre</a><a href="Programmable-Telephony.dc.html" style="color:inherit;white-space:nowrap">Programmable</a><a href="Voice%20AI.dc.html" style="color:inherit;white-space:nowrap">Voice AI</a><a href="Data-Centre.dc.html" style="color:inherit;white-space:nowrap">DC &amp; Hosting</a><a href="Software-Development.dc.html" style="color:inherit;white-space:nowrap">Development</a><a href="Wholesale.dc.html" style="color:inherit;white-space:nowrap">Wholesale</a><a href="Consulting.dc.html" style="color:inherit;white-space:nowrap">Consulting</a></div>
+      <span data-navcta="1" class="btn btn-primary" onClick="{{ openDrawer }}" style="flex:0 0 auto;white-space:nowrap;padding:9px clamp(12px,1.4vw,20px);font-size:clamp(12px,.92vw,13px);border-color:#9184D9;color:#9184D9;cursor:pointer">Get a quote</span>
+      <span data-mnav-btn="1" onClick="{{ toggleMnav }}" role="button" aria-label="Menu" style="display:none;flex:0 0 auto;width:44px;height:44px;box-sizing:border-box;align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer;border-radius:9px;border:none;background:#9184D9"><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i><i style="display:block;width:19px;height:1.5px;border-radius:2px;background:var(--color-neutral-100)"></i></span>
+    </div>
+
+    <span style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
+      <sc-for list="{{ heroIcons }}" as="ic" hint-placeholder-count="12">
+        <i class="{{ ic.cls }}" style="{{ ic.style }}">{{ ic.text }}</i>
+      </sc-for>
+    </span>
+
+    <span style="position:absolute;left:0;right:0;bottom:0;height:300px;display:flex;align-items:flex-end;gap:6px;padding:0 56px;opacity:.18;pointer-events:none;mask-image:linear-gradient(to top,#000,transparent)">
+      <sc-for list="{{ heroBars }}" as="b" hint-placeholder-count="46">
+        <i style="{{ b.style }}"></i>
+      </sc-for>
+    </span>
+
+    <div data-hero-copy="1" style="position:relative;flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px;padding:96px 56px 96px">
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px">
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#9184D9;box-shadow:0 0 8px #9184D9;animation:hyPulse 2.2s ease-in-out 0s infinite"></i>Hypervisor Cloud</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#9184D9;box-shadow:0 0 8px #9184D9;animation:hyPulse 2.2s ease-in-out 1.4s infinite"></i>PBX Cluster</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#9184D9;box-shadow:0 0 8px #9184D9;animation:hyPulse 2.2s ease-in-out 2.1s infinite"></i>Connectivity</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:rgba(18,19,29,.6);border:1px solid rgba(255,255,255,.12);font-size:12.4px;color:var(--color-neutral-300);backdrop-filter:blur(10px)"><i style="display:block;width:7px;height:7px;border-radius:50%;background:#9184D9;box-shadow:0 0 8px #9184D9;animation:hyPulse 2.2s ease-in-out 2.1s infinite"></i>VoIP Network</span>
+      </div>
+      <h1 style="font:500 clamp(30px,3.6vw,54px)/1.04 var(--font-heading);letter-spacing:-.04em;margin:0;max-width:min(1240px,100%);min-height:2.08em;color:var(--color-neutral-100);text-wrap:balance"><span>Business phone systems that never sleep</span><br><span data-cycleline="1" style="white-space:nowrap">for <span style="{{ cycleStyle }}">{{ cycleWord }}</span></span></h1>
+      <p style="font-size:18px;line-height:1.6;color:var(--color-neutral-300);margin:0;max-width:620px">Affordable business-class telephony, tailored to how you work. Always on, purpose-built and hosted in Teraco, with our engineers behind it around the clock.</p>
+      <div style="display:flex;justify-content:center;gap:12px;margin-top:6px">
+        <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:13px 26px;font-size:14.5px;border-color:#9184D9;color:#9184D9;cursor:pointer">Get a quote</span>
+      </div>
+    </div>
+
+    <div data-hero-guard="ticker" style="position:absolute;left:0;right:0;bottom:26px;overflow:hidden;pointer-events:none;mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent)">
+      <div style="display:flex;width:max-content;animation:hyTicker 42s linear infinite;font-family:ui-monospace,Menlo,monospace;font-size:12.4px;letter-spacing:.08em;color:var(--color-neutral-500)">
+        <div style="display:flex;gap:64px;padding-right:64px"><span><b style="color:#9184D9;font-weight:500">R49</b> per user a month</span><span><b style="color:#9184D9;font-weight:500">Free</b> geographic numbers</span><span><b style="color:#F2B84B;font-weight:500">30 days</b> free call recording</span><span><b style="color:#E86FA4;font-weight:500">Per second</b> billing</span><span><b style="color:#9184D9;font-weight:500">Teams</b> integration option</span><span><b style="color:#F2905B;font-weight:500">One extension</b> on every device</span><span><b style="color:#4a8fe8;font-weight:500">REST API</b> and webhooks</span></div>
+        <div style="display:flex;gap:64px;padding-right:64px"><span><b style="color:#9184D9;font-weight:500">R49</b> per user a month</span><span><b style="color:#9184D9;font-weight:500">Free</b> geographic numbers</span><span><b style="color:#F2B84B;font-weight:500">30 days</b> free call recording</span><span><b style="color:#E86FA4;font-weight:500">Per second</b> billing</span><span><b style="color:#9184D9;font-weight:500">Teams</b> integration option</span><span><b style="color:#F2905B;font-weight:500">One extension</b> on every device</span><span><b style="color:#4a8fe8;font-weight:500">REST API</b> and webhooks</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div data-sec="2.1" data-screen-label="02 Included heading" style="padding:200px 120px 0;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 26px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">One phone system. Every way your team talks.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#9184D9">EVERYTHING INCLUDED</span>
+    </div>
+  </div>
+
+  <div data-sec="2.2" data-screen-label="03 Capability checklist" style="padding:0 120px 200px;background:var(--color-bg)">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 56px">
+      <sc-for list="{{ feats }}" as="f" hint-placeholder-count="8">
+        <div style="display:flex;gap:14px;padding:22px 0;border-top:1px solid var(--color-divider)">
+          <span style="{{ f.check }}">&#10003;</span>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <span style="font:500 16.5px/1.2 var(--font-heading);letter-spacing:-.015em">{{ f.t }}</span>
+            <span style="font-size:13.4px;line-height:1.58;color:var(--color-neutral-500)">{{ f.d }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div data-sec="3.1" data-screen-label="04 Pricing" style="padding:0 120px 200px;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 26px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Simple per-user pricing.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#9184D9">PRICING</span>
+    </div>
+    <div data-bleed="1" style="margin:0 -120px;padding:0 120px;overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent)">
+      <div data-price-drag="1" style="cursor:grab;will-change:transform"><div style="display:flex;width:max-content;user-select:none;touch-action:pan-y;animation:hyPriceRun 52s linear infinite" style-hover="animation-play-state:paused">
+        <div style="display:flex;gap:20px;padding-right:20px">
+          <sc-for list="{{ priceCards }}" as="p" hint-placeholder-count="4">
+            <div style="{{ p.box }}">
+              <span style="{{ p.kicker }}">{{ p.kind }}</span>
+              <span style="font:500 21px/1.2 var(--font-heading);letter-spacing:-.015em">{{ p.title }}</span>
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px">
+                <span style="{{ p.priceStyle }}">{{ p.price }}</span>
+                <span style="font-size:13px;white-space:nowrap;color:var(--color-neutral-500)">{{ p.unit }}</span>
+              </div>
+              <span style="{{ p.rule }}"></span>
+              <span style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-500)">{{ p.note }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div aria-hidden="true" style="display:flex;gap:20px;padding-right:20px">
+          <sc-for list="{{ priceCards }}" as="p" hint-placeholder-count="4">
+            <div style="{{ p.box }}">
+              <span style="{{ p.kicker }}">{{ p.kind }}</span>
+              <span style="font:500 21px/1.2 var(--font-heading);letter-spacing:-.015em">{{ p.title }}</span>
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px">
+                <span style="{{ p.priceStyle }}">{{ p.price }}</span>
+                <span style="font-size:13px;white-space:nowrap;color:var(--color-neutral-500)">{{ p.unit }}</span>
+              </div>
+              <span style="{{ p.rule }}"></span>
+              <span style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-500)">{{ p.note }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </div>
+    </div>
+    <span style="display:block;margin-top:22px;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-600)">Drag to browse &middot; excluding VAT</span>
+  </div>
+
+  <div data-sec="4.1" data-screen-label="05 Work anywhere" style="position:relative;overflow:hidden;padding:120px;background:#221f47">
+    <span style="position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% -34%,transparent var(--rip) calc(var(--rip) + 11.4px),#111027 calc(var(--rip) + 12.2px),transparent calc(var(--rip) + 13px));animation:mRip13 1s linear infinite"></span>
+    <span style="position:absolute;left:-10%;right:-10%;top:-24%;height:136%;transform-origin:top;background:radial-gradient(86% 100% at 50% 0%,color-mix(in srgb,#29ABE2 76%,transparent),color-mix(in srgb,#29ABE2 26%,transparent) 46%,transparent 78%);filter:blur(24px);animation:gTall 10s ease-in-out infinite"></span>
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#29ABE2">Work from anywhere</span>
+      <h2 style="font:500 58px/.98 var(--font-heading);margin:0;letter-spacing:-.038em;color:var(--color-neutral-100)">Your extension follows you anywhere in the world.</h2>
+      <p style="font-size:16.5px;line-height:1.64;color:var(--color-neutral-300);margin:0;max-width:700px">Office, home, on the road or abroad &mdash; the same extension rings your desk phone, mobile app, softphone and browser. Answer wherever you are; your callers never know the difference.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:8px">
+        <span class="tag tag-outline" style="font-size:12px;color:#F2905B;border-color:color-mix(in srgb,#F2905B 45%,transparent)">desk phone &middot; office</span><span class="tag tag-outline" style="font-size:12px;color:#8CC96B;border-color:color-mix(in srgb,#8CC96B 45%,transparent)">mobile app &middot; on the road</span><span class="tag tag-outline" style="font-size:12px;color:#29ABE2;border-color:color-mix(in srgb,#29ABE2 45%,transparent)">softphone &middot; pc or laptop</span><span class="tag tag-outline" style="font-size:12px;color:#3FBF9F;border-color:color-mix(in srgb,#3FBF9F 45%,transparent)">browser &middot; anywhere</span><span class="tag tag-outline" style="font-size:12px;color:#F2B84B;border-color:color-mix(in srgb,#F2B84B 45%,transparent)">register from anywhere</span>
+      </div>
+    </div>
+  </div>
+
+  <div data-sec="5.1" data-screen-label="06 Feature rich PBX" style="padding:200px 120px;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;background:var(--color-bg)">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#3FBF9F">FEATURE RICH OFFICE PBX SOLUTIONS</span>
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Any feature. Any device. Standard.</h2>
+      <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0">If it speaks SIP, it works &mdash; the smartphone app, a desk phone, a softphone on a laptop or third-party hardware you already own, registered from any internet connection on earth. Thirty days of call recording is included on every extension, and where the rules demand more, a compliant recording solution is available as a paid option. Our PBX solutions can do anything. If we cannot do it, nobody can.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:2px">
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#3FBF9F">&#10003;</span>Smartphone apps for iOS and Android, ringing with your desk</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#3FBF9F">&#10003;</span>Desk phones, softphones and third-party SIP hardware</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#3FBF9F">&#10003;</span>Register from anywhere in the world, no dedicated line</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#3FBF9F">&#10003;</span>30 days of call recording included on every extension</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#3FBF9F">&#10003;</span>Compliant recording available as a paid option</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#3FBF9F">&#10003;</span>Full PBX feature set &mdash; IVR, queues, groups, voicemail to email</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#3FBF9F">&#10003;</span>Teams integration optional</span>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:11px 22px;border-color:#3FBF9F;color:#3FBF9F;cursor:pointer">Get a quote</span>
+      </div>
+    </div>
+    <div style="position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--color-divider)">
+      <img src="assets/illo-office-pbx-desk.jpg" alt="Office desk with a desk phone, a softphone dialler on a monitor and a mobile app, all on one extension" style="display:block;width:100%;height:auto">
+    </div>
+  </div>
+
+  <div style="background:var(--color-bg)">
+    <div style="position:relative;height:6px">
+      <span style="position:absolute;left:0;right:0;top:0;height:1px;background:var(--color-divider);mask-image:linear-gradient(to right,#000 calc(100% - 34px),transparent calc(100% - 34px))"></span>
+      <span style="position:absolute;right:24px;top:-1px;width:3px;height:3px;border-radius:50%;background:#29ABE2;animation:hyRuleDot 3.6s ease-in-out infinite"></span>
+      <span style="position:absolute;right:13px;top:-1px;width:3px;height:3px;border-radius:50%;background:#29ABE2;animation:hyRuleDot 3.6s ease-in-out -.4s infinite"></span>
+      <span style="position:absolute;right:2px;top:-1px;width:3px;height:3px;border-radius:50%;background:#29ABE2;animation:hyRuleDot 3.6s ease-in-out -.8s infinite"></span>
+      <span style="position:absolute;left:0;top:3px;height:2px;width:38%;background:linear-gradient(to right,color-mix(in srgb,#29ABE2 60%,transparent),transparent);animation:hyRuleBreathe 9s ease-in-out infinite"></span>
+    </div>
+  </div>
+
+  <div data-sec="5.2" data-screen-label="07 Custom and integrator PBX" style="padding:200px 120px;display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;background:var(--color-bg)">
+    <div style="position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--color-divider)">
+      <img src="assets/illo-custom-pbx-1600.jpg" alt="Developer coding against the PBX API, desk phone and cloud PBX connected" style="display:block;width:100%;height:auto">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#29ABE2">CUSTOM AND INTEGRATOR PBX SOLUTIONS</span>
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">The same PBX, opened up &mdash; every feature customisable, every function on an API.</h2>
+      <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0">Everything the standard office PBX does, plus the source-level access to change it. Any feature can be customised or rewritten, and anything the platform does is available on an API for teams who want their own systems driving the phone system. Where nothing off the shelf fits, we build the solution from the ground up.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:2px">
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Any feature customised, or built from the ground up</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Full APIs &mdash; drive the PBX from your own application</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>WebRTC extensions &mdash; calling straight from the browser</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Free call recording, no per-extension add-on</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Deployed anywhere in the world, integrated with any application</span>
+        <span style="display:flex;gap:9px;font-size:13.5px;color:var(--color-neutral-300)"><span style="font-family:ui-monospace,Menlo,monospace;font-weight:700;color:#29ABE2">&#10003;</span>Integrator support &mdash; we transfer the knowledge so your team ships fast</span>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:11px 22px;border-color:#29ABE2;color:#29ABE2;cursor:pointer">Get a quote</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--color-bg)">
+    <div style="position:relative;height:6px">
+      <span style="position:absolute;left:0;right:0;top:0;height:1px;background:var(--color-divider);mask-image:linear-gradient(to right,#000 calc(100% - 34px),transparent calc(100% - 34px))"></span>
+      <span style="position:absolute;right:24px;top:-1px;width:3px;height:3px;border-radius:50%;background:#F2B84B;animation:hyRuleDot 3.6s ease-in-out infinite"></span>
+      <span style="position:absolute;right:13px;top:-1px;width:3px;height:3px;border-radius:50%;background:#F2B84B;animation:hyRuleDot 3.6s ease-in-out -.4s infinite"></span>
+      <span style="position:absolute;right:2px;top:-1px;width:3px;height:3px;border-radius:50%;background:#F2B84B;animation:hyRuleDot 3.6s ease-in-out -.8s infinite"></span>
+      <span style="position:absolute;left:0;top:3px;height:2px;width:38%;background:linear-gradient(to right,color-mix(in srgb,#F2B84B 60%,transparent),transparent);animation:hyRuleBreathe 9s ease-in-out infinite"></span>
+    </div>
+  </div>
+
+  <div data-sec="6.1" data-screen-label="08 VoIP only" style="padding:200px 120px;background:var(--color-bg)">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 18px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Just need the lines? Take the VoIP alone.</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#F2B84B">NO PBX REQUIRED</span>
+    </div>
+    <p style="font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0 0 40px;max-width:640px">Already have a PBX &mdash; or don't need one at all? Our VoIP trunk service is a drop-in replacement for any telephone line, billed per second at some of the lowest rates in South Africa. No monthly fees and new geographic numbers are free. Mobile numbers optional; request a quote. Super trunks available, capable of routing 10 000+ concurrent calls.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+      <div style="padding:28px;border-radius:var(--radius-md,8px);border:1px solid color-mix(in srgb,#F2905B 26%,var(--color-divider));background:linear-gradient(160deg,color-mix(in srgb,#F2905B 9%,transparent),transparent 62%),var(--color-surface,#1b1d2b);display:flex;flex-direction:column;gap:8px">
+        <span style="font:500 34px/1 var(--font-heading);letter-spacing:-.03em;color:#F2905B">From 25c per minute</span>
+        <span style="font-size:13.2px;line-height:1.55;color:var(--color-neutral-500)">Discount applies for greater volumes down to 9c per minute. Per second billing.</span>
+      </div>
+      <div style="padding:28px;border-radius:var(--radius-md,8px);border:1px solid color-mix(in srgb,#29ABE2 26%,var(--color-divider));background:linear-gradient(160deg,color-mix(in srgb,#29ABE2 9%,transparent),transparent 62%),var(--color-surface,#1b1d2b);display:flex;flex-direction:column;gap:8px">
+        <span style="font:500 34px/1 var(--font-heading);letter-spacing:-.03em;color:#29ABE2">Free trunks and DIDs</span>
+        <span style="font-size:13.2px;line-height:1.55;color:var(--color-neutral-500)">New geographic numbers, 0800 and 0860 &mdash; and no monthly service fee on the trunk itself.</span>
+      </div>
+      <div style="padding:28px;border-radius:var(--radius-md,8px);border:1px solid color-mix(in srgb,#E86FA4 26%,var(--color-divider));background:linear-gradient(160deg,color-mix(in srgb,#E86FA4 9%,transparent),transparent 62%),var(--color-surface,#1b1d2b);display:flex;flex-direction:column;gap:8px">
+        <span style="font:500 34px/1 var(--font-heading);letter-spacing:-.03em;color:#E86FA4">On request</span>
+        <span style="font-size:13.2px;line-height:1.55;color:var(--color-neutral-500)">Mobile CLIs, prepaid or vetted postpaid billing, and white-label arrangements.</span>
+      </div>
+      <div style="padding:28px;border-radius:var(--radius-md,8px);border:1px solid color-mix(in srgb,#9184D9 26%,var(--color-divider));background:linear-gradient(160deg,color-mix(in srgb,#9184D9 9%,transparent),transparent 62%),var(--color-surface,#1b1d2b);display:flex;flex-direction:column;gap:8px">
+        <span style="font:500 34px/1 var(--font-heading);letter-spacing:-.03em;color:#9184D9">R200</span>
+        <span style="font-size:13.2px;line-height:1.55;color:var(--color-neutral-500)">Once-off number porting, in or out. Keep the numbers you already advertise.</span>
+      </div>
+      <div style="padding:28px;border-radius:var(--radius-md,8px);border:1px solid color-mix(in srgb,#F2B84B 26%,var(--color-divider));background:linear-gradient(160deg,color-mix(in srgb,#F2B84B 9%,transparent),transparent 62%),var(--color-surface,#1b1d2b);display:flex;flex-direction:column;gap:8px">
+        <span style="font:500 34px/1 var(--font-heading);letter-spacing:-.03em;color:#F2B84B">Self-service</span>
+        <span style="font-size:13.2px;line-height:1.55;color:var(--color-neutral-500)">A portal with live reporting and billing, so you can see spend as it happens.</span>
+      </div>
+      <div style="padding:28px;border-radius:var(--radius-md,8px);border:1px solid color-mix(in srgb,#29ABE2 26%,var(--color-divider));background:linear-gradient(160deg,color-mix(in srgb,#29ABE2 9%,transparent),transparent 62%),var(--color-surface,#1b1d2b);display:flex;flex-direction:column;gap:8px">
+        <span style="font:500 34px/1 var(--font-heading);letter-spacing:-.03em;color:#29ABE2">Wholesale</span>
+        <span style="font-size:13.2px;line-height:1.55;color:var(--color-neutral-500)">VoIP reselling made easy. Apply for your wholesale account today. Resellers must have an existing customer base.</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;margin-top:44px;flex-wrap:wrap">
+      <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:13px 26px;font-size:14.5px;border-color:#F2B84B;color:#F2B84B;cursor:pointer">Get a quote</span>
+      <span style="font-size:13.5px;color:var(--color-neutral-500)">Wholesale and white-label options available</span>
+    </div>
+  </div>
+
+  <div style="background:var(--color-bg)">
+    <div style="position:relative;height:6px">
+      <span style="position:absolute;left:0;right:0;top:0;height:1px;background:var(--color-divider);mask-image:linear-gradient(to right,#000 calc(100% - 34px),transparent calc(100% - 34px))"></span>
+      <span style="position:absolute;right:24px;top:-1px;width:3px;height:3px;border-radius:50%;background:#9184D9;animation:hyRuleDot 3.6s ease-in-out infinite"></span>
+      <span style="position:absolute;right:13px;top:-1px;width:3px;height:3px;border-radius:50%;background:#9184D9;animation:hyRuleDot 3.6s ease-in-out -.4s infinite"></span>
+      <span style="position:absolute;right:2px;top:-1px;width:3px;height:3px;border-radius:50%;background:#9184D9;animation:hyRuleDot 3.6s ease-in-out -.8s infinite"></span>
+      <span style="position:absolute;left:0;top:3px;height:2px;width:38%;background:linear-gradient(to right,color-mix(in srgb,#9184D9 60%,transparent),transparent);animation:hyRuleBreathe 9s ease-in-out infinite"></span>
+    </div>
+  </div>
+
+  <div data-sec="9.1" data-screen-label="09 Close" style="position:relative;overflow:hidden;isolation:isolate;padding:200px 120px;display:flex;flex-direction:column;gap:18px;background:var(--color-bg)">
+    <div data-chev="1" style="position:absolute;right:90px;bottom:-56px;z-index:-1;display:flex;gap:26px;pointer-events:none"><span style="position:relative;display:block;width:120px;height:280px;background:color-mix(in srgb,#9184D9 78%,transparent);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"><span style="position:absolute;inset:3px;background:var(--color-bg);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"></span></span><span style="position:relative;display:block;width:120px;height:280px;background:color-mix(in srgb,#9184D9 78%,transparent);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"><span style="position:absolute;inset:3px;background:var(--color-bg);clip-path:polygon(0 0,44% 0,100% 50%,44% 100%,0 100%,56% 50%)"></span></span></div>
+    <div style="display:flex;align-items:baseline;gap:14px">
+      <h2 style="font:500 30px/1.15 var(--font-heading);margin:0;letter-spacing:-.02em">Ready to move your office onto it?</h2>
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:#9184D9">NEXT STEP</span>
+    </div>
+    <p style="position:relative;font-size:15.5px;line-height:1.62;color:var(--color-neutral-400);margin:0;max-width:560px">Send us your extension count and how your team works &mdash; we will come back with a quote, the numbers you keep and a porting plan.</p>
+    <p style="position:relative;font-size:14.5px;line-height:1.6;color:var(--color-neutral-500);margin:0;max-width:560px">Not sure which of these you need? Meet with us and we will work through the requirement together &mdash; we would rather scope it properly than sell you the wrong thing.</p>
+    <div style="position:relative;display:flex;gap:12px;margin-top:8px">
+      <span class="btn btn-primary" onClick="{{ openDrawer }}" style="padding:12px 26px;border-color:#9184D9;color:#9184D9;cursor:pointer">Get a quote</span>
+    </div>
+  </div>
+
+  <div data-screen-label="10 Footer" style="position:relative;overflow:hidden;padding:112px 120px 0;background:linear-gradient(to right,transparent,var(--color-divider) 120px,var(--color-divider) calc(100% - 120px),transparent) no-repeat top / 100% 1px">
+    <img data-fmark="1" src="assets/logo-africa-mark.png" alt="" style="position:absolute;right:120px;bottom:24px;width:374px;height:auto;filter:grayscale(1) brightness(.05);opacity:.12;pointer-events:none;user-select:none">
+    <span style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 20%,rgba(0,0,0,.7));pointer-events:none"></span>
+    <span style="position:absolute;left:-4%;top:0;width:42%;height:74%;background:radial-gradient(60% 70% at 30% 30%,color-mix(in srgb,#9184D9 12%,transparent),transparent 72%);filter:blur(40px);animation:fSpot 13s ease-in-out infinite;pointer-events:none"></span>
+    <div data-fgrid="1" style="position:relative;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:48px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:18px;max-width:300px">
+        <div style="display:flex;align-items:center">
+          <a href="Homepage.dc.html" style="display:block;text-decoration:none"><img data-logo="1" src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:26px;width:auto;display:block"></a>
+        </div>
+        <p style="font-size:14.2px;line-height:1.65;color:var(--color-neutral-400);margin:0">We build and host large-scale telecommunication applications &mdash; software development, hosting and support are our biggest divisions. We own the whole stack: data centre, ISP, hypervisor and the software that runs on it.</p>
+        <a href="#" style="width:34px;height:34px;border-radius:50%;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-size:12.6px;font-weight:600;color:var(--color-neutral-300);text-decoration:none" style-hover="border-color:#9184D9;color:#9184D9">in</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Services</span>
+        <a href="Office.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Office Telephony</a>
+        <a href="Call-Centre.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Call Centre Telephony</a>
+        <a href="Programmable-Telephony.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Programmable Telephony</a>
+        <a href="Voice%20AI.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Voice AI Agents</a>
+        <a href="Data-Centre.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Data Centre &amp; Hosting</a>
+        <a href="Software-Development.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Software Development</a>
+        <a href="Wholesale.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Wholesale &amp; Resellers</a>
+        <a href="Consulting.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Consulting</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Contact</span>
+        <a href="mailto:sales@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">sales@bizvoip.co.za</a>
+        <a href="mailto:support@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">support@bizvoip.co.za</a>
+        <a href="mailto:accounts@bizvoip.co.za" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">accounts@bizvoip.co.za</a>
+        <a href="tel:+27876543210" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">+27 87 654 3210</a>
+        <span style="font-size:14.2px;color:var(--color-neutral-400);line-height:1.25">Cape Town, South Africa</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-neutral-100);font-weight:700;margin-bottom:5px">Company</span>
+        <a href="POPIA.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Privacy Policy</a>
+        <a href="Company-Info.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Company Info</a>
+        <a href="Arch1medes.dc.html" style="font-size:14.2px;color:var(--color-neutral-400);text-decoration:none;line-height:1.25" style-hover="color:#9184D9">Arch1medes Platform</a>
+      </div>
+    </div>
+    <div data-fbar="1" style="display:flex;align-items:center;gap:24px;margin-top:48px;padding:22px 0 28px;border-top:2px solid var(--color-divider);font-size:13.1px;color:var(--color-neutral-500)">
+      <span>&copy; 2026 Bizvoip (Pty) Ltd. All rights reserved.</span>
+      <span style="margin-left:auto">Reg 2020/637692/07 &middot; Cape Town, South Africa</span>
+    </div>
+  </div>
+
+  <div class="hy-overlay" data-open="{{ drawerOpen }}" onClick="{{ closeDrawer }}"></div>
+  <div class="hy-drawer" data-open="{{ drawerOpen }}" data-screen-label="Contact drawer">
+    <div style="display:flex;align-items:center;gap:12px;padding:20px 26px;border-bottom:1px solid var(--color-divider)">
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <span style="font-size:17px;font-family:var(--font-heading);font-weight:500;color:var(--color-neutral-100)">Get a quote</span>
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#9184D9">{{ drawerRef }}</span>
+      </div>
+      <span onClick="{{ closeDrawer }}" style="margin-left:auto;cursor:pointer;width:32px;height:32px;border-radius:8px;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--color-neutral-400)" style-hover="border-color:#9184D9;color:#9184D9">&times;</span>
+    </div>
+    <sc-if value="{{ drawerSent }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:64px 32px;text-align:center">
+        <span style="width:46px;height:46px;border-radius:50%;background:color-mix(in srgb,#9184D9 16%,transparent);display:flex;align-items:center;justify-content:center;font-size:20px;color:#9184D9">&#10003;</span>
+        <span style="font-size:17px;font-weight:500;color:var(--color-neutral-100)">Request sent</span>
+        <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-400);margin:0;max-width:290px">An engineer &mdash; not a call centre &mdash; will come back to you within one business day.</p>
+        <span class="btn btn-secondary" onClick="{{ closeDrawer }}" style="margin-top:8px;padding:9px 20px;cursor:pointer">Close</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ drawerFormVisible }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:12px;padding:24px 26px;overflow-y:auto">
+        <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-400);margin:0">Tell us about your setup and we will size the right platform, quote it and hand it to an engineer.</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">What do you need? <span style="color:#9184D9">*</span></label>
+          <div style="display:flex;gap:8px">
+            <span onClick="{{ pickPbx }}" style="{{ stylePbx }}">PBX (VoIP included)</span>
+            <span onClick="{{ pickVoip }}" style="{{ styleVoip }}">VoIP only</span>
+          </div>
+        </div>
+        <sc-if value="{{ askGeo }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Which area code do you need numbers for? <span style="color:#9184D9">*</span></label>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ geoOpts }}" as="g" hint-placeholder-count="7">
+                <span onClick="{{ g.pick }}" style="{{ g.style }}">{{ g.label }}</span>
+              </sc-for>
+            </div>
+            <sc-if value="{{ askGeoOther }}" hint-placeholder-val="{{ false }}">
+              <input class="hy-field" inputMode="numeric" maxLength="3" placeholder="e.g. 028" value="{{ geoOther }}" onInput="{{ setGeoOther }}">
+            </sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{ askPbx }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">How many users do you have? <span style="color:#9184D9">*</span></label>
+            <input class="hy-field" type="number" min="1" placeholder="e.g. 24" onInput="{{ setSize }}">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Additional requirements</label>
+            <sc-for list="{{ addOpts }}" as="a" hint-placeholder-count="4">
+              <span onClick="{{ a.toggle }}" style="{{ a.style }}"><span style="{{ a.box }}">{{ a.mark }}</span><span style="display:flex;flex-direction:column;gap:2px"><span style="color:var(--color-neutral-100)">{{ a.label }}</span><span style="font-size:11.6px;color:var(--color-neutral-500)">{{ a.note }}</span></span></span>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Full name <span style="color:#9184D9">*</span></label>
+          <input class="hy-field" placeholder="Your name" onInput="{{ setName }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Company <span style="color:#9184D9">*</span></label>
+          <input class="hy-field" placeholder="Company name" onInput="{{ setCompany }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Email <span style="color:#9184D9">*</span></label>
+          <input class="hy-field" type="email" placeholder="you@company.co.za" onInput="{{ setEmail }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Phone <span style="color:#9184D9">*</span></label>
+          <input class="hy-field" type="tel" placeholder="0876543210" onInput="{{ setPhone }}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-500)">Message</label>
+          <textarea class="hy-field" rows="4" placeholder="Sites, existing PBX, numbers to port, integrations"></textarea>
+        </div>
+        <span class="btn btn-primary" onClick="{{ sendDrawer }}" style="{{ sendStyle }}">Send request</span>
+        <sc-if value="{{ showMissing }}" hint-placeholder-val="{{ false }}">
+          <span style="font-size:11.8px;line-height:1.5;color:#9184D9">{{ missingText }}</span>
+        </sc-if>
+        <span style="font-size:11.5px;line-height:1.55;color:var(--color-neutral-500)">Or email <a href="mailto:sales@bizvoip.co.za">sales@bizvoip.co.za</a> &middot; +27 87 654 3210 (M&ndash;F 8am&ndash;5pm)</span>
+      </div>
+    </sc-if>
+  </div>
+
+  <div class="hy-mscrim" data-open="{{ mnavOpen }}" onClick="{{ closeMnav }}"></div>
+  <div class="hy-mnav" data-open="{{ mnavOpen }}" data-screen-label="Mobile menu">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--color-divider)">
+      <img src="assets/logo-wordmark-white.png" alt="BizVoip" style="height:19px;width:auto;display:block">
+      <span onClick="{{ closeMnav }}" role="button" aria-label="Close" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;font-size:26px;line-height:1;color:var(--color-neutral-300);cursor:pointer">&times;</span>
+    </div>
+    <div style="display:flex;flex-direction:column;padding:8px 20px 20px;overflow-y:auto">
+      <a href="Office.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#9184D9">Office Telephony</a>
+      <a href="Call-Centre.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#9184D9">Call Centre Telephony</a>
+      <a href="Programmable-Telephony.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#9184D9">Programmable Telephony</a>
+      <a href="Voice%20AI.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#9184D9">Voice AI Agents</a>
+      <a href="Data-Centre.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#9184D9">Data Centre &amp; Hosting</a>
+      <a href="Software-Development.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#9184D9">Software Development</a>
+      <a href="Wholesale.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#9184D9">Wholesale Carrier</a>
+      <a href="Consulting.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#9184D9">Consulting</a>
+      <a href="Arch1medes.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#9184D9">Arch1medes</a>
+      <a href="Company-Info.dc.html" onClick="{{ closeMnav }}" style="display:flex;align-items:center;min-height:52px;padding:0 4px;font-size:16.5px;color:var(--color-neutral-200);text-decoration:none;border-bottom:1px solid var(--color-divider)" style-hover="color:#9184D9">Company</a>
+      <span class="btn btn-primary" onClick="{{ openDrawerFromMnav }}" style="margin-top:22px;justify-content:center;padding:14px 20px;font-size:14.5px;border-color:#9184D9;color:#9184D9;cursor:pointer;text-align:center">Get a quote</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  static W = [['office users', '#9184D9'], ['sales teams', '#29ABE2'], ['remote users', '#F2B84B'], ['travelling individuals', '#8CC96B'], ['professionals', '#E86FA4'], ['medical practices', '#3FBF9F'], ['legal practices', '#F2905B'], ['support teams', '#6C8CFF']];
+
+  static P = [
+    ['standard', '#29ABE2', 'Hosted PBX Standard', 'R49', 'per user / month', 'Everything a business phone system needs, fully hosted and managed. Apps, full PBX feature set, 30 day free call recording and Teams on option.'],
+    ['premium', '#9184D9', 'Hosted PBX Premium', 'R99', 'per user / month', 'A separate, more powerful platform for larger multi-site setups, with cost reporting down to person level.'],
+    ['integrator', '#8CC96B', 'Integrator PBX', 'From R119', 'per user / month', 'WebRTC service with software development consulting and assistance, plus free call recording included.'],
+    ['trunks', '#29ABE2', 'VoIP trunks', 'From 25c', 'per minute, billed per second', 'Trunks and geographic DIDs are free. Bulk volumes go as low as 9c a minute; mobile DIDs optional at a cost.'],
+    ['numbers', '#4a8fe8', 'Number porting', 'R200', 'once-off, in or out', 'Keep the numbers you already advertise. We handle the porting paperwork and the cutover.'],
+    ['add-on', '#F2B84B', 'Compliant recording', 'On quote', 'per user / month', 'Encrypted, tamper-proof storage with retention rules that meet POPIA and industry compliance requirements.']
+  ];
+
+  static F = [
+    ['01', 'Business-grade VoIP', 'Voice carried the right way. High quality audio that you can rely on.', '#29ABE2'],
+    ['02', 'Cloud PBX', 'Extensions, IVR menus, hunt groups and voicemail, fully managed and provisioned for you.', '#F2B84B'],
+    ['03', 'Free call recording', 'Every call recorded and searchable at no cost, kept 30 days, then deleted.', '#6C8CFF'],
+    ['04', 'Compliant call recording storage', 'Paid add-on: encrypted, tamper-proof storage with retention rules you define.', '#E86FA4'],
+    ['05', 'Smartphone app', 'Your extension in your pocket, from the Play Store or the App Store.', '#8CC96B'],
+    ['06', 'Desktop softphones', 'Calls, transfers and presence from a laptop, no desk phone required.', '#F2905B'],
+    ['07', 'Microsoft Teams', 'Keep Teams as the place your people work and let us carry the calls.', '#9184D9'],
+    ['08', 'Custom development', 'Our engineers build bespoke features and workflows around your business.', '#3FBF9F'],
+    ['09', 'Always-on technology', 'A 99.9% uptime commitment, on our own data centre, cloud and network.', '#B95FC4'],
+    ['10', 'Integration options', 'Able to integrate with any third-party application \u2014 CRMs, helpdesks and your own software.', '#29ABE2']
+  ];
+
+  static ADDS = [
+    ['30 day call recording', 'included free'],
+    ['Compliant call recording storage', 'additional cost'],
+    ['Require internet connectivity', 'we can supply the line'],
+    ['Mobile app', 'iOS and Android softphone']
+  ];
+
+  static GEOS = ['Cape Town (021)', 'Johannesburg (011)', 'Pretoria (012)', 'Durban (031)', 'Port Elizabeth (041)', 'National (087)', 'Other'];
+
+  state = { tick: 0, fi: 0, dOpen: false, dSent: false, kind: 'pbx', geo: null, geoOther: '', size: null, add: {}, f: { name: '', company: '', email: '', phone: '' }, tried: false, sec: '' };
+
+
+  _markCurrentNav(tries) {
+    const t = tries || 0;
+    const cur = decodeURIComponent((location.pathname.split('/').pop() || '')).toLowerCase();
+    const links = document.querySelectorAll('[data-navfx] a, .hy-mnav a');
+    if (!links.length) { if (t < 20) setTimeout(() => this._markCurrentNav(t + 1), 150); return; }
+    links.forEach(a => {
+      const href = decodeURIComponent((a.getAttribute('href') || '').split('/').pop()).toLowerCase();
+      if (href && cur && href === cur) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  componentDidMount() {
+    this._markCurrentNav(0);
+    this._t = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1800);
+    this._priceInit();
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+
+  _priceInit() {
+    // rAF is unreliable in this host, so the marquee is CSS-driven; drag is bound on
+    // the document (survives remounts) and nudges a wrapper transform
+    if (this._pBound) return;
+    this._pBound = true;
+    const wrapOf = e => (e.target && e.target.closest ? e.target.closest('[data-price-drag]') : null);
+    const inner = w => w && w.firstElementChild;
+    document.addEventListener('pointerdown', e => {
+      const w = wrapOf(e);
+      if (!w) return;
+      if (e.target && e.target.closest && e.target.closest('a')) return; // let card links click through
+      this._pW = w; this._pDrag = true; this._pX = e.clientX;
+      w.style.cursor = 'grabbing';
+      const t = inner(w); if (t) t.style.animationPlayState = 'paused';
+      e.preventDefault();
+    });
+    document.addEventListener('pointermove', e => {
+      if (!this._pDrag || !this._pW) return;
+      const t = inner(this._pW), half = t ? t.scrollWidth / 2 : 0;
+      this._pOff = (this._pOff || 0) + (e.clientX - this._pX);
+      this._pX = e.clientX;
+      if (half) this._pOff = ((this._pOff % half) + half) % half - half;
+      this._pW.style.transform = 'translateX(' + this._pOff.toFixed(1) + 'px)';
+    });
+    const end = () => {
+      if (!this._pDrag) return;
+      this._pDrag = false;
+      const w = this._pW;
+      if (w) { w.style.cursor = 'grab'; const t = inner(w); if (t) t.style.animationPlayState = ''; }
+    };
+    document.addEventListener('pointerup', end);
+    document.addEventListener('pointercancel', end);
+  }
+
+  _icons() {
+    // '\u260E\uFE0E' is the old-school rotary desk phone; Phosphor has no rotary glyph
+    const NAMES = ['ph-phone', 'ph-phone-call', 'ph-phone-incoming', 'ph-phone-outgoing', 'ph-device-mobile', 'ph-device-mobile-speaker', '\u260E\uFE0E', 'ph-voicemail', 'ph-phone-plus', 'ph-microphone', 'ph-phone-transfer', '\u260E\uFE0E', 'ph-device-mobile-camera', 'ph-devices'];
+    const list = NAMES.concat(NAMES).concat(NAMES.slice(0, 3));
+    let s = 23;
+    const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    const sizes = list.map(() => 26 + Math.round(rnd() * 44));
+    const maxW = Math.max.apply(null, sizes) / 1200 * 100;
+    const LANES = Math.max(3, Math.min(9, Math.floor(97 / (maxW + 1.5))));
+    const gap = LANES > 1 ? (97 - maxW) / (LANES - 1) : 0;
+    const maxS = Math.max.apply(null, sizes);
+    const perLane = Math.max(1, Math.floor(760 / (maxS * 2.2)));
+    const buckets = [], durs = [];
+    for (let l = 0; l < LANES; l++) { buckets.push([]); durs.push(17 + rnd() * 13); }
+    const order = list.map((_, i) => i);
+    for (let k = order.length - 1; k > 0; k--) { const q = Math.floor(rnd() * (k + 1)), t = order[k]; order[k] = order[q]; order[q] = t; }
+    order.forEach((idx, k) => { const l = k % LANES; if (buckets[l].length < perLane) buckets[l].push(idx); });
+    const laneOf = {}, phase = {};
+    const minSep = (maxS * 2.2) / 760;
+    buckets.forEach((b, l) => {
+      const n = b.length, free = Math.max(0, 1 - n * Math.min(0.95 / Math.max(1, n), minSep)), u = [];
+      for (let k = 0; k < n; k++) u.push(rnd());
+      u.sort((a, c) => a - c);
+      b.forEach((idx, k) => { laneOf[idx] = l; phase[idx] = Math.min(0.95 / Math.max(1, n), minSep) * k + free * u[k]; });
+    });
+    return list.map((name, i) => {
+      const lane = laneOf[i];
+      if (lane == null) return null;
+      const size = sizes[i];
+      const x = lane * gap + rnd() * Math.max(0, maxW - size / 1200 * 100);
+      const dur = durs[lane], delay = -phase[i] * dur;
+      const op = (0.3 + rnd() * 0.26).toFixed(2);
+      const glyph = name.charAt(0) !== 'p';
+      return {
+        cls: glyph ? '' : 'ph ' + name,
+        text: glyph ? name : '',
+        style: 'position:absolute;top:-6%;left:' + x.toFixed(1) + '%;font-size:' + size + 'px;line-height:1;font-style:normal;color:rgba(0,0,0,' + op + ');animation:hyIconFall ' + dur.toFixed(1) + 's linear ' + delay.toFixed(1) + 's infinite'
+      };
+    }).filter(Boolean);
+  }
+
+  _bars(n, seed, h, w) {
+    let s = seed;
+    const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+    return Array.from({ length: n }, () => {
+      const hh = (0.18 + rnd() * 0.82) * h;
+      return { style: 'display:block;flex:1;min-width:' + w + 'px;height:' + hh.toFixed(0) + 'px;border-radius:3px;background:rgba(0,0,0,1);transform-origin:bottom;animation:hyBar ' + (1.6 + rnd() * 0.9).toFixed(2) + 's ease-in-out ' + (-rnd() * 2).toFixed(2) + 's infinite' };
+    });
+  }
+
+  _setF(k, v) { this.setState(s => { const f = Object.assign({}, s.f); f[k] = v; return { f: f }; }); }
+
+  _pill(on) {
+    return 'display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;cursor:pointer;user-select:none;font-size:12.8px;transition:all .18s ease;border:1px solid ' +
+      (on ? '#29ABE2' : 'var(--color-divider)') + ';background:' + (on ? 'color-mix(in srgb,#29ABE2 14%,transparent)' : 'transparent') +
+      ';color:' + (on ? 'var(--color-neutral-100)' : 'var(--color-neutral-300)');
+  }
+
+  _row(on) {
+    return 'display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:10px;cursor:pointer;user-select:none;font-size:13px;transition:all .18s ease;border:1px solid ' +
+      (on ? '#29ABE2' : 'var(--color-divider)') + ';background:' + (on ? 'color-mix(in srgb,#29ABE2 10%,transparent)' : 'transparent');
+  }
+
+  _box(on) {
+    return 'flex:none;display:flex;align-items:center;justify-content:center;width:16px;height:16px;margin-top:1px;border-radius:4px;font-size:10px;line-height:1;border:1px solid ' +
+      (on ? '#29ABE2' : 'var(--color-neutral-600)') + ';background:' + (on ? '#29ABE2' : 'transparent') + ';color:#12131d';
+  }
+
+  _missing() {
+    const f = this.state.f, out = [];
+    if (this.state.kind === 'voip') {
+      if (!this.state.geo) out.push('an area code');
+      else if (this.state.geo === 'Other' && !/^0\d{2}$/.test(this.state.geoOther)) out.push('a 3 digit area code starting with 0');
+    } else if (!String(this.state.size || '').trim()) out.push('number of users');
+    if (!f.name.trim()) out.push('full name');
+    if (!f.company.trim()) out.push('company');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.trim())) out.push('a valid email');
+    if (!f.phone.trim()) out.push('phone');
+    return out;
+  }
+
+  _sec(e) {
+    const t = e && e.target && e.target.closest ? e.target.closest('[data-screen-label]') : null;
+    const l = t ? (t.getAttribute('data-screen-label') || '') : '';
+    return l.replace(/^[0-9]+\s*/, '').toLowerCase();
+  }
+
+  renderVals() {
+    const cards = Component.P.map(p => ({
+      kind: p[0], title: p[2], price: p[3], unit: p[4], note: p[5],
+      box: 'position:relative;overflow:hidden;flex:none;width:min(380px,78vw);box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:30px 28px 28px;border-radius:var(--radius-md,8px);border:1px solid color-mix(in srgb,' + p[1] + ' 26%,var(--color-divider));background:linear-gradient(160deg,color-mix(in srgb,' + p[1] + ' 9%,transparent),transparent 62%),var(--color-surface,#1b1d2b)',
+      kicker: 'font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:' + p[1],
+      priceStyle: 'font:500 42px/1 var(--font-heading);letter-spacing:-.035em;white-space:nowrap;color:' + p[1],
+      rule: 'height:1px;background:linear-gradient(to right,color-mix(in srgb,' + p[1] + ' 40%,transparent),transparent)'
+    }));
+    const fi = this.state.fi % Component.F.length;
+    const feats = Component.F.map((f, i) => {
+      const tint = p => 'color-mix(in srgb,' + f[3] + ' ' + p + '%,transparent)';
+      const on = i === fi;
+      return {
+        n: f[0], t: f[1], d: f[2], hue: f[3], pick: () => this.setState({ fi: i }),
+        cardTop: 'display:flex;flex-direction:column;gap:9px;padding:22px;border-radius:var(--radius-md,8px);border:1px solid var(--color-divider);border-top:2px solid ' + f[3] + ';background:var(--color-surface,#1b1d2b)',
+        num: 'font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;color:' + f[3],
+        check: 'font-family:ui-monospace,Menlo,monospace;font-weight:700;color:' + f[3],
+        chip: 'display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border-radius:999px;border:1px solid ' + tint(38) + ';font-size:13.5px;color:var(--color-neutral-200)',
+        dot: 'width:7px;height:7px;border-radius:50%;background:' + f[3],
+        bento: 'display:flex;flex-direction:column;justify-content:flex-end;gap:8px;padding:22px;border-radius:var(--radius-md,8px);border:1px solid ' + tint(24) + ';background:linear-gradient(160deg,' + tint(11) + ',transparent 64%),var(--color-surface,#1b1d2b);' + (i === 0 ? 'grid-column:span 2;grid-row:span 2' : i === 4 ? 'grid-column:span 2' : ''),
+        bentoT: 'font:500 ' + (i === 0 ? 26 : 17) + 'px/1.2 var(--font-heading);letter-spacing:-.018em',
+        spineDot: 'position:absolute;left:-30.5px;top:6px;width:9px;height:9px;border-radius:50%;background:' + f[3] + ';box-shadow:0 0 0 4px var(--color-bg)',
+        strip: 'flex:none;width:250px;box-sizing:border-box;display:flex;flex-direction:column;gap:8px;padding:20px;border-radius:var(--radius-md,8px);border:1px solid var(--color-divider);border-left:2px solid ' + f[3] + ';background:var(--color-surface,#1b1d2b)',
+        tab: 'cursor:pointer;user-select:none;padding:9px 16px;border-radius:999px;font-size:13px;transition:all .25s;border:1px solid ' + (on ? f[3] : 'var(--color-divider)') + ';color:' + (on ? f[3] : 'var(--color-neutral-400)') + ';background:' + (on ? tint(12) : 'transparent'),
+        listRow: 'cursor:pointer;user-select:none;display:flex;align-items:baseline;gap:12px;padding:13px 16px;border-radius:8px;font-size:14px;transition:all .25s;background:' + (on ? tint(12) : 'transparent') + ';color:' + (on ? 'var(--color-neutral-100)' : 'var(--color-neutral-400)'),
+        circle: 'flex:none;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1px solid ' + tint(45) + ';font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:700;color:' + f[3],
+        sq: 'flex:none;width:8px;height:8px;margin-top:6px;background:' + f[3],
+        zebra: 'display:flex;gap:14px;padding:16px 18px;background:' + (Math.floor(i / 2) % 2 ? tint(7) : 'transparent'),
+        railRow: 'display:flex;gap:14px;padding:16px 0 16px 18px;border-left:2px solid ' + tint(55),
+        cell: 'padding:14px 16px;border-top:1px solid var(--color-divider);font-size:13.4px;color:var(--color-neutral-400)',
+        cellK: 'padding:14px 16px;border-top:1px solid var(--color-divider);font-family:ui-monospace,Menlo,monospace;font-size:11.5px;letter-spacing:.1em;color:' + f[3],
+        cellT: 'padding:14px 16px;border-top:1px solid var(--color-divider);font:500 15px/1.3 var(--font-heading);color:var(--color-neutral-100)',
+        bigT: 'font:500 clamp(26px,2.6vw,38px)/1.06 var(--font-heading);letter-spacing:-.032em;color:var(--color-neutral-100)',
+        bigRule: 'height:2px;width:64px;background:' + f[3],
+        panelHue: 'font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:' + f[3]
+      };
+    });
+    const act = feats[fi];
+    const w = Component.W[Math.floor(this.state.tick / 4) % Component.W.length];
+    return {
+      mnavOpen: !!this.state.mnavOpen,
+      toggleMnav: () => this.setState(s => ({ mnavOpen: !s.mnavOpen })),
+      closeMnav: () => this.setState({ mnavOpen: false }),
+      openDrawerFromMnav: () => this.setState({ mnavOpen: false, dOpen: true, dSent: false }),
+      drawerRef: 'bizvoip.co.za \u00b7 office telephony' + (this.state.sec ? ' \u00b7 ' + this.state.sec : ''),
+      cycleWord: w[0],
+      cycleStyle: 'display:inline-block;color:' + w[1] + ';animation:' + (Math.floor(this.state.tick / 4) % 2 ? 'hyWordA' : 'hyWordB') + ' .7s cubic-bezier(.2,.8,.2,1) both',
+      heroBars: this._bars(46, 11, 260, 6),
+      heroIcons: this._icons(),
+      feats: feats, actT: act.t, actD: act.d, actN: act.n, actHue: act.panelHue, actRule: act.bigRule,
+      priceCards: cards,
+      drawerOpen: this.state.dOpen,
+      drawerSent: this.state.dOpen && this.state.dSent,
+      drawerFormVisible: !this.state.dSent,
+      openDrawer: e => this.setState({ dOpen: true, dSent: false, sec: this._sec(e) }),
+      closeDrawer: () => this.setState({ dOpen: false }),
+      sendDrawer: () => this._missing().length ? this.setState({ tried: true }) : this.setState({ dSent: true, tried: false }),
+      setName: e => this._setF('name', e.target.value),
+      setCompany: e => this._setF('company', e.target.value),
+      setEmail: e => this._setF('email', e.target.value),
+      setPhone: e => this._setF('phone', e.target.value),
+      sendStyle: 'cursor:pointer;justify-content:center;padding:12px 20px;transition:all .2s ease;' + (this._missing().length
+        ? 'border-color:var(--color-divider);color:var(--color-neutral-600)'
+        : 'border-color:#29ABE2;color:#29ABE2'),
+      showMissing: this.state.tried && this._missing().length > 0,
+      missingText: this._missing().length ? 'Still needed: ' + this._missing().join(', ') + '.' : '',
+      setSize: e => this.setState({ size: e.target.value }),
+      pickVoip: () => this.setState({ kind: 'voip' }),
+      pickPbx: () => this.setState({ kind: 'pbx' }),
+      styleVoip: this._pill(this.state.kind === 'voip'),
+      stylePbx: this._pill(this.state.kind === 'pbx'),
+      askGeo: this.state.kind === 'voip',
+      askPbx: this.state.kind === 'pbx',
+      geoOpts: Component.GEOS.map(g => ({ label: g, style: this._pill(this.state.geo === g), pick: () => this.setState({ geo: g, geoOther: g === 'Other' ? this.state.geoOther : '' }) })),
+      askGeoOther: this.state.geo === 'Other',
+      geoOther: this.state.geoOther,
+      setGeoOther: e => {
+        const v = e.target.value.replace(/[^0-9]/g, '').slice(0, 3);
+        e.target.value = v;
+        this.setState({ geoOther: v });
+      },
+      addOpts: Component.ADDS.map(a => {
+        const on = !!this.state.add[a[0]];
+        return {
+          label: a[0], note: a[1], mark: on ? '\u2713' : '', style: this._row(on), box: this._box(on),
+          toggle: () => this.setState(st => { const n = Object.assign({}, st.add); n[a[0]] = !n[a[0]]; return { add: n }; })
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>
